@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatTableModule} from '@angular/material/table'
-
+import { MatTableModule } from '@angular/material/table'
+import { MatSelectModule } from '@angular/material/select';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [],
@@ -9,7 +10,9 @@ import {MatTableModule} from '@angular/material/table'
     CommonModule
   ],
   exports: [
-    MatTableModule
+    MatTableModule,
+    MatSelectModule,
+    MatGridListModule
   ]
 })
 export class MaterialModule { }
