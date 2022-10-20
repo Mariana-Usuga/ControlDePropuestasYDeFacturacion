@@ -4,7 +4,14 @@
   align-items: flex-start;
 }
 
-.s {
-  background: lightblue;
+.mat-grid-list{
+  position:inherit;
+}
+
+.filter{
+  background-color: aqua;
+}
+
+.mat-grid-tile{
 }
 

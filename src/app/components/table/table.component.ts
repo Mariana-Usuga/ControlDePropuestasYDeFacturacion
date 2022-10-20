@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { commercialProposal } from 'src/app/models/interfaces/commercialProposal.interfaces';
+import { BusinessProposalService } from 'src/app/services/business-proposal.service';
 
 export interface PeriodicElement {
   name: string;
@@ -25,12 +27,18 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class TableComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'positio', 'nam', 'weigh', 'symbo'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['empresa', 'cliente referencia', 'anio', 'concepto de servicio', 
+  'tipo de servicio', 'estado', 'garantia', 'moneda', 'monto base', 'monto total', 'ver', 'editar'];
+  //dataSource = ELEMENT_DATA;
 
-  constructor() { }
+  dataSource: commercialProposal[] = [];
+
+  constructor(private businessProposalService: BusinessProposalService) { }
 
   ngOnInit(): void {
+    this.dataSource = this.businessProposalService.getBusinessProposal()
+    console.log('this.dataSource', this.dataSource)
+
   }
 
 }

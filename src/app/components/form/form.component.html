@@ -1,16 +1,10 @@
 
-<mat-form-field appearance="fill">
-  <mat-label>Select</mat-label>
-  <mat-select>
-    <mat-option value="one">First option</mat-option>
-    <mat-option value="two">Second option</mat-option>
-  </mat-select>
-</mat-form-field>
-
-<mat-grid-list cols="2" rowHeight="2:1" class="s">
-  <mat-grid-tile>1</mat-grid-tile>
-  <mat-grid-tile>2</mat-grid-tile>
-  <mat-grid-tile>3</mat-grid-tile>
-  <mat-grid-tile>4</mat-grid-tile>
+<mat-grid-list cols="3" rowHeight="10:2" class="mat-grid-list">
+  <div *ngFor="let label of filtersLabel" class="filter">
+    <mat-grid-tile class="mat-grid-tile">
+      <label for="text" class="label"> {{label}} </label>
+      <app-select></app-select>
+    </mat-grid-tile>
+  </div>
 </mat-grid-list>
 

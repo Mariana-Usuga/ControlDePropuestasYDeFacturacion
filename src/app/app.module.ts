@@ -6,12 +6,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material/material.module';
 import { TableComponent } from './components/table/table.component';
 import { FormComponent } from './components/form/form.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { SelectComponent } from './components/select/select.component';
+import { FilterComponent } from './components/filter/filter.component';
+import { ColumnComponent } from './components/column/column.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
-    FormComponent
+    FormComponent,
+    NavBarComponent,
+    SelectComponent,
+    FilterComponent,
+    ColumnComponent
   ],
   imports: [
     BrowserModule,
