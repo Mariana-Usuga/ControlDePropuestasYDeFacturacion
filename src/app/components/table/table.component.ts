@@ -32,6 +32,7 @@ export class TableComponent implements OnInit {
   //dataSource = ELEMENT_DATA;
 
   dataSource: commercialProposal[] = [];
+empresa: unknown;
 
   constructor(private businessProposalService: BusinessProposalService) { }
 

@@ -2,7 +2,7 @@ import { commercialProposal } from "../models/interfaces/commercialProposal.inte
 
 export const PROPOSAL: commercialProposal[] = [
   {
-    empresa: "CSTI",
+    empresa: "CST",
     clienteReferencia: "COLSUBSIDIO",
     anio: 2020,
     conceptoDeServicio: "descarga documento", 

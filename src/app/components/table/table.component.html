@@ -1,29 +1,31 @@
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 t">
+<!--<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 t">-->
+  <table mat-table [dataSource]="dataSource" *ngFor="let ele of dataSource | proposalFilter: 'empresa': 'CSTI'"
+      class="mat-elevation-z8 t">
 
   <ng-container matColumnDef="empresa">
     <th mat-header-cell *matHeaderCellDef> Empresa </th>
-    <td mat-cell *matCellDef="let element"> {{element.empresa}} </td>
+    <td mat-cell *matCellDef="let element"> {{ele.empresa}} </td>
   </ng-container>
 
   <ng-container matColumnDef="cliente referencia">
     <th mat-header-cell *matHeaderCellDef> Cliente Referencia </th>
-    <td mat-cell *matCellDef="let element"> {{element.clienteReferencia}} </td>
+    <td mat-cell *matCellDef="let element"> {{ele.clienteReferencia}} </td>
   </ng-container>
 
   <ng-container matColumnDef="anio">
     <th mat-header-cell *matHeaderCellDef> Empresa </th>
-    <td mat-cell *matCellDef="let element"> {{element.anio}} </td>
+    <td mat-cell *matCellDef="let element"> {{ele.anio}} </td>
   </ng-container>
 
   <ng-container matColumnDef="concepto de servicio">
     <th mat-header-cell *matHeaderCellDef> Concepto de Servicio </th>
-    <td mat-cell *matCellDef="let element"> {{element.conceptoDeServicio}} </td>
+    <td mat-cell *matCellDef="let element"> {{ele.conceptoDeServicio}} </td>
   </ng-container>
 
   <ng-container matColumnDef="tipo de servicio">
     <th mat-header-cell *matHeaderCellDef> Tipo de servicio </th>
-    <td mat-cell *matCellDef="let element"> {{element.tipoDeServicio}} </td>
+    <td mat-cell *matCellDef="let element"> {{ele.tipoDeServicio}} </td>
   </ng-container>
 
   <ng-container matColumnDef="estado">

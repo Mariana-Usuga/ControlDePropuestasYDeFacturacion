@@ -10,6 +10,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SelectComponent } from './components/select/select.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { ColumnComponent } from './components/column/column.component';
+import { ProposalFilterPipe } from './pipes/proposal-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ColumnComponent } from './components/column/column.component';
     NavBarComponent,
     SelectComponent,
     FilterComponent,
-    ColumnComponent
+    ColumnComponent,
+    ProposalFilterPipe
   ],
   imports: [
     BrowserModule,
