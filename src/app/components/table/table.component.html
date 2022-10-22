@@ -1,69 +1,13 @@
 
-<!--<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 t">-->
-  <table mat-table [dataSource]="dataSource" *ngFor="let ele of dataSource | proposalFilter: 'empresa': 'CSTI'"
-      class="mat-elevation-z8 t">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 t">
 
-  <ng-container matColumnDef="empresa">
-    <th mat-header-cell *matHeaderCellDef> Empresa </th>
-    <td mat-cell *matCellDef="let element"> {{ele.empresa}} </td>
+  <ng-container 
+  *ngFor="let column of columns"
+  [matColumnDef]="column.columnDef">
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let row"> {{column.cell(row)}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="cliente referencia">
-    <th mat-header-cell *matHeaderCellDef> Cliente Referencia </th>
-    <td mat-cell *matCellDef="let element"> {{ele.clienteReferencia}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="anio">
-    <th mat-header-cell *matHeaderCellDef> Empresa </th>
-    <td mat-cell *matCellDef="let element"> {{ele.anio}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="concepto de servicio">
-    <th mat-header-cell *matHeaderCellDef> Concepto de Servicio </th>
-    <td mat-cell *matCellDef="let element"> {{ele.conceptoDeServicio}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="tipo de servicio">
-    <th mat-header-cell *matHeaderCellDef> Tipo de servicio </th>
-    <td mat-cell *matCellDef="let element"> {{ele.tipoDeServicio}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="estado">
-    <th mat-header-cell *matHeaderCellDef> Estado </th>
-    <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="garantia">
-    <th mat-header-cell *matHeaderCellDef> Garantia </th>
-    <td mat-cell *matCellDef="let element"> {{element.garantia}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="moneda">
-    <th mat-header-cell *matHeaderCellDef> Moneda </th>
-    <td mat-cell *matCellDef="let element"> {{element.moneda}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="monto base">
-    <th mat-header-cell *matHeaderCellDef> Monto Base </th>
-    <td mat-cell *matCellDef="let element"> {{element.montoBase}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="monto total">
-    <th mat-header-cell *matHeaderCellDef> Monto total </th>
-    <td mat-cell *matCellDef="let element"> {{element.montoTotal}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="ver">
-    <th mat-header-cell *matHeaderCellDef> Ver </th>
-    <td mat-cell *matCellDef="let element"> <button>Ver</button> </td>
-  </ng-container>
-
-  <ng-container matColumnDef="editar">
-    <th mat-header-cell *matHeaderCellDef> Editar </th>
-    <td mat-cell *matCellDef="let element"> <button>Editar</button> </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-

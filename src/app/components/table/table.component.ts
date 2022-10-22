@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { commercialProposal } from 'src/app/models/interfaces/commercialProposal.interfaces';
 import { BusinessProposalService } from 'src/app/services/business-proposal.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface PeriodicElement {
   name: string;
@@ -27,19 +28,45 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class TableComponent implements OnInit {
 
-  displayedColumns: string[] = ['empresa', 'cliente referencia', 'anio', 'concepto de servicio', 
+  isplayedColumns: string[] = ['empresa', 'cliente referencia', 'anio', 'concepto de servicio', 
   'tipo de servicio', 'estado', 'garantia', 'moneda', 'monto base', 'monto total', 'ver', 'editar'];
-  //dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['empresa', 'anio'];
+  //displayedColumns: string[] = ['empresa'];
 
-  dataSource: commercialProposal[] = [];
-empresa: unknown;
+  columns = [
+    {
+      columnDef: 'empresa',
+      header: 'Empresa',
+      cell: (element: commercialProposal) => `${element.empresa}`,
+    },
+    {
+      columnDef: 'anio',
+      header: 'Anio',
+      cell: (element: commercialProposal) => `${element.anio}`,
+    },
+    /*{
+      columnDef: '',
+      header: 'Subjects',
+      cell: (element: commercialProposal) => `${element.conceptoDeServicio}`,
+    },
+    {
+      columnDef: 'marks',
+      header: 'Marks',
+      cell: (element: commercialProposal) => `${element.tipoDeServicio}`,
+    },*/
+  ];
 
-  constructor(private businessProposalService: BusinessProposalService) { }
+  //dataSource: commercialProposal[] = [];
+  dataSource: MatTableDataSource<commercialProposal> | any
+
+  constructor(private businessProposalService: BusinessProposalService) {}
 
   ngOnInit(): void {
-    this.dataSource = this.businessProposalService.getBusinessProposal()
-    console.log('this.dataSource', this.dataSource)
-
+    this.dataSource = new MatTableDataSource(this.businessProposalService.getBusinessProposal());
   }
+  /*applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toUpperCase();
+}*/
 
 }

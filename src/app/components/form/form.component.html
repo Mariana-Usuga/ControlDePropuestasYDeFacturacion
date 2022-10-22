@@ -1,11 +1,77 @@
 
-<mat-grid-list cols="3" rowHeight="10:2" class="mat-grid-list">
-  <div *ngFor="let label of filtersLabel" class="filter">
+<mat-grid-list cols="3" rowHeight="10:2" class="mat-grid-list" >
     <mat-grid-tile class="mat-grid-tile">
-      <label for="text" class="label"> {{label}} </label>
-      <app-select></app-select>
+      <label for="text" class="label"> Cliente </label>
+      <mat-form-field appearance="fill">
+        <mat-label>Select</mat-label>
+        <mat-select >
+          <mat-option *ngFor="let b of cliente" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
     </mat-grid-tile>
-  </div>
+    <mat-grid-tile class="mat-grid-tile">
+      <label for="text" class="label"> Cliente Referencia </label>
+      <mat-form-field appearance="fill">
+        <mat-label>Select</mat-label>
+        <mat-select >
+          <mat-option *ngFor="let b of clienteReferencia" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tile">
+      <label for="text" class="label"> Tipo de servicio </label>
+      <mat-form-field appearance="fill">
+        <mat-label>Select</mat-label>
+        <mat-select >
+          <mat-option *ngFor="let b of tipoServicio" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tile">
+      <label for="text" class="label"> Empresa que factura </label>
+      <mat-form-field appearance="fill">
+        <mat-label>Select</mat-label>
+        <mat-select >
+          <mat-option *ngFor="let b of empresa" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tile">
+      <label for="text" class="label"> Año </label>
+      <mat-form-field appearance="fill">
+        <mat-label>Select</mat-label>
+        <mat-select >
+          <mat-option *ngFor="let b of anio" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tile">
+      <label for="text" class="label"> Mes </label>
+      <mat-form-field appearance="fill">
+        <mat-label>Select</mat-label>
+        <mat-select >
+          <mat-option *ngFor="let b of mes" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tile">
+      <label for="text" class="label"> Moneda </label>
+      <mat-form-field appearance="fill">
+        <mat-label>Select</mat-label>
+        <mat-select >
+          <mat-option *ngFor="let b of moneda" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tile">
+      <label for="text" class="label"> Estado </label>
+      <mat-form-field appearance="fill">
+        <mat-label>Select</mat-label>
+        <mat-select >
+          <mat-option *ngFor="let b of estado" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
 </mat-grid-list>
 
 <button>Buscar</button>
