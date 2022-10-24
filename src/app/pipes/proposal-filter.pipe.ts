@@ -12,11 +12,11 @@ export class ProposalFilterPipe implements PipeTransform {
     if (!args) return value;
     const list = []
     const data = []
-    //for(const item of value){
-      data.push(value[0].client)
-      data.push(value[0].clienteReferencia)
-      data.push(value[0].anio)
-    //}
+    for(const item of value){
+      data.push(item.client)
+      data.push(item.clienteReferencia)
+      data.push(item.anio)
+    }
     console.log('data', data, 'args', args)
     let encuentra = false;
 
