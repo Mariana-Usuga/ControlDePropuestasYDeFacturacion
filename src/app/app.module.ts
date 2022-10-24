@@ -11,6 +11,8 @@ import { SelectComponent } from './components/select/select.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { ColumnComponent } from './components/column/column.component';
 import { ProposalFilterPipe } from './pipes/proposal-filter.pipe';
+import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -21,13 +23,15 @@ import { ProposalFilterPipe } from './pipes/proposal-filter.pipe';
     SelectComponent,
     FilterComponent,
     ColumnComponent,
-    ProposalFilterPipe
+    ProposalFilterPipe,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     //importamos el modulo personalisado de modulos de angular material
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

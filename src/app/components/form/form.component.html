@@ -4,7 +4,7 @@
       <label for="text" class="label"> Cliente </label>
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
-        <mat-select >
+        <mat-select [(ngModel)]="fieldsSelected.cliente">
           <mat-option *ngFor="let b of cliente" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
@@ -13,16 +13,16 @@
       <label for="text" class="label"> Cliente Referencia </label>
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
-        <mat-select >
+        <mat-select [(ngModel)]="fieldsSelected.clienteReferencia">
           <mat-option *ngFor="let b of clienteReferencia" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
-    <mat-grid-tile class="mat-grid-tile">
+    <!--<mat-grid-tile class="mat-grid-tile">
       <label for="text" class="label"> Tipo de servicio </label>
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
-        <mat-select >
+        <mat-select [(ngModel)]="fieldsSelected.anio">
           <mat-option *ngFor="let b of tipoServicio" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
@@ -31,21 +31,21 @@
       <label for="text" class="label"> Empresa que factura </label>
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
-        <mat-select >
+        <mat-select>
           <mat-option *ngFor="let b of empresa" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
-    </mat-grid-tile>
+    </mat-grid-tile>-->
     <mat-grid-tile class="mat-grid-tile">
       <label for="text" class="label"> Año </label>
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
-        <mat-select >
+        <mat-select [(ngModel)]="fieldsSelected.anio">
           <mat-option *ngFor="let b of anio" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
-    <mat-grid-tile class="mat-grid-tile">
+    <!--<mat-grid-tile class="mat-grid-tile">
       <label for="text" class="label"> Mes </label>
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
@@ -71,8 +71,8 @@
           <mat-option *ngFor="let b of estado" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
-    </mat-grid-tile>
+    </mat-grid-tile>--->
 </mat-grid-list>
 
-<button>Buscar</button>
+<button (click)="search()">Buscar</button>
 

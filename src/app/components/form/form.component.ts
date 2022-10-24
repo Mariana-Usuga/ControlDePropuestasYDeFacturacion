@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { outputAst } from '@angular/compiler';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { commercialProposal } from 'src/app/models/interfaces/commercialProposal.interfaces';
+import { BusinessProposalService } from 'src/app/services/business-proposal.service';
 
 export interface Tile {
   color: string;
@@ -16,7 +18,7 @@ export interface Tile {
 export class FormComponent implements OnInit {
 
   empresa = [ 'CSTI', 'CS', 'CST']
-  clienteReferencia = ['COLSUBSIDIO', 'COLSUBSID', 'COLSUBSI']
+  clienteReferencia = ['R1', 'R2', 'R3', 'R4']
   cliente = ['C1', 'C2', 'C3']
   anio = [2018, 2020, 2019, 2017]
   mes = ['oct', 'nov', 'dic', 'ene', 'feb', 'mar']
@@ -28,34 +30,32 @@ export class FormComponent implements OnInit {
   'Año', 'Mes', 'Moneda', 'Estado']
   dataSource: MatTableDataSource<commercialProposal> | any
 
-  constructor() { }
-
-  ngOnInit(): void {
-    this.dataSource.filterPredicate = this.filterBySubject();
+  fieldsSelected = {
+    cliente: "",
+    clienteReferencia: "",
+    anio: "",
+    /*conceptoDeServicio: "",
+    tipoDeServicio: "",
+    estado: "",
+    garantia: "",
+    moneda: "",
+    montoBase: "",
+    montoTotal: ""*/
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toUpperCase();
-    console.log('this.dataSource.filter', this.dataSource.filter)
-}
+  constructor(private businessProposalService: BusinessProposalService) {}
 
-filterBySubject() {
-  let filterFunction = 
-      (data: commercialProposal, filter: string): boolean => {
-        if (filter) {
-          const subjects = data.empresa;
-          for (let i = 0; i < subjects.length; i++) {
-            if (subjects[i].indexOf(filter) != -1) {
-              return true;
-            }
-          }
-          return false;
-        } else {
-          return true;
-        }
-     };
-  return filterFunction;
+  ngOnInit(): void {
+    ///this.dataSource.filterPredicate = this.filterBySubject();
+  }
+
+  changeClient(event: any){
+    console.log('event', event);
+}
+search(){
+  console.log('filtro en form', this.fieldsSelected)
+  this.businessProposalService.addFiltros(this.fieldsSelected)
+  //this.dataSource = this.businessProposalService.getBusinessProposal()
 }
 
 }

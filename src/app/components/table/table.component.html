@@ -1,13 +1,43 @@
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 t">
 
-  <ng-container 
-  *ngFor="let column of columns"
-  [matColumnDef]="column.columnDef">
+<!--<mat-grid-list cols="3" rowHeight="10:2" class="mat-grid-list" >
+  <mat-grid-tile class="mat-grid-tile">
+    <label for="text" class="label"> Cliente </label>
+    <mat-form-field appearance="fill">
+      <mat-label>Select</mat-label>
+      <mat-select [(ngModel)]="selected">
+        <mat-option *ngFor="let b of cliente" [value]="b"> {{b}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+</mat-grid-list>
+<button type="button" (click)="search()">BUSCAR</button>
+ | proposalFilter: ['empresa', 'anio']: 'C1': '2022'
+-->
+<input type="text" [(ngModel)]="filtrosObject.cliente">
+<table>
+  <tr>
+    <th>Cliente</th>
+    <th>Año</th>
+  </tr>
+  <tr *ngFor="let b of dataSource | proposalFilter: ['client', 'clienteReferencia', 'anio']:
+  filtrosObject.cliente : 'R1' : '2022'">
+    <td > {{b.client }} </td>
+    <td > {{b.anio}} </td>
+    <td> {{b.clienteReferencia}} </td>
+  </tr>
+</table>
+
+<button (click)="ver()">verrr</button>
+
+<!--<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 t">
+
+  <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns"
+  matColumnDef="empresa">
     <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-    <td mat-cell *matCellDef="let row"> {{column.cell(row)}} </td>
+    <td mat-cell *matCellDef="let ele"> {{ele[column]}} </td>
   </ng-container>
 
 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+</table>-->
