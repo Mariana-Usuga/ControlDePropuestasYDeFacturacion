@@ -21,7 +21,7 @@
     <th>Año</th>
   </tr>
   <tr *ngFor="let b of dataSource | proposalFilter: ['client', 'clienteReferencia', 'anio']:
-  filtrosObject.cliente : 'R1' : '2022'">
+  filtrosObject.cliente : filtrosObject.clienteReferencia : filtrosObject.anio">
     <td > {{b.client }} </td>
     <td > {{b.anio}} </td>
     <td> {{b.clienteReferencia}} </td>
