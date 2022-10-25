@@ -30,33 +30,34 @@ export class TableComponent implements OnInit {
   constructor(private businessProposalService: BusinessProposalService){}
 
   filtrosObject: any = {
-    cliente: " ",
+    cliente: "",
     clienteReferencia: "",
-    anio: ""
+    anio: "",
+    conceptoDeServicio: "",
+    tipoDeServicio: "",
+    estado: "",
+    garantia: "",
+    moneda: "",
+    montoBase: "",
+    montoTotal: "",
+    empresa: "",
+    mes: ""
   }
 
-  isplayedColumns: string[] = ['empresa', 'cliente referencia', 'anio', 'concepto de servicio',
-  'tipo de servicio', 'estado', 'garantia', 'moneda', 'monto base', 'monto total', 'ver', 'editar'];
-  displayedColumns: string[] = ['empresa', 'anio'];
-
-  cliente = ['C1', 'C2', 'C3']
-  selected = ""
   dataSource: commercialProposal[] = [];
 
-
   ngOnInit(): void {
-    //this.dataSource = this.businessProposalService.getBusinessProposal()
+    //this.dataSource = []
+    console.log('entra table ngOnInit')
     this.businessProposalService.getFiltros().subscribe(obj => {
+      console.log('obj', obj)
       this.filtrosObject = obj
     })
-    console.log('filtro en table', this.filtrosObject)
+
   }
 
-  ver(){
-    this.dataSource = this.businessProposalService.getBusinessProposal()
-  }
-  //search(){
-    //this.dataSource = this.businessProposalService.getBusinessProposal()
-  //}
-
+buscar(){
+  console.log('entra en buscar')
+  this.dataSource = this.businessProposalService.getBusinessProposal()
+}
 }

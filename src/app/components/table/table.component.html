@@ -1,43 +1,35 @@
 
-
-<!--<mat-grid-list cols="3" rowHeight="10:2" class="mat-grid-list" >
-  <mat-grid-tile class="mat-grid-tile">
-    <label for="text" class="label"> Cliente </label>
-    <mat-form-field appearance="fill">
-      <mat-label>Select</mat-label>
-      <mat-select [(ngModel)]="selected">
-        <mat-option *ngFor="let b of cliente" [value]="b"> {{b}} </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </mat-grid-tile>
-</mat-grid-list>
-<button type="button" (click)="search()">BUSCAR</button>
- | proposalFilter: ['empresa', 'anio']: 'C1': '2022'
--->
-<input type="text" [(ngModel)]="filtrosObject.cliente">
+<button (click)="buscar()">Buscar</button>
 <table>
   <tr>
-    <th>Cliente</th>
+    <th>Empresa</th>
+    <th>Cliente Referencia</th>
     <th>Año</th>
+    <th>Mes</th>
+    <th>Concepto De Servicio</th>
+    <th>Tipo de Sercicio</th>
+    <th>Estado</th>
+    <th>Garantia</th>
+    <th>Moneda</th>
+    <th>Monto base</th>
+    <th>Monto total</th>
   </tr>
-  <tr *ngFor="let b of dataSource | proposalFilter: ['client', 'clienteReferencia', 'anio']:
-  filtrosObject.cliente : filtrosObject.clienteReferencia : filtrosObject.anio">
-    <td > {{b.client }} </td>
-    <td > {{b.anio}} </td>
+  <tr *ngFor="let b of dataSource | proposalFilter: {'empresa': filtrosObject.empresa,
+   'cliente': filtrosObject.cliente, 'mes': filtrosObject.mes,
+    'clienteReferencia': filtrosObject.clienteReferencia, 'anio': filtrosObject.anio,
+     'tipoDeServicio': filtrosObject.tipoDeServicio,
+    'estado': filtrosObject.estado, 'moneda': filtrosObject.moneda }" >
+    <td> {{b.empresa}} </td>
     <td> {{b.clienteReferencia}} </td>
+    <td > {{b.anio}} </td>
+    <td> {{b.mes}} </td>
+    <td> {{b.conceptoDeServicio}} </td>
+    <td> {{b.tipoDeServicio}} </td>
+    <td> {{b.estado}} </td>
+    <td> {{b.garantia}} </td>
+    <td> {{b.moneda}} </td>
+    <td> {{b.montoBase}} </td>
+    <td> {{b.montoTotal}} </td>
   </tr>
 </table>
 
-<button (click)="ver()">verrr</button>
-
-<!--<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 t">
-
-  <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns"
-  matColumnDef="empresa">
-    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-    <td mat-cell *matCellDef="let ele"> {{ele[column]}} </td>
-  </ng-container>
-
-<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>-->

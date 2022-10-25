@@ -1,14 +1,15 @@
 
 export interface commercialProposal  {
-  client: string,
-  //empresa: string,
+  cliente: string,
+  empresa: string,
+  mes: string,
   clienteReferencia: string,
   anio: string,
-  /*conceptoDeServicio: string,
+  conceptoDeServicio: string,
   tipoDeServicio: string,
   estado: string,
   garantia: string,
   moneda: string,
-  montoBase: number,
-  montoTotal: number*/
+  montoBase: string,
+  montoTotal: string
 }

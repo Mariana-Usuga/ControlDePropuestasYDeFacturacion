@@ -5,7 +5,7 @@
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
         <mat-select [(ngModel)]="fieldsSelected.cliente">
-          <mat-option *ngFor="let b of cliente" [value]="b"> {{b}} </mat-option>
+          <mat-option *ngFor="let b of cliente"  (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
@@ -14,16 +14,16 @@
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
         <mat-select [(ngModel)]="fieldsSelected.clienteReferencia">
-          <mat-option *ngFor="let b of clienteReferencia" [value]="b"> {{b}} </mat-option>
+          <mat-option *ngFor="let b of clienteReferencia" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
-    <!--<mat-grid-tile class="mat-grid-tile">
+    <mat-grid-tile class="mat-grid-tile">
       <label for="text" class="label"> Tipo de servicio </label>
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.anio">
-          <mat-option *ngFor="let b of tipoServicio" [value]="b"> {{b}} </mat-option>
+        <mat-select [(ngModel)]="fieldsSelected.tipoDeServicio">
+          <mat-option *ngFor="let b of tipoServicio" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
@@ -31,26 +31,26 @@
       <label for="text" class="label"> Empresa que factura </label>
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let b of empresa" [value]="b"> {{b}} </mat-option>
+        <mat-select [(ngModel)]="fieldsSelected.empresa">
+          <mat-option *ngFor="let b of empresa" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
-    </mat-grid-tile>-->
+    </mat-grid-tile>
     <mat-grid-tile class="mat-grid-tile">
       <label for="text" class="label"> Año </label>
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
         <mat-select [(ngModel)]="fieldsSelected.anio">
-          <mat-option *ngFor="let b of anio" [value]="b"> {{b}} </mat-option>
+          <mat-option *ngFor="let b of anio" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
-    <!--<mat-grid-tile class="mat-grid-tile">
+    <mat-grid-tile class="mat-grid-tile">
       <label for="text" class="label"> Mes </label>
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
-        <mat-select >
-          <mat-option *ngFor="let b of mes" [value]="b"> {{b}} </mat-option>
+        <mat-select [(ngModel)]="fieldsSelected.mes">
+          <mat-option *ngFor="let b of mes" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
@@ -58,8 +58,8 @@
       <label for="text" class="label"> Moneda </label>
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
-        <mat-select >
-          <mat-option *ngFor="let b of moneda" [value]="b"> {{b}} </mat-option>
+        <mat-select [(ngModel)]="fieldsSelected.moneda">
+          <mat-option *ngFor="let b of moneda" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
@@ -67,12 +67,11 @@
       <label for="text" class="label"> Estado </label>
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
-        <mat-select >
-          <mat-option *ngFor="let b of estado" [value]="b"> {{b}} </mat-option>
+        <mat-select [(ngModel)]="fieldsSelected.estado">
+          <mat-option *ngFor="let b of estado" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
-    </mat-grid-tile>--->
+    </mat-grid-tile>
 </mat-grid-list>
 
-<button (click)="search()">Buscar</button>
 

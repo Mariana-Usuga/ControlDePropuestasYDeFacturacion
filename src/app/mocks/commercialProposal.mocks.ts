@@ -2,37 +2,45 @@ import { commercialProposal } from "../models/interfaces/commercialProposal.inte
 
 export const PROPOSAL: commercialProposal[] = [
   {
-    client: "C1",
+    empresa: "e1",
+    cliente: "C1",
     clienteReferencia: "R1",
     anio: '2022',
-    /*conceptoDeServicio: "descarga documento",
-    tipoDeServicio: "tipo de servicio",
+    mes: 'oct',
+    conceptoDeServicio: "descarga documento",
+    tipoDeServicio: "t1",
     estado: "aprobado",
     garantia: "30dias",
     moneda: "dolares",
-    montoBase: 413,
-    montoTotal: 344*/
+    montoBase: '413',
+    montoTotal: '344'
   },
   {
-    client: "C1",
-    clienteReferencia: "R2",
+    empresa: 'e1',
+    cliente: "C1",
+    clienteReferencia: "R1",
     anio: '2022',
-    /*conceptoDeServicio: "descarga documento",
-    tipoDeServicio: "tipo de servicio",
-    estado: "aprobado",
+    mes: 'oct',
+    conceptoDeServicio: "descarga documento",
+    tipoDeServicio: "t1",
+    estado: "pendiente",
+    garantia: "15dias",
+    moneda: "dolares",
+    montoBase: '413',
+    montoTotal: '344'
+  },
+  {
+    empresa: 'e1',
+    cliente: "C2",
+    clienteReferencia: "R2",
+    anio: '2020',
+    mes: 'oct',
+    conceptoDeServicio: "descarga documento",
+    tipoDeServicio: "t1",
+    estado: "pendiente",
     garantia: "30dias",
     moneda: "dolares",
-    montoBase: 413,
-    montoTotal: 344*/
-  },
-  {
-    client: "C2",
-    clienteReferencia: "R3",
-    anio: '2020'
-  },
-  {
-    client: "C3",
-    clienteReferencia: "R4",
-    anio: '2020',
+    montoBase: '413',
+    montoTotal: '344'
   }
 ]
