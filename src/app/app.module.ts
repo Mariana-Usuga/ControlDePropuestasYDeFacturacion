@@ -7,12 +7,11 @@ import { MaterialModule } from './modules/material/material.module';
 import { TableComponent } from './components/table/table.component';
 import { FormComponent } from './components/form/form.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { SelectComponent } from './components/select/select.component';
-import { FilterComponent } from './components/filter/filter.component';
-import { ColumnComponent } from './components/column/column.component';
 import { ProposalFilterPipe } from './pipes/proposal-filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DialogAddProposalComponent } from './components/dialog-add-proposal/dialog-add-proposal.component';
 
 @NgModule({
   declarations: [
@@ -20,18 +19,17 @@ import { HomeComponent } from './pages/home/home.component';
     TableComponent,
     FormComponent,
     NavBarComponent,
-    SelectComponent,
-    FilterComponent,
-    ColumnComponent,
     ProposalFilterPipe,
-    HomeComponent
+    HomeComponent,
+    DialogAddProposalComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     //importamos el modulo personalisado de modulos de angular material
     MaterialModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

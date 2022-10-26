@@ -19,6 +19,10 @@ export class BusinessProposalService {
     return PROPOSAL
   }
 
+  addNewProposal(proposal: commercialProposal): void{
+
+  }
+
   addFiltros(campos: Object){
     this.objectfiltros = campos
     this.objectfiltros$.next(this.objectfiltros)

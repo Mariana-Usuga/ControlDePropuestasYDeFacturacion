@@ -1,0 +1,14 @@
+.example-container{
+  background-color: aqua;
+  display: flex;
+}
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.mat-grid-list{
+  position:inherit;
+  background-color: aqua;
+}

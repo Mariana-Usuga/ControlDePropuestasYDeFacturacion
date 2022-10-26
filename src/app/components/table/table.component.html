@@ -1,35 +1,36 @@
 
 <button (click)="buscar()">Buscar</button>
-<table>
-  <tr>
-    <th>Empresa</th>
-    <th>Cliente Referencia</th>
-    <th>Año</th>
-    <th>Mes</th>
-    <th>Concepto De Servicio</th>
-    <th>Tipo de Sercicio</th>
-    <th>Estado</th>
-    <th>Garantia</th>
-    <th>Moneda</th>
-    <th>Monto base</th>
-    <th>Monto total</th>
+<button  mat-raised-button (click)="openDialog('0ms', '0ms')" >Crear oportunidad</button>
+<table class="table">
+  <tr class="thead">
+    <th class="th">Empresa</th>
+    <th class="th">Cliente Referencia</th>
+    <th class="th">Año</th>
+    <th class="th">Mes</th>
+    <th class="th">Concepto De Servicio</th>
+    <th class="th">Tipo de Sercicio</th>
+    <th class="th">Estado</th>
+    <th class="th">Garantia</th>
+    <th class="th">Moneda</th>
+    <th class="th">Monto base</th>
+    <th class="th">Monto total</th>
   </tr>
   <tr *ngFor="let b of dataSource | proposalFilter: {'empresa': filtrosObject.empresa,
    'cliente': filtrosObject.cliente, 'mes': filtrosObject.mes,
     'clienteReferencia': filtrosObject.clienteReferencia, 'anio': filtrosObject.anio,
      'tipoDeServicio': filtrosObject.tipoDeServicio,
     'estado': filtrosObject.estado, 'moneda': filtrosObject.moneda }" >
-    <td> {{b.empresa}} </td>
-    <td> {{b.clienteReferencia}} </td>
-    <td > {{b.anio}} </td>
-    <td> {{b.mes}} </td>
-    <td> {{b.conceptoDeServicio}} </td>
-    <td> {{b.tipoDeServicio}} </td>
-    <td> {{b.estado}} </td>
-    <td> {{b.garantia}} </td>
-    <td> {{b.moneda}} </td>
-    <td> {{b.montoBase}} </td>
-    <td> {{b.montoTotal}} </td>
+    <td class="td"> {{b.empresa}} </td>
+    <td class="td"> {{b.clienteReferencia}} </td>
+    <td class="td"> {{b.anio}} </td>
+    <td class="td"> {{b.mes}} </td>
+    <td class="td"> {{b.conceptoDeServicio}} </td>
+    <td class="td"> {{b.tipoDeServicio}} </td>
+    <td class="td"> {{b.estado}} </td>
+    <td class="td"> {{b.garantia}} </td>
+    <td class="td"> {{b.moneda}} </td>
+    <td class="td"> {{b.montoBase}} </td>
+    <td class="td"> {{b.montoTotal}} </td>
   </tr>
 </table>
 
