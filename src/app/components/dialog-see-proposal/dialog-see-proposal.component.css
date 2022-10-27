@@ -1,0 +1,13 @@
+.proposal{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-between
+}
+.item{
+  width: 30%;
+  margin: 12px;
+}
+.subtitle{
+  font-weight: bolder;
+}
+

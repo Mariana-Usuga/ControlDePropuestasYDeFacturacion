@@ -2,6 +2,7 @@ import { commercialProposal } from "../models/interfaces/commercialProposal.inte
 
 export const PROPOSAL: commercialProposal[] = [
   {
+    id: 1,
     empresa: "e1",
     cliente: "C1",
     clienteReferencia: "R1",
@@ -16,6 +17,7 @@ export const PROPOSAL: commercialProposal[] = [
     montoTotal: '344'
   },
   {
+    id: 2,
     empresa: 'e1',
     cliente: "C1",
     clienteReferencia: "R1",
@@ -30,6 +32,7 @@ export const PROPOSAL: commercialProposal[] = [
     montoTotal: '344'
   },
   {
+    id: 3,
     empresa: 'e1',
     cliente: "C2",
     clienteReferencia: "R2",

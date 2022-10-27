@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DialogAddProposalComponent } from './components/dialog-add-proposal/dialog-add-proposal.component';
+import { DialogSeeVersionsComponent } from './components/dialog-see-versions/dialog-see-versions.component';
+import { DialogSeeProposalComponent } from './components/dialog-see-proposal/dialog-see-proposal.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { DialogAddProposalComponent } from './components/dialog-add-proposal/dia
     NavBarComponent,
     ProposalFilterPipe,
     HomeComponent,
-    DialogAddProposalComponent
+    DialogAddProposalComponent,
+    DialogSeeVersionsComponent,
+    DialogSeeProposalComponent
   ],
   imports: [
     BrowserModule,

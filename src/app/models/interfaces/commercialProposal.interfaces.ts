@@ -1,5 +1,6 @@
 
 export interface commercialProposal  {
+  id:number,
   cliente: string,
   empresa: string,
   mes: string,

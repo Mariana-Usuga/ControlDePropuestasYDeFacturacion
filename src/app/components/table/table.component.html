@@ -14,12 +14,14 @@
     <th class="th">Moneda</th>
     <th class="th">Monto base</th>
     <th class="th">Monto total</th>
+    <th>Action</th>
   </tr>
-  <tr *ngFor="let b of dataSource | proposalFilter: {'empresa': filtrosObject.empresa,
+  <!--<tr *ngFor="let b of dataSource | proposalFilter: {'empresa': filtrosObject.empresa,
    'cliente': filtrosObject.cliente, 'mes': filtrosObject.mes,
     'clienteReferencia': filtrosObject.clienteReferencia, 'anio': filtrosObject.anio,
      'tipoDeServicio': filtrosObject.tipoDeServicio,
-    'estado': filtrosObject.estado, 'moneda': filtrosObject.moneda }" >
+    'estado': filtrosObject.estado, 'moneda': filtrosObject.moneda }" >-->
+  <tr *ngFor="let b of dataSource">
     <td class="td"> {{b.empresa}} </td>
     <td class="td"> {{b.clienteReferencia}} </td>
     <td class="td"> {{b.anio}} </td>
@@ -31,6 +33,17 @@
     <td class="td"> {{b.moneda}} </td>
     <td class="td"> {{b.montoBase}} </td>
     <td class="td"> {{b.montoTotal}} </td>
+    <td>
+      <button mat-icon-button color="primary" (click)="editProposal(b)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-botton color="primary" (click)="seeVersions()">
+        Ver
+      </button>
+      <!--<button mat-icon-button color="warn" (click)="deleteProposal(b.id)">
+        <mat-icon>delete</mat-icon>
+      </button>-->
+    </td>
   </tr>
 </table>
 
