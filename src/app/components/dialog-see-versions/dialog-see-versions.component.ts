@@ -17,10 +17,8 @@ export class DialogSeeVersionsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('this.proposalSee', this.proposalSee)
     this.businessProposalService.getByVersionProposal(this.proposalSee.idVersionMismaPropuesta).subscribe(
       (res)=>{
-        console.log('res', res)
         for(let le of res){
           this.dataSource.push({
               fechaVersion: le.fechaVersion,

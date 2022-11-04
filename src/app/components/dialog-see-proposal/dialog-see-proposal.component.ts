@@ -32,9 +32,10 @@ export class DialogSeeProposalComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openDialogApprove(){
+  openDialogApprove(row: commercialProposal){
     this.dialog.open(DialogApproveProposalComponent, {
       width: '70%',
+      data:row
     });
   }
 

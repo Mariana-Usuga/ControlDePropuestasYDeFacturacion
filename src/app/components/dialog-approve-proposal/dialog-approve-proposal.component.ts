@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BusinessProposalService } from 'src/app/services/business-proposal.service';
 
 @Component({
   selector: 'app-dialog-approve-proposal',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogApproveProposalComponent implements OnInit {
 
-  constructor() { }
+  constructor( private businessProposalService: BusinessProposalService,
+    @Inject(MAT_DIALOG_DATA) public proposalSee: any) { }
 
   ngOnInit(): void {
+    this.businessProposalService.putStateOfProposal(this.proposalSee).subscribe(
+      (res) => {
+        console.log('res', res)
+      },
+      (err) => console.log('ha ocurrido un error', err),
+          () => console.info('se ha completado la llamada')
+    )
   }
 
 }

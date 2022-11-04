@@ -30,6 +30,11 @@ export class BusinessProposalService {
     this.objectfiltros$ = new Subject()
   }
 
+  putStateOfProposal(proposal: commercialProposal): Observable<any>{
+    console.log('filter', proposal)
+    return this.http.put('http://localhost:8080/propuestas', proposal)
+  }
+
   getBusinessProposal(filter: commercialProposal): Observable<any> {
     console.log('filter', filter)
     return this.http.post('http://localhost:8080/propuestas/filtro', filter)
