@@ -1,16 +1,17 @@
 
 export interface commercialProposal  {
-  id:number,
   cliente: string,
-  empresa: string,
-  mes: string,
-  clienteReferencia: string,
-  anio: string,
-  conceptoDeServicio: string,
-  tipoDeServicio: string,
-  estado: string,
-  garantia: string,
-  moneda: string,
-  montoBase: string,
-  montoTotal: string
+  empresa: string | null,
+  mes: string | null,
+  clienteReferencia: string | null,
+  year: number | null,
+  conceptoServicio: string | null,
+  tipoDeServicio: string | null,
+  estado: string | null,
+  garantia: string | null,
+  moneda: string | null,
+  montoBase: string | null,
+  montoTotal: string| null,
+  version: number | null,
+  idVersionMismaPropuesta: number | null
 }

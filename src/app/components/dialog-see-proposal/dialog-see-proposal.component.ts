@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { commercialProposal } from 'src/app/models/interfaces/commercialProposal.interfaces';
+import { DialogApproveProposalComponent } from '../dialog-approve-proposal/dialog-approve-proposal.component';
 
 @Component({
   selector: 'app-dialog-see-proposal',
@@ -9,24 +11,31 @@ import { commercialProposal } from 'src/app/models/interfaces/commercialProposal
 export class DialogSeeProposalComponent implements OnInit {
 
   proposal: commercialProposal = {
-    id: 0,
-    cliente: 'CSTI',
-    empresa: 'e1',
-    mes: 'oct',
-    clienteReferencia: 'JJC',
-    anio: '2022',
-    conceptoDeServicio: 'concepto1',
-    tipoDeServicio: 'T1',
-    estado: 'aprobado',
-    garantia: 'g1',
-    moneda: 'Dolares',
-    montoBase: '202,0',
-    montoTotal: '20,00'
+    cliente: this.proposalSee.cliente,
+    empresa: this.proposalSee.empresa,
+    mes: this.proposalSee.mes,
+    clienteReferencia: this.proposalSee.clienteReferencia,
+    year: this.proposalSee.year,
+    conceptoServicio: this.proposalSee.conceptoServicio,
+    tipoDeServicio: this.proposalSee.tipoDeServicio,
+    estado: this.proposalSee.estado,
+    garantia: this.proposalSee.garantia,
+    moneda: this.proposalSee.moneda,
+    montoBase: this.proposalSee.montoBase,
+    montoTotal: this.proposalSee.montoTotal,
+    version: this.proposalSee.version,
+    idVersionMismaPropuesta: this.proposalSee.idVersionMismaPropuesta
   }
 
-  constructor() { }
+  constructor(public dialog: MatDialog,  @Inject(MAT_DIALOG_DATA) public proposalSee: any) { }
 
   ngOnInit(): void {
+  }
+
+  openDialogApprove(){
+    this.dialog.open(DialogApproveProposalComponent, {
+      width: '70%',
+    });
   }
 
 }

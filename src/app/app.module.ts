@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material/material.module';
@@ -14,6 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DialogAddProposalComponent } from './components/dialog-add-proposal/dialog-add-proposal.component';
 import { DialogSeeVersionsComponent } from './components/dialog-see-versions/dialog-see-versions.component';
 import { DialogSeeProposalComponent } from './components/dialog-see-proposal/dialog-see-proposal.component';
+import { DialogApproveProposalComponent } from './components/dialog-approve-proposal/dialog-approve-proposal.component';
+import { DialogRejectProposalComponent } from './components/dialog-reject-proposal/dialog-reject-proposal.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { DialogSeeProposalComponent } from './components/dialog-see-proposal/dia
     HomeComponent,
     DialogAddProposalComponent,
     DialogSeeVersionsComponent,
-    DialogSeeProposalComponent
+    DialogSeeProposalComponent,
+    DialogApproveProposalComponent,
+    DialogRejectProposalComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +38,7 @@ import { DialogSeeProposalComponent } from './components/dialog-see-proposal/dia
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

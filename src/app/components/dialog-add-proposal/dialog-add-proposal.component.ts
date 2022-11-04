@@ -1,11 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { PROPOSAL } from 'src/app/mocks/commercialProposal.mocks';
 import { commercialProposal } from 'src/app/models/interfaces/commercialProposal.interfaces';
 import { BusinessProposalService } from 'src/app/services/business-proposal.service';
 import Swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-dialog-add-proposal',
@@ -23,19 +21,35 @@ export class DialogAddProposalComponent implements OnInit {
     private dialogRef: MatDialogRef<DialogAddProposalComponent>) { }
 
   ngOnInit(): void {
+    console.log('this.editData', this.editData)
+    let idVersion =  Math.floor(Math.random() * (10000 - 100) + 100);
+    let v = 1
+    let base = String(this.editData?.montoBase)
+    let total =  String(this.editData?.montoTotal)
+    if(this.editData != null){
+      idVersion = this.editData.idVersionMismaPropuesta;
+      v = this.editData.version + 1;
+      console.log('EDIT', this.editData)
+    }else{
+    }
+
     this.newProposal = this.formBuilder.group({
+      //id: [this.editData.id, Validators.required],
       empresa: ['', Validators.required],
       cliente: ['', Validators.required],
-      clienteReferencia: ['', Validators.required],
-      conceptoDeServicio: ['', Validators.required],
-      tipoDeServicio: ['', Validators.required],
-      anio: ['', Validators.required],
+      clienteReferencia: [''],
+      year: [''],
       mes: ['', Validators.required],
-      estado: ['', Validators.required],
-      garantia: ['', Validators.required],
-      montoBase: ['', Validators.required],
-      montoTotal: ['', Validators.required],
-      moneda: ['', Validators.required],
+      conceptoServicio: [''],
+      tipoDeServicio: ['', Validators.required],
+      moneda: [''],
+      estado: [''],
+      montoBase: [''],
+      montoTotal: [''],
+      garantia: [''],
+      version: [2, Validators.required],
+      fechaVersion: [new Date(), Validators.required],
+      idVersionMismaPropuesta: [1, Validators.required]
     })
 
     if(this.editData){
@@ -43,9 +57,9 @@ export class DialogAddProposalComponent implements OnInit {
       this.newProposal.controls['empresa'].setValue(this.editData.empresa)
       this.newProposal.controls['cliente'].setValue(this.editData.cliente)
       this.newProposal.controls['clienteReferencia'].setValue(this.editData.clienteReferencia)
-      this.newProposal.controls['conceptoDeServicio'].setValue(this.editData.conceptoDeServicio)
+      this.newProposal.controls['conceptoServicio'].setValue(this.editData.conceptoServicio)
       this.newProposal.controls['tipoDeServicio'].setValue(this.editData.tipoDeServicio)
-      this.newProposal.controls['anio'].setValue(this.editData.anio)
+      this.newProposal.controls['year'].setValue(this.editData.year)
       this.newProposal.controls['mes'].setValue(this.editData.mes)
       this.newProposal.controls['estado'].setValue(this.editData.estado)
       this.newProposal.controls['garantia'].setValue(this.editData.garantia)
@@ -53,55 +67,52 @@ export class DialogAddProposalComponent implements OnInit {
       this.newProposal.controls['montoTotal'].setValue(this.editData.montoTotal)
       this.newProposal.controls['moneda'].setValue(this.editData.moneda)
     }
-    console.log('editData', this.editData)
   }
 
   addProposal(){
     if(!this.editData){
-      //if(this.newProposal.valid){
-        this.businessProposalService.addNewProposal(this.newProposal.value)
+        this.businessProposalService.addNewProposal(this.newProposal.value).subscribe(
+          (res) => {
+            console.log('res', res)
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'La propuesta se ha creado',
+              showConfirmButton: false,
+              timer: 2000
+            })
+          },
+          (err) => console.log('ha ocurrido un error', err),
+          () => console.info('se ha completado la llamada')
+        )
         this.newProposal.reset()
         this.dialogRef.close('save')
+  }else{
+    console.log('entra en update')
+    this.updateProposal();
+  }
+
+}
+
+  updateProposal(){
+    console.log('entra en editar', this.newProposal.value)
+    this.businessProposalService.addNewProposal(this.newProposal.value).subscribe(
+      (res) => {
+        console.log('res', res)
         Swal.fire({
           position: 'top-end',
           icon: 'success',
           title: 'La propuesta se ha creado',
           showConfirmButton: false,
-          timer: 2000
+          timer: 4000
         })
-      //}else{
-        //console.log('FALSEEE', this.newProposal)
-      //}
-    }else{
-      this.updateProposal()
-    }
-
-  }
-  updateProposal(){
-    console.log('entra en editar')
-    this.businessProposalService.putProposal(this.newProposal.value, this.editData.cliente)
+      },
+      (err) => console.log('ha ocurrido un error', err),
+      () => console.info('se ha completado la llamada')
+    )
     this.newProposal.reset()
     this.dialogRef.close('Editar')
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'La propuesta se ha creado',
-      showConfirmButton: false,
-      timer: 4000
-    })
   }
 
-  nose(){
-    console.log('PROPOSAl', PROPOSAL)
-  }
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-
-  getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
-    }
-
-    return this.email.hasError('email') ? 'Not a valid email' : '';
-  }
 }

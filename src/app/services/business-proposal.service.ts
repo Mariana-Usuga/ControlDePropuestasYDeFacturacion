@@ -1,82 +1,56 @@
 import { Injectable } from '@angular/core';
-import { PROPOSAL } from '../mocks/commercialProposal.mocks';
 import { commercialProposal } from '../models/interfaces/commercialProposal.interfaces';
 import { Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BusinessProposalService {
 
-  PRO: commercialProposal[] = [
-    {
-      id: 1,
-      empresa: "e1",
-      cliente: "C1",
-      clienteReferencia: "R1",
-      anio: '2022',
-      mes: 'oct',
-      conceptoDeServicio: "descarga documento",
-      tipoDeServicio: "t1",
-      estado: "aprobado",
-      garantia: "30dias",
-      moneda: "dolares",
-      montoBase: '413',
-      montoTotal: '344'
-    },
-    {
-      id: 2,
-      empresa: 'e1',
-      cliente: "C1",
-      clienteReferencia: "R1",
-      anio: '2022',
-      mes: 'oct',
-      conceptoDeServicio: "descarga documento",
-      tipoDeServicio: "t1",
-      estado: "pendiente",
-      garantia: "15dias",
-      moneda: "dolares",
-      montoBase: '413',
-      montoTotal: '344'
-    },
-    {
-      id: 3,
-      empresa: 'e1',
-      cliente: "C2",
-      clienteReferencia: "R2",
-      anio: '2020',
-      mes: 'oct',
-      conceptoDeServicio: "descarga documento",
-      tipoDeServicio: "t1",
-      estado: "pendiente",
-      garantia: "30dias",
-      moneda: "dolares",
-      montoBase: '413',
-      montoTotal: '344'
-    }
-  ]
+  objectfiltros: commercialProposal = {
+    cliente: '',
+    empresa: null,
+    mes: null,
+    clienteReferencia: null,
+    year: null,
+    conceptoServicio: null,
+    tipoDeServicio: null,
+    estado: null,
+    garantia: null,
+    moneda: null,
+    montoBase: null,
+    montoTotal: null,
+    version: null,
+    idVersionMismaPropuesta: null
+  }
+  objectfiltros$: Subject<commercialProposal>
 
-  objectfiltros: object = {}
-  objectfiltros$: Subject<Object>
-
-  constructor() {
+  constructor(private http: HttpClient) {
     this.objectfiltros$ = new Subject()
   }
 
-  getBusinessProposal(): commercialProposal[] {
-    return this.PRO
+  getBusinessProposal(filter: commercialProposal): Observable<any> {
+    console.log('filter', filter)
+    return this.http.post('http://localhost:8080/propuestas/filtro', filter)
   }
 
-  addNewProposal(proposal: commercialProposal): void{
-    this.PRO.push(proposal)
+  addNewProposal(proposal: commercialProposal): Observable<any>{
+    console.log('proposal', proposal);
+    return this.http.post('http://localhost:8080/propuestas', proposal)
   }
 
-  putProposal(data: any, id: number){
-    console.log('entra en servicio')
-    this.PRO = PROPOSAL.map(p => p.id === id? data : p )
+  getByVersionProposal(idProposal: number): Observable<any>{
+    console.log('proposal', idProposal);
+    return this.http.get('http://localhost:8080/propuestas/getUserById/'+idProposal)
   }
 
-  deleteProposal(id: number): Observable<any> | undefined{
+  putProposal(data: commercialProposal): Observable<any>{
+    console.log('entra en servicio PUT', data)
+    return this.http.post('http://localhost:8080/propuestas', data)
+  }
+
+  /*deleteProposal(id: number): Observable<any> | undefined{
 
     this.PRO = PROPOSAL.filter(pr => pr.id != id)
     console.log('editado', this.PRO)
@@ -86,14 +60,15 @@ export class BusinessProposalService {
       observer.complete();
     })
     return observable
-  }
+  }*/
 
-  addFiltros(campos: Object){
+  addFiltros(campos: commercialProposal){
+    console.log('campos', campos)
     this.objectfiltros = campos
     this.objectfiltros$.next(this.objectfiltros)
   }
 
-  getFiltros(): Observable<Object>{
+  getFiltros(): Observable<commercialProposal>{
     return this.objectfiltros$.asObservable()
   }
 

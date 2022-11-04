@@ -40,8 +40,8 @@
       <label for="text" class="label"> Año </label>
       <mat-form-field appearance="fill">
         <mat-label>Select</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.anio">
-          <mat-option *ngFor="let b of anio" (click)="search()" [value]="b"> {{b}} </mat-option>
+        <mat-select [(ngModel)]="fieldsSelected.year">
+          <mat-option *ngFor="let b of year" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>

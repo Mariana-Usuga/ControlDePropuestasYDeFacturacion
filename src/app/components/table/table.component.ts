@@ -5,25 +5,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { DialogAddProposalComponent } from '../dialog-add-proposal/dialog-add-proposal.component';
-import Swal from 'sweetalert2';
 import { DialogSeeVersionsComponent } from '../dialog-see-versions/dialog-see-versions.component';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-  nam: string;
-  positio: number;
-  weigh: number;
-  symbo: string;
-}
-
-export interface Fil {
-  cliente: string;
-  clienteReferencia: string;
-  anio: string;
-}
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -35,46 +18,82 @@ export class TableComponent implements OnInit {
 
   constructor(private businessProposalService: BusinessProposalService, public dialog: MatDialog){}
 
-  filtrosObject: any = {
+  filtrosObject: commercialProposal= {
+    empresa: null,
     cliente: "",
-    clienteReferencia: "",
-    anio: "",
-    conceptoDeServicio: "",
-    tipoDeServicio: "",
-    estado: "",
-    garantia: "",
-    moneda: "",
-    montoBase: "",
-    montoTotal: "",
-    empresa: "",
-    mes: ""
+    clienteReferencia: null,
+    year: null,
+    mes: null,
+    conceptoServicio: null,
+    tipoDeServicio: null,
+    moneda: null,
+    montoBase: null,
+    montoTotal: null,
+    estado: null,
+    garantia: null,
+    version: null,
+    idVersionMismaPropuesta: null
   }
+
+  mayor: commercialProposal = {
+    cliente: '',
+    empresa: null,
+    mes: null,
+    clienteReferencia: null,
+    year: null,
+    conceptoServicio: null,
+    tipoDeServicio: null,
+    estado: null,
+    garantia: null,
+    moneda: null,
+    montoBase: null,
+    montoTotal: null,
+    version: null,
+    idVersionMismaPropuesta: null
+  };
 
   dataSource: commercialProposal[] = [];
 
   ngOnInit(): void {
-    //this.dataSource = []
-    /*console.log('entra table ngOnInit')
     this.businessProposalService.getFiltros().subscribe(obj => {
       console.log('obj', obj)
       this.filtrosObject = obj
-    })*/
-    this.dataSource = this.businessProposalService.getBusinessProposal()
+    })
   }
 
 buscar(){
-  console.log('entra en buscar', this.dataSource)
-  this.dataSource = this.businessProposalService.getBusinessProposal()
+  let aqui: commercialProposal;
+  this.businessProposalService.getBusinessProposal(this.filtrosObject).subscribe(
+    (res) => {
+      console.log('res', res)
+
+      let lookupObject: any = {};
+      const prop = "idVersionMismaPropuesta"
+
+      for(var a in res) {
+         lookupObject[res[a][prop]] = res[a];
+      }
+
+      for(a in lookupObject) {
+          this.dataSource.push(lookupObject[a]);
+      }
+    },
+    (err) => console.log('ha ocurrido un error', err),
+    () =>  {
+      console.info('se ha completado la llamada')
+    }
+  )
 }
 
-editProposal(row: any){
+editProposal(row: commercialProposal){
+  console.log(' this.dataSource', this.dataSource)
   this.dialog.open(DialogAddProposalComponent, {
     width: '70%',
     data:row
   });
 }
 
-deleteProposal(id: number){
+/*deleteProposal(id: number){
   console.log('entra en delete')
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
@@ -105,11 +124,11 @@ deleteProposal(id: number){
       })
     } else if (
       /* Read more about handling dismissals below */
-      result.dismiss === Swal.DismissReason.cancel
+      /*result.dismiss === Swal.DismissReason.cancel
     ) {
     }
   })
- }
+ }*/
 
 openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
   this.dialog.open(DialogAddProposalComponent, {
@@ -119,9 +138,10 @@ openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void 
   });
 }
 
-seeVersions(){
+seeVersions(row: commercialProposal){
   this.dialog.open(DialogSeeVersionsComponent, {
     width: '70%',
+    data:row
   });
 }
 }

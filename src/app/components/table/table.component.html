@@ -16,17 +16,12 @@
     <th class="th">Monto total</th>
     <th>Action</th>
   </tr>
-  <!--<tr *ngFor="let b of dataSource | proposalFilter: {'empresa': filtrosObject.empresa,
-   'cliente': filtrosObject.cliente, 'mes': filtrosObject.mes,
-    'clienteReferencia': filtrosObject.clienteReferencia, 'anio': filtrosObject.anio,
-     'tipoDeServicio': filtrosObject.tipoDeServicio,
-    'estado': filtrosObject.estado, 'moneda': filtrosObject.moneda }" >-->
   <tr *ngFor="let b of dataSource">
     <td class="td"> {{b.empresa}} </td>
     <td class="td"> {{b.clienteReferencia}} </td>
-    <td class="td"> {{b.anio}} </td>
+    <td class="td"> {{b.year}} </td>
     <td class="td"> {{b.mes}} </td>
-    <td class="td"> {{b.conceptoDeServicio}} </td>
+    <td class="td"> {{b.conceptoServicio}} </td>
     <td class="td"> {{b.tipoDeServicio}} </td>
     <td class="td"> {{b.estado}} </td>
     <td class="td"> {{b.garantia}} </td>
@@ -37,7 +32,7 @@
       <button mat-icon-button color="primary" (click)="editProposal(b)">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-botton color="primary" (click)="seeVersions()">
+      <button mat-botton color="primary" (click)="seeVersions(b)">
         Ver
       </button>
       <!--<button mat-icon-button color="warn" (click)="deleteProposal(b.id)">

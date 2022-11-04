@@ -11,7 +11,7 @@
   </div>
   <div class="item">
     <div class="subtitle">Año</div>
-    <div>{{proposal.anio}}</div>
+    <div>{{proposal.year}}</div>
   </div>
   <div class="item">
     <div class="subtitle">Moneda</div>
@@ -40,7 +40,7 @@
 </div>
 
 <div>
-  <button mat-button color="primary">Aprobar</button>
+  <button mat-button color="primary" (click)="openDialogApprove()">Aprobar</button>
   <button mat-stroked-button color="warn">Rechazar</button>
   <button  mat-stroked-button >Descargar</button>
 </div>

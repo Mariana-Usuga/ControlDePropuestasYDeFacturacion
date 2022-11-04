@@ -1,14 +1,13 @@
 import { commercialProposal } from "../models/interfaces/commercialProposal.interfaces";
 
-export const PROPOSAL: commercialProposal[] = [
+export const p = [
   {
-    id: 1,
     empresa: "e1",
     cliente: "C1",
     clienteReferencia: "R1",
-    anio: '2022',
+    year: '2022',
     mes: 'oct',
-    conceptoDeServicio: "descarga documento",
+    conceptoServicio: "descarga documento",
     tipoDeServicio: "t1",
     estado: "aprobado",
     garantia: "30dias",
@@ -17,13 +16,12 @@ export const PROPOSAL: commercialProposal[] = [
     montoTotal: '344'
   },
   {
-    id: 2,
     empresa: 'e1',
     cliente: "C1",
     clienteReferencia: "R1",
-    anio: '2022',
+    year: '2022',
     mes: 'oct',
-    conceptoDeServicio: "descarga documento",
+    conceptoServicio: "descarga documento",
     tipoDeServicio: "t1",
     estado: "pendiente",
     garantia: "15dias",
@@ -32,13 +30,12 @@ export const PROPOSAL: commercialProposal[] = [
     montoTotal: '344'
   },
   {
-    id: 3,
     empresa: 'e1',
     cliente: "C2",
     clienteReferencia: "R2",
-    anio: '2020',
+    year: '2020',
     mes: 'oct',
-    conceptoDeServicio: "descarga documento",
+    conceptoServicio: "descarga documento",
     tipoDeServicio: "t1",
     estado: "pendiente",
     garantia: "30dias",
