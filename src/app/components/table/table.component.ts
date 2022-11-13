@@ -75,6 +75,10 @@ export class TableComponent implements OnInit {
     })
   }
 
+  export(): void{
+    this.businessProposalService.exportToExcel(this.dataSource, 'my_export')
+  }
+
 buscar(){
   if(this.filtrosObject.customer != ""){
     this.businessProposalService.getBusinessProposal(this.filtrosObject).subscribe(
