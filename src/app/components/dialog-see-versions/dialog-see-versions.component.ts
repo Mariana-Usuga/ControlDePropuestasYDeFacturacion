@@ -17,14 +17,22 @@ export class DialogSeeVersionsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.businessProposalService.getByVersionProposal(this.proposalSee.idVersionMismaPropuesta).subscribe(
+    this.businessProposalService.getByVersionProposal(this.proposalSee.proposalId).subscribe(
       (res)=>{
         for(let le of res){
+          const date = new Date();
+
+          //const d = `${le.dateVersion.getFullYear()}/${le.dateVersion.getMonth()}/${le.dateVersion.getDay()}`
+          const gf = Date.parse(le.dateVersion)
+          const h = new Date(gf)
+          console.log('d', h.getMonth())
+          const d = `${h.getFullYear()}/${h.getMonth()}/${h.getDay()}`
           this.dataSource.push({
-              fechaVersion: le.fechaVersion,
-              version: le.version
+            dateVersion: d,
+            version: le.version
           })
         }
+        console.log('ddata source', this.dataSource)
       },
       (err) => console.log('ha ocurrido un error', err),
           () => console.info('se ha completado la llamada')

@@ -16,6 +16,11 @@ import { DialogSeeVersionsComponent } from './components/dialog-see-versions/dia
 import { DialogSeeProposalComponent } from './components/dialog-see-proposal/dialog-see-proposal.component';
 import { DialogApproveProposalComponent } from './components/dialog-approve-proposal/dialog-approve-proposal.component';
 import { DialogRejectProposalComponent } from './components/dialog-reject-proposal/dialog-reject-proposal.component';
+import { FileUploadComponentComponent } from './components/file-upload-component/file-upload-component.component';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +34,8 @@ import { DialogRejectProposalComponent } from './components/dialog-reject-propos
     DialogSeeVersionsComponent,
     DialogSeeProposalComponent,
     DialogApproveProposalComponent,
-    DialogRejectProposalComponent
+    DialogRejectProposalComponent,
+    FileUploadComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +44,10 @@ import { DialogRejectProposalComponent } from './components/dialog-reject-propos
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

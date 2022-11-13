@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { commercialProposal } from '../models/interfaces/commercialProposal.interfaces';
 import { Observable, Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpParams, HttpRequest } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,20 +9,22 @@ import { HttpClient } from '@angular/common/http';
 export class BusinessProposalService {
 
   objectfiltros: commercialProposal = {
-    cliente: '',
-    empresa: null,
-    mes: null,
-    clienteReferencia: null,
-    year: null,
-    conceptoServicio: null,
-    tipoDeServicio: null,
-    estado: null,
-    garantia: null,
-    moneda: null,
-    montoBase: null,
-    montoTotal: null,
-    version: null,
-    idVersionMismaPropuesta: null
+    company: null,
+    customer: "",
+  customerReference: null,
+  yearP: null,
+  monthP: null,
+  servicioConcept: null,
+  typeOfService: null,
+  currency: null,
+  stateP: null,
+  baseAmount: null,
+  totalAmount: null,
+  warranty: null,
+  version: null,
+  dateVersion: null,
+  proposalId: null,
+  folder: null
   }
   objectfiltros$: Subject<commercialProposal>
 
@@ -32,40 +34,57 @@ export class BusinessProposalService {
 
   putStateOfProposal(proposal: commercialProposal): Observable<any>{
     console.log('filter', proposal)
-    return this.http.put('http://localhost:8080/propuestas', proposal)
+    return this.http.put('http://localhost:8080/proposal', proposal)
   }
 
   getBusinessProposal(filter: commercialProposal): Observable<any> {
     console.log('filter', filter)
-    return this.http.post('http://localhost:8080/propuestas/filtro', filter)
+    return this.http.post('http://localhost:8080/proposal/filter', filter)
   }
 
   addNewProposal(proposal: commercialProposal): Observable<any>{
     console.log('proposal', proposal);
-    return this.http.post('http://localhost:8080/propuestas', proposal)
+    return this.http.post('http://localhost:8080/proposal', proposal)
   }
 
   getByVersionProposal(idProposal: number): Observable<any>{
     console.log('proposal', idProposal);
-    return this.http.get('http://localhost:8080/propuestas/getUserById/'+idProposal)
+    return this.http.get('http://localhost:8080/proposal/getProposalByIdProposal/'+idProposal)
   }
 
   putProposal(data: commercialProposal): Observable<any>{
     console.log('entra en servicio PUT', data)
-    return this.http.post('http://localhost:8080/propuestas', data)
+    return this.http.post('http://localhost:8080/proposal', data)
   }
 
-  /*deleteProposal(id: number): Observable<any> | undefined{
+  uploadFile(file: any): Observable<HttpEvent<any>> {
+    let formData = new FormData();
+    formData.append('upload', file);
+    let params = new HttpParams();
+    const options = {
+      params: params,
+      reportProgress: true,
+    };
+    console.log('options', options);
+    console.log('formData', formData)
 
-    this.PRO = PROPOSAL.filter(pr => pr.id != id)
-    console.log('editado', this.PRO)
+    const req = new HttpRequest('POST', 'http://localhost:8080/proposal/upload',
+    formData, options);
+    return this.http.request(req);
+  }
 
-    let observable: Observable<any> = new Observable(observer => {
-      observer.next(true);
-      observer.complete();
-    })
-    return observable
-  }*/
+  /*upload(file: any):Observable<any> {
+    console.log('file', file)
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+    console.log('formData', formData)
+    return this.http.post('http://localhost:8080/proposal/upload', formData)
+}*/
+
+  deleteProposal(id: number): Observable<any>{
+
+    return this.http.delete('http://localhost:8080/proposal/'+ id)
+  }
 
   addFiltros(campos: commercialProposal){
     console.log('campos', campos)

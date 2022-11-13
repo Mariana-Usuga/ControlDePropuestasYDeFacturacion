@@ -1,13 +1,15 @@
 <h2>Aprobar oportunidad</h2>
 
 <label for="text" class="label"> Nombre de la oportunidad </label>
-
-<mat-form-field appearance="outline">
-  <mat-label>Nombre de la oportunidad</mat-label>
-  <input  formControlName="garantia" matInput placeholder="Placeholder">
-</mat-form-field>
+<form action="" [formGroup]="verify">
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre de la oportunidad</mat-label>
+    <input name="nameProposal"
+      formControlName="company" matInput placeholder="Placeholder">
+  </mat-form-field>
+</form>
 
 <div>
-  <button>Aprobar</button>
-  <button>Cancelar</button>
+  <button mat-raised-button color="primary" type="button" (click)="aprovar()">Aprobar</button>
+  <button mat-raised-button mat-dialog-close color="warn">Cancelar</button>
 </div>

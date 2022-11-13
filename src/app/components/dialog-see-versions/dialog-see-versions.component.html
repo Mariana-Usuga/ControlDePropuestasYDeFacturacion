@@ -1,5 +1,5 @@
 
-<h2>Hostorico de la propuesta</h2>
+<h2>Historico de la propuesta</h2>
 <table class="table">
   <tr class="thead">
     <th class="th">Version</th>
@@ -8,13 +8,10 @@
   </tr>
   <tr *ngFor="let b of dataSource">
     <td class="td"> {{b.version}} </td>
-    <td class="td"> {{b.fechaVersion}} </td>
-    <td>
-      <button mat-button color="primary" (click)="seeProposal()">
+    <td class="td"> {{b.dateVersion}} </td>
+    <td >
+      <button type="button"  class="see btn btn-outline-primary btn-sm action" (click)="seeProposal()">
         Ver
-      </button>
-      <button mat-button color="warn">
-        <mat-icon>download</mat-icon>
       </button>
     </td>
   </tr>

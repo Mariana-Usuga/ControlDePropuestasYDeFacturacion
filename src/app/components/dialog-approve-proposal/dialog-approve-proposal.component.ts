@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { commercialProposal } from 'src/app/models/interfaces/commercialProposal.interfaces';
 import { BusinessProposalService } from 'src/app/services/business-proposal.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dialog-approve-proposal',
@@ -10,35 +12,63 @@ import { BusinessProposalService } from 'src/app/services/business-proposal.serv
 })
 export class DialogApproveProposalComponent implements OnInit {
 
+  verify!: FormGroup;
+
   constructor( private businessProposalService: BusinessProposalService,
-    @Inject(MAT_DIALOG_DATA) public proposalSee: any) { }
+    @Inject(MAT_DIALOG_DATA) public proposalSee: any, private formBuilder: FormBuilder,) { }
+
+  ngOnInit(): void {
+    this.verify = this.formBuilder.group({
+      company: ['', Validators.required],
+    })
+  }
 
     cambio: any = {
       id: this.proposalSee.id,
-      cliente: this.proposalSee.cliente,
-      empresa: this.proposalSee.empresa,
-      mes: this.proposalSee.mes,
-      clienteReferencia: this.proposalSee.clienteReferencia,
-      year: this.proposalSee.year,
-      conceptoServicio: this.proposalSee.conceptoServicio,
-      tipoDeServicio: this.proposalSee.tipoDeServicio,
-      estado: "aprobado",
-      garantia: this.proposalSee.garantia,
-      moneda: this.proposalSee.moneda,
-      montoBase: this.proposalSee.montoBase,
-      montoTotal: this.proposalSee.montoTotal,
+      customer: this.proposalSee.customer,
+      company: this.proposalSee.company,
+      monthP: this.proposalSee.monthP,
+      customerReference: this.proposalSee.customerReference,
+      yearP: this.proposalSee.yearP,
+      servicioConcept: this.proposalSee.servicioConcept,
+      typeOfService: this.proposalSee.typeOfService,
+      stateP: "aprobado",
+      warranty: this.proposalSee.warranty,
+      currency: this.proposalSee.currency,
+      baseAmount: this.proposalSee.baseAmount,
+      totalAmount: this.proposalSee.totalAmount,
       version: this.proposalSee.version,
-      idVersionMismaPropuesta: this.proposalSee.idVersionMismaPropuesta
+      proposalId: this.proposalSee.proposalId,
+      dateVersion: this.proposalSee.dateVersion
     }
 
-  ngOnInit(): void {
-    this.businessProposalService.putStateOfProposal(this.cambio).subscribe(
+  aprovar(){
+    console.log('cambio', this.cambio)
+    console.log('nameprop', this.verify.value.company, 'sacs',this.proposalSee.company)
+    if(this.verify.value.company === this.proposalSee.company){
+      this.businessProposalService.putStateOfProposal(this.cambio).subscribe(
       (res) => {
         console.log('res', res)
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Propuesta Aprobada',
+          showConfirmButton: false,
+          timer: 2000
+        })
       },
       (err) => console.log('ha ocurrido un error', err),
           () => console.info('se ha completado la llamada')
     )
+    }else{
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Nombre no valido',
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
   }
 
 }

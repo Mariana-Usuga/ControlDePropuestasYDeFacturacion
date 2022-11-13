@@ -6,6 +6,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { DialogAddProposalComponent } from '../dialog-add-proposal/dialog-add-proposal.component';
 import { DialogSeeVersionsComponent } from '../dialog-see-versions/dialog-see-versions.component';
+import Swal from 'sweetalert2';
+
+const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: true
+})
 
 @Component({
   selector: 'app-table',
@@ -16,43 +25,48 @@ export class TableComponent implements OnInit {
 
   subcription: Subscription | undefined;
 
-  constructor(private businessProposalService: BusinessProposalService, public dialog: MatDialog){}
+  constructor(private businessProposalService: BusinessProposalService,
+     public dialog: MatDialog){}
 
   filtrosObject: commercialProposal= {
-    empresa: null,
-    cliente: "",
-    clienteReferencia: null,
-    year: null,
-    mes: null,
-    conceptoServicio: null,
-    tipoDeServicio: null,
-    moneda: null,
-    montoBase: null,
-    montoTotal: null,
-    estado: null,
-    garantia: null,
-    version: null,
-    idVersionMismaPropuesta: null
+    company: null,
+    customer: "",
+  customerReference: null,
+  yearP: null,
+  monthP: null,
+  servicioConcept: null,
+  typeOfService: null,
+  currency: null,
+  stateP: null,
+  baseAmount: null,
+  totalAmount: null,
+  warranty: null,
+  version: null,
+  dateVersion: null,
+  proposalId: null,
+  folder: null
   }
 
   mayor: commercialProposal = {
-    cliente: '',
-    empresa: null,
-    mes: null,
-    clienteReferencia: null,
-    year: null,
-    conceptoServicio: null,
-    tipoDeServicio: null,
-    estado: null,
-    garantia: null,
-    moneda: null,
-    montoBase: null,
-    montoTotal: null,
-    version: null,
-    idVersionMismaPropuesta: null
+    company: null,
+    customer: "",
+  customerReference: null,
+  yearP: null,
+  monthP: null,
+  servicioConcept: null,
+  typeOfService: null,
+  currency: null,
+  stateP: null,
+  baseAmount: null,
+  totalAmount: null,
+  warranty: null,
+  version: null,
+  dateVersion: null,
+  proposalId: null,
+  folder: null
   };
 
-  dataSource: commercialProposal[] = [];
+  dataSource: any[] = [];
 
   ngOnInit(): void {
     this.businessProposalService.getFiltros().subscribe(obj => {
@@ -62,27 +76,34 @@ export class TableComponent implements OnInit {
   }
 
 buscar(){
-  let aqui: commercialProposal;
-  this.businessProposalService.getBusinessProposal(this.filtrosObject).subscribe(
-    (res) => {
-      console.log('res', res)
+  if(this.filtrosObject.customer != ""){
+    this.businessProposalService.getBusinessProposal(this.filtrosObject).subscribe(
+      (res) => {
+        if(res.length === 0){
+          alert('no hay datos que coincidencia con la busqueda')
+        }else{
+          console.log('res', res)
 
-      let lookupObject: any = {};
-      const prop = "idVersionMismaPropuesta"
+          let lookupObject: any = {};
+          const prop = "idVersionMismaPropuesta"
 
-      for(var a in res) {
-         lookupObject[res[a][prop]] = res[a];
+          for(var a in res) {
+             lookupObject[res[a][prop]] = res[a];
+          }
+
+          for(a in lookupObject) {
+              this.dataSource.push(lookupObject[a]);
+          }
+        }
+      },
+      (err) => console.log('ha ocurrido un error', err),
+      () =>  {
+        console.info('se ha completado la llamada')
       }
-
-      for(a in lookupObject) {
-          this.dataSource.push(lookupObject[a]);
-      }
-    },
-    (err) => console.log('ha ocurrido un error', err),
-    () =>  {
-      console.info('se ha completado la llamada')
-    }
-  )
+    )
+  }else{
+    alert('El campo cliente es obligatorio')
+  }
 }
 
 editProposal(row: commercialProposal){
@@ -93,7 +114,7 @@ editProposal(row: commercialProposal){
   });
 }
 
-/*deleteProposal(id: number){
+deleteProposal(id: number){
   console.log('entra en delete')
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
@@ -113,7 +134,8 @@ editProposal(row: commercialProposal){
     reverseButtons: true
   }).then((result) => {
     if (result.isConfirmed) {
-      this.subcription = this.businessProposalService.deleteProposal(id)?.subscribe((v: boolean) => {
+      this.subcription = this.businessProposalService.deleteProposal(id).subscribe(
+        (v: boolean) => {
         if(v){
           swalWithBootstrapButtons.fire(
             'Eliminada!',
@@ -124,11 +146,11 @@ editProposal(row: commercialProposal){
       })
     } else if (
       /* Read more about handling dismissals below */
-      /*result.dismiss === Swal.DismissReason.cancel
+      result.dismiss === Swal.DismissReason.cancel
     ) {
     }
   })
- }*/
+ }
 
 openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
   this.dialog.open(DialogAddProposalComponent, {
@@ -140,7 +162,7 @@ openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void 
 
 seeVersions(row: commercialProposal){
   this.dialog.open(DialogSeeVersionsComponent, {
-    width: '70%',
+    width: '50%',
     data:row
   });
 }

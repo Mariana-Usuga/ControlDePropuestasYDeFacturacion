@@ -12,48 +12,45 @@ import { BusinessProposalService } from 'src/app/services/business-proposal.serv
 })
 export class FormComponent implements OnInit {
 
-  empresa = [ 'e1', 'e2']
-  clienteReferencia = ['R1', 'R2', 'R3', 'R4']
-  cliente = ['c1', 'c2', 'c3', "c4"]
-  year = ['2018', '2020', '2019', '2017', '2022']
-  mes = ['oct', 'nov', 'dic', 'ene', 'feb', 'mar']
-  tipoServicio = ['t1', 't2', 't3', 't4', 't5']
-  estado = ['pendiente', 'rechazado', 'aprobado']
-  moneda = ['dolares']
+  company = [ 'e1', 'e2']
+  customerReference = ['COLSUBSIDIO', 'R2', 'R3', 'R4']
+  customer = ['CSTI', 'C2', 'C3', "C4"]
+  yearP = ['2018', '2020', '2019', '2017', '2022']
+  monthP = ['oct', 'sep', 'dic', 'ene', 'feb', 'mar']
+  typeOfService = ['t1', 't2', 't3', 't4', 't5']
+  stateP = ['pendiente', 'rechazado', 'aprobado']
+  currency = ['dolares']
 
   filtersLabel = ['Cliente', 'Cliente referencia', 'Tipo de servicio', 'Empresa factura',
   'Year', 'Mes', 'Moneda', 'Estado']
   dataSource: MatTableDataSource<commercialProposal> | any
 
-  fieldsSelected: commercialProposal = {
-    empresa: null,
-    cliente: "",
-    clienteReferencia: null,
-    year: null,
-    mes: null,
-    conceptoServicio: null,
-    tipoDeServicio: null,
-    moneda: null,
-    montoBase: null,
-    montoTotal: null,
-    estado: null,
-    garantia: null,
-    version: null,
-    idVersionMismaPropuesta: null
-  }
-
   constructor(private businessProposalService: BusinessProposalService) {}
 
   ngOnInit(): void {
     this.dataSource = []
-    ///this.dataSource.filterPredicate = this.filterBySubject();
+  }
+
+  fieldsSelected: any = {
+    company: null,
+    customer: "",
+  customerReference: null,
+  monthP: null,
+  yearP: null,
+  servicioConcept: null,
+  typeOfService: null,
+  currency: null,
+  stateP: null,
+  baseAmount: null,
+  totalAmount: null,
+  warranty: null
   }
 
   search(){
     console.log('search', this.fieldsSelected)
   //console.log('filtro en form', this.fieldsSelected)
-  this.businessProposalService.addFiltros(this.fieldsSelected)
-  //this.dataSource = this.businessProposalService.getBusinessProposal()
+    console.log('entra add')
+    this.businessProposalService.addFiltros(this.fieldsSelected)
 }
 
 }

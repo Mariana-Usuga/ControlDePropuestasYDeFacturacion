@@ -1,78 +1,122 @@
 
-<mat-grid-list cols="3" rowHeight="7:1" class="mat-grid-list" >
+  <mat-grid-list cols="5" rowHeight="5:2" class="mat-grid-list" >
     <mat-grid-tile class="mat-grid-tile">
-      <label for="text" class="label"> Cliente </label>
-      <mat-form-field appearance="fill">
-        <mat-label>Select</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.cliente">
-          <mat-option *ngFor="let b of cliente"  (click)="search()" [value]="b"> {{b}} </mat-option>
+      <mat-form-field class="mat-grid-content" appearance="legacy">
+        <mat-label>Cliente</mat-label>
+        <mat-select [(ngModel)]="fieldsSelected.customer "
+        placeholder="Cliente">
+          <mat-option *ngFor="let b of customer"  (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile class="mat-grid-tile">
-      <label for="text" class="label"> Cliente Referencia </label>
-      <mat-form-field appearance="fill">
-        <mat-label>Select</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.clienteReferencia">
-          <mat-option *ngFor="let b of clienteReferencia" (click)="search()" [value]="b"> {{b}} </mat-option>
+      <!--<label for="text" class="label"> Cliente Referencia </label>-->
+      <mat-form-field appearance="legacy" class="mat-form-field">
+        <mat-label>cliente Referencia</mat-label>
+        <mat-select [(ngModel)]="fieldsSelected.customerReference">
+          <mat-option *ngFor="let b of customerReference" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile class="mat-grid-tile">
-      <label for="text" class="label"> Tipo de servicio </label>
-      <mat-form-field appearance="fill">
-        <mat-label>Select</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.tipoDeServicio">
-          <mat-option *ngFor="let b of tipoServicio" (click)="search()" [value]="b"> {{b}} </mat-option>
+      <!--<label for="text" class="label"> Tipo de servicio </label>-->
+      <mat-form-field appearance="legacy">
+        <mat-label>Tipo De Servicio</mat-label>
+        <mat-select [(ngModel)]="fieldsSelected.typeOfService">
+          <mat-option *ngFor="let b of typeOfService" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile class="mat-grid-tile">
-      <label for="text" class="label"> Empresa que factura </label>
-      <mat-form-field appearance="fill">
-        <mat-label>Select</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.empresa">
-          <mat-option *ngFor="let b of empresa" (click)="search()" [value]="b"> {{b}} </mat-option>
+      <!--<label for="text" class="label"> Empresa que factura </label>-->
+      <mat-form-field appearance="legacy">
+        <mat-label>Empresa</mat-label>
+        <mat-select  [(ngModel)]="fieldsSelected.company">
+          <mat-option *ngFor="let b of company" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile class="mat-grid-tile">
-      <label for="text" class="label"> Año </label>
-      <mat-form-field appearance="fill">
-        <mat-label>Select</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.year">
-          <mat-option *ngFor="let b of year" (click)="search()" [value]="b"> {{b}} </mat-option>
+      <!--<label for="text" class="label"> Año </label>-->
+      <mat-form-field appearance="legacy">
+        <mat-label>Año</mat-label>
+        <mat-select [(ngModel)]="fieldsSelected.yearP"  placeholder="Año">
+          <mat-option *ngFor="let b of yearP" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile class="mat-grid-tile">
-      <label for="text" class="label"> Mes </label>
-      <mat-form-field appearance="fill">
-        <mat-label>Select</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.mes">
-          <mat-option *ngFor="let b of mes" (click)="search()" [value]="b"> {{b}} </mat-option>
+      <!--<label for="text" class="label"> Mes </label>-->
+      <mat-form-field appearance="legacy">
+        <mat-label>Mes</mat-label>
+        <mat-select  [(ngModel)]="fieldsSelected.monthP">
+          <mat-option *ngFor="let b of monthP" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile class="mat-grid-tile">
-      <label for="text" class="label"> Moneda </label>
-      <mat-form-field appearance="fill">
-        <mat-label>Select</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.moneda">
-          <mat-option *ngFor="let b of moneda" (click)="search()" [value]="b"> {{b}} </mat-option>
+      <!--<label for="text" class="label"> Moneda </label>-->
+      <mat-form-field appearance="legacy">
+        <mat-label>Moneda</mat-label>
+        <mat-select [(ngModel)]="fieldsSelected.currency">
+          <mat-option *ngFor="let b of currency" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile class="mat-grid-tile">
-      <label for="text" class="label"> Estado </label>
-      <mat-form-field appearance="fill">
-        <mat-label>Select</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.estado">
-          <mat-option *ngFor="let b of estado" (click)="search()" [value]="b"> {{b}} </mat-option>
+      <!--<label for="text" class="label"> Estado </label>-->
+      <mat-form-field appearance="legacy">
+        <mat-label>Estado</mat-label>
+        <mat-select [(ngModel)]="fieldsSelected.stateP">
+          <mat-option *ngFor="let b of stateP" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
 </mat-grid-list>
 
 <!--<app-dialog-add-proposal></app-dialog-add-proposal>-->
+
+
+
+
+<!--<mat-form-field appearance="outline"
+  class="mat-form-field example-full-width ng-tns-c93-126 mat-primary
+  mat-form-field-type-mat-input mat-form-field-appearance-standard
+  mat-form-field-can-float mat-form-field-has-label mat-form-field-hide-placeholder
+  ng-untouched ng-pristine ng-valid">
+    <div class="mat-form-field-wrapper ng-tns-c93-126">
+      <div class="mat-form-field-flex ng-tns-c93-126">
+        <div class="mat-form-field-prefix ng-tns-c93-126 ng-star-inserted" style="">
+          <mat-icon _ngcontent-ecm-c253="" role="img" matprefix="" class="mat-icon notranslate material-icons mat-icon-no-color ng-tns-c93-126" aria-hidden="true" data-mat-icon-type="font">
+            people
+          </mat-icon>
+        </div>
+        <div class="mat-form-field-infix ng-tns-c93-126">
+          <input _ngcontent-ecm-c253="" matinput="" formcontrolname="razonSocial"
+          maxlength="100" trim="blur" class="mat-input-element mat-form-field-autofill-control
+           ng-tns-c93-126 ng-untouched ng-pristine ng-valid cdk-text-field-autofill-monitored"
+           id="mat-input-26" aria-invalid="false" aria-required="false">
+          <span class="mat-form-field-label-wrapper ng-tns-c93-126">
+            <label class="mat-form-field-label ng-tns-c93-126 mat-empty mat-form-field-empty
+            ng-star-inserted" id="mat-form-field-label-65" for="mat-input-26"
+            aria-owns="mat-input-26" style="">
+              <mat-label _ngcontent-ecm-c253="" class="ng-tns-c93-126 ng-star-inserted">
+                Razón Social
+              </mat-label>
+            </label>
+          </span>
+        </div>
+        <div class="mat-form-field-suffix ng-tns-c93-126 ng-star-inserted" style="">
+          <mat-icon _ngcontent-ecm-c253="" role="img" matsuffix="" class="mat-icon notranslate
+          material-icons mat-icon-no-color ng-tns-c93-126" aria-hidden="true"
+          data-mat-icon-type="font">
+          </mat-icon>
+        </div>
+        </div>
+        <div class="mat-form-field-underline ng-tns-c93-126 ng-star-inserted" style="">
+          <span class="mat-form-field-ripple ng-tns-c93-126">
+          </span>
+        </div>
+      </div>
+    </mat-form-field>-->
 

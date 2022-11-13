@@ -1,47 +1,52 @@
-<h2>Datos oportunidad V#3</h2>
+<h2>Datos oportunidad V#{{proposal.version}} </h2>
 
 <div class="proposal">
   <div class="item">
     <div class="subtitle">Empresa</div>
-    <div>{{proposal.empresa}}</div>
+    <div>{{proposal.company}}</div>
   </div>
   <div class="item">
     <div class="subtitle">Tipo de servicio</div>
-    <div>{{proposal.tipoDeServicio}}</div>
+    <div>{{proposal.typeOfService}}</div>
   </div>
   <div class="item">
     <div class="subtitle">Año</div>
-    <div>{{proposal.year}}</div>
+    <div>{{proposal.yearP}}</div>
   </div>
   <div class="item">
     <div class="subtitle">Moneda</div>
-    <div>{{proposal.moneda}}</div>
+    <div>{{proposal.currency}}</div>
   </div>
   <div class="item">
     <div class="subtitle">Cliente Referencia</div>
-    <div> {{proposal.clienteReferencia}}</div>
+    <div> {{proposal.customerReference}}</div>
   </div>
   <div class="item">
     <div class="subtitle">Mes</div>
-    <div> {{proposal.mes}}</div>
+    <div> {{proposal.monthP}}</div>
   </div>
   <div class="item">
     <div class="subtitle">Garantia</div>
-    <div> {{proposal.garantia}}</div>
+    <div> {{proposal.warranty}}</div>
   </div>
   <div class="item">
     <div class="subtitle">Monto total</div>
-    <div> {{proposal.montoTotal}}</div>
+    <div> {{proposal.totalAmount}}</div>
   </div>
   <div class="item">
     <div class="subtitle">Monto Base</div>
-    <div> {{proposal.montoBase}}</div>
+    <div> {{proposal.baseAmount}}</div>
   </div>
 </div>
 
-<div>
-  <button mat-button color="primary" (click)="openDialogApprove()">Aprobar</button>
-  <button mat-stroked-button color="warn">Rechazar</button>
-  <button  mat-stroked-button >Descargar</button>
+<div class="btns mt-2">
+  <button type="button" class="btn btn-outline-primary btn-sm me-3"
+   (click)="openDialogApprove()">Aprobar</button>
+  <button type="button" class="btn btn-outline-danger btn-sm me-3"
+  (click)="openRecha()">Rechazar</button>
+  <section>
+    <a href="../../../../docs/yo.jpg"
+    download>Descargar archivo de la propuesta</a>
+  </section>
 </div>
 

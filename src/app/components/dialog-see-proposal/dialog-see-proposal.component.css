@@ -1,7 +1,7 @@
 .proposal{
   display: flex;
   flex-wrap: wrap;
-  justify-content:space-between
+  justify-content:center
 }
 .item{
   width: 30%;
@@ -11,3 +11,7 @@
   font-weight: bolder;
 }
 
+.btns{
+  display: flex;
+  justify-content: center;
+}

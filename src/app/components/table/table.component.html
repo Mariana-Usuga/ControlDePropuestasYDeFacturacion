@@ -1,44 +1,89 @@
 
-<button (click)="buscar()">Buscar</button>
-<button  mat-raised-button (click)="openDialog('0ms', '0ms')" >Crear oportunidad</button>
-<table class="table">
-  <tr class="thead">
-    <th class="th">Empresa</th>
-    <th class="th">Cliente Referencia</th>
-    <th class="th">Año</th>
-    <th class="th">Mes</th>
-    <th class="th">Concepto De Servicio</th>
-    <th class="th">Tipo de Sercicio</th>
-    <th class="th">Estado</th>
-    <th class="th">Garantia</th>
-    <th class="th">Moneda</th>
-    <th class="th">Monto base</th>
-    <th class="th">Monto total</th>
-    <th>Action</th>
-  </tr>
-  <tr *ngFor="let b of dataSource">
-    <td class="td"> {{b.empresa}} </td>
-    <td class="td"> {{b.clienteReferencia}} </td>
-    <td class="td"> {{b.year}} </td>
-    <td class="td"> {{b.mes}} </td>
-    <td class="td"> {{b.conceptoServicio}} </td>
-    <td class="td"> {{b.tipoDeServicio}} </td>
-    <td class="td"> {{b.estado}} </td>
-    <td class="td"> {{b.garantia}} </td>
-    <td class="td"> {{b.moneda}} </td>
-    <td class="td"> {{b.montoBase}} </td>
-    <td class="td"> {{b.montoTotal}} </td>
-    <td>
-      <button mat-icon-button color="primary" (click)="editProposal(b)">
-        <mat-icon>edit</mat-icon>
+<div class="containerBtn">
+  <div class="btnSeacrh p-toolbar p-component" role="toolbar" (click)="buscar()">
+          <button _ngcontent-cgx-c245="" type="button" class="btn btn-outline-primary
+          btn-border-radius">
+            <i _ngcontent-cgx-c245="" class="bi bi-search">
+            </i>
+            <span _ngcontent-cgx-c245="" class="mobile-hide">
+              Buscar
+            </span>
+          </button>
+        </div>
+  <div class="btnCreate" (click)="openDialog('0ms', '0ms')">
+    <button _ngcontent-cgx-c245="" type="button" class="btn btn-outline-primary
+          btn-border-radius">
+            <span _ngcontent-cgx-c245="" class="mobile-hide">
+              Crear oportunidad
+            </span>
+          </button>
+  </div>
+</div>
+
+
+<div class="resultTable">
+  <div class="title">
+    <div>
+      <i class="bi bi-list-ul"></i>
+    </div>
+    <div>
+      <h5>Resultado de busqueda</h5>
+    </div>
+    </div>
+  <table class="tableB" collapse>
+    <tr class="thead">
+      <th class="th">Cliente</th>
+      <th class="th">Cliente Referencia</th>
+      <th class="th">Empresa</th>
+      <th class="th">Año</th>
+      <th class="th">Mes</th>
+      <th class="th">Concepto De Servicio</th>
+      <th class="th">Tipo de Sercicio</th>
+      <th class="th">Estado</th>
+      <th class="th">Garantia</th>
+      <th class="th">Moneda</th>
+      <th class="th">Monto base</th>
+      <th class="th">Monto total</th>
+      <th class="th">Aprobar</th>
+      <th class="th">Rechazar</th>
+      <th class="th">Action</th>
+    </tr>
+    <tr *ngFor="let b of dataSource">
+      <td class="td"> {{b.customer}} </td>
+      <td class="td"> {{b.company}} </td>
+      <td class="td"> {{b.customerReference}} </td>
+      <td class="td"> {{b.yearP}} </td>
+      <td class="td"> {{b.monthP}} </td>
+      <td class="td"> {{b.servicioConcept}} </td>
+      <td class="td"> {{b.typeOfService}} </td>
+      <td class="td"> {{b.stateP}} </td>
+      <td class="td"> {{b.warranty}} </td>
+      <td class="td"> {{b.currency}} </td>
+      <td class="td"> {{b.baseAmount}} </td>
+      <td class="td"> {{b.totalAmount}} </td>
+      <td class="td">
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="seeVersions(b)">
+          Aprobar
+        </button>
+      </td>
+      <td class="td">
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="seeVersions(b)">
+        Rechazar
       </button>
-      <button mat-botton color="primary" (click)="seeVersions(b)">
-        Ver
-      </button>
-      <!--<button mat-icon-button color="warn" (click)="deleteProposal(b.id)">
-        <mat-icon>delete</mat-icon>
-      </button>-->
     </td>
-  </tr>
-</table>
+    <td class="td btns">
+      <button type="button" class="btn btn-outline-primary btn-sm action" (click)="seeVersions(b)">
+        Consultar
+      </button>
+      <button type="button" class="btn btn-outline-primary btn-sm action" (click)="editProposal(b)">
+        Editar
+      </button>
+      <button type="button" class="btn btn-outline-danger btn-sm action" (click)="deleteProposal(b.id)">
+        Eliminar
+      </button>
+    </td>
+    </tr>
+  </table>
+</div>
+
 

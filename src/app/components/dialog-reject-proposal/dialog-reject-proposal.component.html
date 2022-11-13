@@ -2,17 +2,26 @@
 
 <label for="text" class="label"> Nombre de la oportunidad </label>
 
-<mat-form-field appearance="outline">
-  <mat-label>Nombre de la oportunidad</mat-label>
-  <input  formControlName="garantia" matInput placeholder="Placeholder">
-</mat-form-field>
+<form action="" [formGroup]="verify">
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre de la oportunidad</mat-label>
+    <input  formControlName="company" matInput placeholder="Placeholder">
+  </mat-form-field>
 
-<mat-form-field appearance="outline">
-  <mat-label>Motivo</mat-label>
-  <input  formControlName="garantia" matInput placeholder="Placeholder">
-</mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Motivo</mat-label>
+    <input  matInput placeholder="Placeholder">
+  </mat-form-field>
 
-<mat-form-field appearance="outline">
-  <mat-label>Observaciones</mat-label>
-  <input  formControlName="garantia" matInput placeholder="Placeholder">
-</mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Observaciones</mat-label>
+    <input   matInput placeholder="Placeholder">
+  </mat-form-field>
+</form>
+
+<div>
+  <button mat-raised-button color="primary" (click)="recha()"> Rechazadar </button>
+
+  <button mat-raised-button mat-dialog-close color="warn">Cancelar</button>
+
+</div>

@@ -1,17 +1,19 @@
 
 export interface commercialProposal  {
-  cliente: string,
-  empresa: string | null,
-  mes: string | null,
-  clienteReferencia: string | null,
-  year: number | null,
-  conceptoServicio: string | null,
-  tipoDeServicio: string | null,
-  estado: string | null,
-  garantia: string | null,
-  moneda: string | null,
-  montoBase: string | null,
-  montoTotal: string| null,
+  company: string | null,
+  customer: string,
+  customerReference: string | null,
+  yearP: number | null,
+  monthP: string | null,
+  servicioConcept: string | null,
+  typeOfService: string | null,
+  currency: string | null,
+  stateP: string | null,
+  baseAmount: number | null,
+  totalAmount: number | null,
+  warranty: string | null,
   version: number | null,
-  idVersionMismaPropuesta: number | null
+  dateVersion: string | null,
+  proposalId:number | null,
+  folder: string | null
 }
