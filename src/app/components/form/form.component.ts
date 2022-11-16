@@ -14,8 +14,8 @@ export class FormComponent implements OnInit {
 
   company = [ 'e1', 'e2']
   customerReference = ['COLSUBSIDIO', 'R2', 'R3', 'R4']
-  customer = ['CSTI', 'C2', 'C3', "C4"]
-  yearP = ['2018', '2020', '2019', '2017', '2022']
+  customer = ['CSTI', 'C2', 'C3', "prueba1", 'CSTI 2']
+  yearP = ['2018', '2020', '2019', '2017', '2022'] 
   monthP = ['oct', 'sep', 'dic', 'ene', 'feb', 'mar']
   typeOfService = ['t1', 't2', 't3', 't4', 't5']
   stateP = ['pendiente', 'rechazado', 'aprobado']

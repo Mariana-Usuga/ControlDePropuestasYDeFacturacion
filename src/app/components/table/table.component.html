@@ -28,7 +28,6 @@
   </div>
 </div>
 
-
 <div class="resultTable">
   <div class="title">
     <div>
@@ -48,10 +47,7 @@
       <th class="th">Concepto De Servicio</th>
       <th class="th">Tipo de Sercicio</th>
       <th class="th">Estado</th>
-      <th class="th">Garantia</th>
-      <th class="th">Moneda</th>
-      <th class="th">Monto base</th>
-      <th class="th">Monto total</th>
+      
       <th class="th">Aprobar</th>
       <th class="th">Rechazar</th>
       <th class="th">Action</th>
@@ -65,26 +61,27 @@
       <td class="td"> {{b.servicioConcept}} </td>
       <td class="td"> {{b.typeOfService}} </td>
       <td class="td"> {{b.stateP}} </td>
-      <td class="td"> {{b.warranty}} </td>
-      <td class="td"> {{b.currency}} </td>
-      <td class="td"> {{b.baseAmount}} </td>
-      <td class="td"> {{b.totalAmount}} </td>
-      <td class="td">
-        <button type="button" class="btn btn-outline-primary btn-sm" (click)="seeVersions(b)">
-          Aprobar
-        </button>
+      <td class="td" > 
+          <button id="tdApprove" type="button" class="btn btn-outline-primary btn-sm"
+          (click)="openDialogApprove(b)">
+           Aprobar
+          </button>
       </td>
-      <td class="td">
-        <button type="button" class="btn btn-outline-danger btn-sm" (click)="seeVersions(b)">
+      <td class="td" >
+        <button id="tdApprove" type="button" class="btn btn-outline-danger btn-sm" 
+        (click)="openRecha(b)">
         Rechazar
       </button>
     </td>
     <td class="td btns">
-      <button type="button" class="btn btn-outline-primary btn-sm action" (click)="seeVersions(b)">
+      <button type="button" class="btn btn-outline-primary btn-sm action" (click)="consultProposal(b)">
         Consultar
       </button>
       <button type="button" class="btn btn-outline-primary btn-sm action" (click)="editProposal(b)">
         Editar
+      </button>
+      <button type="button" class="btn btn-outline-danger btn-sm action" (click)="seeVersions(b.id)">
+        Historico
       </button>
       <button type="button" class="btn btn-outline-danger btn-sm action" (click)="deleteProposal(b.id)">
         Eliminar

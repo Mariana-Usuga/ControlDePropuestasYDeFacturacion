@@ -7,6 +7,9 @@ import { Subscription } from 'rxjs';
 import { DialogAddProposalComponent } from '../dialog-add-proposal/dialog-add-proposal.component';
 import { DialogSeeVersionsComponent } from '../dialog-see-versions/dialog-see-versions.component';
 import Swal from 'sweetalert2';
+import { DialogSeeProposalComponent } from '../dialog-see-proposal/dialog-see-proposal.component';
+import { DialogApproveProposalComponent } from '../dialog-approve-proposal/dialog-approve-proposal.component';
+import { DialogRejectProposalComponent } from '../dialog-reject-proposal/dialog-reject-proposal.component';
 
 const swalWithBootstrapButtons = Swal.mixin({
   customClass: {
@@ -23,6 +26,7 @@ const swalWithBootstrapButtons = Swal.mixin({
 })
 export class TableComponent implements OnInit {
 
+  dis: boolean = true;
   subcription: Subscription | undefined;
 
   constructor(private businessProposalService: BusinessProposalService,
@@ -74,8 +78,24 @@ export class TableComponent implements OnInit {
       this.filtrosObject = obj
     })
   }
+  //#approve [disabled]="!dis ? true : null"
+  /*setDisabled(statep: string){
+    if(statep === "aprobado" || statep === "rechazado"){
+      console.log('aprobado')
+      this.dis = false;
+      return false;
+     }
+  }*/
+
+  state(state: string){
+    if(state === "aprobado" || state === "rechazado"){
+      console.log('aprobado')
+      this.dis = false;
+    }
+  }
 
   export(): void{
+    console.log('this', this.dataSource)
     this.businessProposalService.exportToExcel(this.dataSource, 'my_export')
   }
 
@@ -84,11 +104,12 @@ buscar(){
     this.businessProposalService.getBusinessProposal(this.filtrosObject).subscribe(
       (res) => {
         if(res.length === 0){
+          console.log('res', res)
           alert('no hay datos que coincidencia con la busqueda')
         }else{
           console.log('res', res)
-
-          let lookupObject: any = {};
+          this.dataSource = res
+          /*let lookupObject: any = {};
           const prop = "idVersionMismaPropuesta"
 
           for(var a in res) {
@@ -97,7 +118,7 @@ buscar(){
 
           for(a in lookupObject) {
               this.dataSource.push(lookupObject[a]);
-          }
+          }*/
         }
       },
       (err) => console.log('ha ocurrido un error', err),
@@ -115,6 +136,20 @@ editProposal(row: commercialProposal){
   this.dialog.open(DialogAddProposalComponent, {
     width: '70%',
     data:row
+  });
+}
+
+hostoricalProposal(row: commercialProposal){
+  this.dialog.open(DialogSeeVersionsComponent, {
+    width: '50%',
+    data:row
+  });
+}
+
+consultProposal(pro: commercialProposal){
+  this.dialog.open(DialogSeeProposalComponent, {
+    width: '70%',
+    data: pro
   });
 }
 
@@ -169,5 +204,29 @@ seeVersions(row: commercialProposal){
     width: '50%',
     data:row
   });
+}
+
+openDialogApprove(row: commercialProposal){
+  if(row.stateP != "pendiente"){
+    alert('no puedes hacer esta accion')
+    document.getElementById("tdApprove")?.classList.add('disabled')
+  }else{
+    this.dialog.open(DialogApproveProposalComponent, {
+      width: '70%',
+      data:row
+    });
+  }
+}
+
+openRecha(row: commercialProposal){
+  if(row.stateP != "pendiente"){
+    alert('no puedes hacer esta accion')
+    document.getElementById("tdReject")?.classList.add('disabled')
+  }else{
+  this.dialog.open(DialogRejectProposalComponent, {
+    width: '70%',
+    data: row
+  });
+  }
 }
 }

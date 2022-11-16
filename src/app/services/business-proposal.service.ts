@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { commercialProposal } from '../models/interfaces/commercialProposal.interfaces';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpEvent, HttpParams, HttpRequest } from '@angular/common/http';
-//import * as FileSaver from 'file-saver';
-import { FileSaver } from 'file-saver';
-
+import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import { DatePipe } from '@angular/common';
 const EXCEL_TYPE =

@@ -18,7 +18,7 @@
 }
 .tableB{
   table-layout: fixed;
-  margin: 10px;
+  margin: 20px auto;
 }
 
 .thead{
@@ -63,4 +63,7 @@
 }
 
 
-
+.disabled{
+  background-color: rgba(84, 80, 80, 0.2);
+  color: rgba(57, 55, 55, 0.2)
+}
