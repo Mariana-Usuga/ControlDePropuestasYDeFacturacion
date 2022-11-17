@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { commercialProposal } from 'src/app/models/interfaces/commercialProposal.interfaces';
 import { BusinessProposalService } from 'src/app/services/business-proposal.service';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { DialogAddProposalComponent } from '../dialog-add-proposal/dialog-add-proposal.component';
@@ -10,14 +9,6 @@ import Swal from 'sweetalert2';
 import { DialogSeeProposalComponent } from '../dialog-see-proposal/dialog-see-proposal.component';
 import { DialogApproveProposalComponent } from '../dialog-approve-proposal/dialog-approve-proposal.component';
 import { DialogRejectProposalComponent } from '../dialog-reject-proposal/dialog-reject-proposal.component';
-
-const swalWithBootstrapButtons = Swal.mixin({
-  customClass: {
-    confirmButton: 'btn btn-success',
-    cancelButton: 'btn btn-danger'
-  },
-  buttonsStyling: true
-})
 
 @Component({
   selector: 'app-table',
@@ -78,14 +69,6 @@ export class TableComponent implements OnInit {
       this.filtrosObject = obj
     })
   }
-  //#approve [disabled]="!dis ? true : null"
-  /*setDisabled(statep: string){
-    if(statep === "aprobado" || statep === "rechazado"){
-      console.log('aprobado')
-      this.dis = false;
-      return false;
-     }
-  }*/
 
   state(state: string){
     if(state === "aprobado" || state === "rechazado"){
@@ -109,16 +92,6 @@ buscar(){
         }else{
           console.log('res', res)
           this.dataSource = res
-          /*let lookupObject: any = {};
-          const prop = "idVersionMismaPropuesta"
-
-          for(var a in res) {
-             lookupObject[res[a][prop]] = res[a];
-          }
-
-          for(a in lookupObject) {
-              this.dataSource.push(lookupObject[a]);
-          }*/
         }
       },
       (err) => console.log('ha ocurrido un error', err),

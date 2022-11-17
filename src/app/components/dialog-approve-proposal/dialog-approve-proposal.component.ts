@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { commercialProposal } from 'src/app/models/interfaces/commercialProposal.interfaces';
 import { BusinessProposalService } from 'src/app/services/business-proposal.service';
 import Swal from 'sweetalert2';
 
@@ -24,6 +23,26 @@ export class DialogApproveProposalComponent implements OnInit {
   }
 
     cambio: any = {
+      //id: this.proposalSee.id,
+      customer: this.proposalSee.customer,
+      company: this.proposalSee.company,
+      monthP: this.proposalSee.monthP,
+      customerReference: this.proposalSee.customerReference,
+      yearP: this.proposalSee.yearP,
+      servicioConcept: this.proposalSee.servicioConcept,
+      typeOfService: this.proposalSee.typeOfService,
+      stateP: "aprobado",
+      warranty: this.proposalSee.warranty,
+      currency: this.proposalSee.currency,
+      baseAmount: this.proposalSee.baseAmount,
+      totalAmount: this.proposalSee.totalAmount,
+      version: this.proposalSee.version,
+      proposalId: this.proposalSee.proposalId,
+      dateVersion: this.proposalSee.dateVersion,
+      folder: this.proposalSee.folder
+    }
+
+    approvedProposal: any = {
       id: this.proposalSee.id,
       customer: this.proposalSee.customer,
       company: this.proposalSee.company,
@@ -39,15 +58,31 @@ export class DialogApproveProposalComponent implements OnInit {
       totalAmount: this.proposalSee.totalAmount,
       version: this.proposalSee.version,
       proposalId: this.proposalSee.proposalId,
-      dateVersion: this.proposalSee.dateVersion
+      dateVersion: this.proposalSee.dateVersion,
+      folder: this.proposalSee.folder
     }
 
   aprovar(){
     console.log('cambio', this.cambio)
     console.log('nameprop', this.verify.value.company, 'sacs',this.proposalSee.company)
+
     if(this.verify.value.company === this.proposalSee.company){
-      this.businessProposalService.putStateOfProposal(this.cambio).subscribe(
+      this.businessProposalService.addApprovedProposal(this.cambio).subscribe(
       (res) => {
+        this.businessProposalService.putStateOfProposal(this.approvedProposal).subscribe(
+          (res) => {
+            console.log('res', res)
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Propuesta Aprobada',
+              showConfirmButton: false,
+              timer: 2000
+            })
+          },
+          (err) => console.log('ha ocurrido un error', err),
+              () => console.info('se ha completado la llamada')
+        )
         console.log('res', res)
         Swal.fire({
           position: 'top-end',
@@ -60,7 +95,8 @@ export class DialogApproveProposalComponent implements OnInit {
       (err) => console.log('ha ocurrido un error', err),
           () => console.info('se ha completado la llamada')
     )
-    }else{
+    }
+    else{
       Swal.fire({
         position: 'top-end',
         icon: 'success',

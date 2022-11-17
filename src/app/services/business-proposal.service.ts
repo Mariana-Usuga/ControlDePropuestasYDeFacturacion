@@ -51,7 +51,6 @@ export class BusinessProposalService {
   private saveAsExcel(buffer:any, fileName:string): void{
     const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
     FileSaver.saveAs(data, fileName + '_export_'+ 'proposal' + EXCEL_EXT);
-
   }
 
   putStateOfProposal(proposal: commercialProposal): Observable<any>{
@@ -76,7 +75,16 @@ export class BusinessProposalService {
 
   putProposal(data: commercialProposal): Observable<any>{
     console.log('entra en servicio PUT', data)
-    return this.http.post('http://localhost:8080/proposal', data)
+    return this.http.put('http://localhost:8080/proposal', data)
+  }
+  addNewVersion(proposal: object): Observable<any>{
+    console.log('proposal', proposal);
+    return this.http.post('http://localhost:8080/proposal/version', proposal)
+  }
+
+  addApprovedProposal(proposal: object): Observable<any>{
+    console.log('proposal', proposal);
+    return this.http.post('http://localhost:8080/approvedProposal', proposal)
   }
 
   uploadFile(file: any): Observable<HttpEvent<any>> {
@@ -95,16 +103,7 @@ export class BusinessProposalService {
     return this.http.request(req);
   }
 
-  /*upload(file: any):Observable<any> {
-    console.log('file', file)
-    const formData = new FormData();
-    formData.append("file", file, file.name);
-    console.log('formData', formData)
-    return this.http.post('http://localhost:8080/proposal/upload', formData)
-}*/
-
   deleteProposal(id: number): Observable<any>{
-
     return this.http.delete('http://localhost:8080/proposal/'+ id)
   }
 

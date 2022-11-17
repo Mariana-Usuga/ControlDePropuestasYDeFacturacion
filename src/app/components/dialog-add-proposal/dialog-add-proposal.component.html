@@ -1,111 +1,94 @@
 
-<h1> Crear oportunidad</h1>
+<h2> Crear oportunidad</h2>
 
-<div mat-dialog-content>
   <form class="form" action="" [formGroup]="newProposal">
-  <mat-form-field appearance="outline">
-    <mat-label>Empresa</mat-label>
-    <mat-select formControlName="company" placeholder="Empresa">
-      <mat-option value="e1">e1</mat-option>
-      <mat-option value="e2">e2</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Cliente</mat-label>
-    <mat-select formControlName="customer" placeholder="Cliente">
-      <mat-option value="CSTI">CSTI</mat-option>
-      <mat-option value="C1">c1</mat-option>
-      <mat-option value="C2">c2</mat-option>
-      <mat-option value="C3">c3</mat-option>
-      <mat-option value="C4">c4</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Cliente Referencia</mat-label>
-    <mat-select formControlName="customerReference" placeholder="Cliente Referencia">
-      <mat-option value="COLSUBSIDIO">COLSUBSUDIO</mat-option>
-      <mat-option value="CR2">r2</mat-option>
-      <mat-option value="CR3">r3</mat-option>
-      <mat-option value="CR4">r4</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Concepto de Servicio</mat-label>
-    <input formControlName="servicioConcept" matInput placeholder="Placeholder">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Tipo de servicio</mat-label>
-    <mat-select  formControlName="typeOfService" placeholder="Tipo de servicio">
-      <mat-option value="tipo 2">tipo 2</mat-option>
-      <mat-option value="t1">t1</mat-option>
-      <mat-option value="t3">t3</mat-option>
-      <mat-option value="t4">t4</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Año</mat-label>
-    <mat-select type="number" formControlName="yearP" placeholder="Año">-->
-      <!--<input type="number"  formControlName="yearP" matInput placeholder="Placeholder">-->
-      <mat-option *ngFor="let b of years" [value]="b"> {{b}} </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Mes</mat-label>
-    <mat-select formControlName="monthP" placeholder="Mes">
-      <mat-option value="oct">oct</mat-option>
-      <mat-option value="nov">nov</mat-option>
-      <mat-option value="dic">dic</mat-option>
-      <mat-option value="ene">ene</mat-option>
-      <mat-option value="sep">sep</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Estado</mat-label>
-    <mat-select  formControlName="stateP" placeholder="Estado">
-      <mat-option value="aprobado">Aprobado</mat-option>
-      <mat-option value="rechazado">Rechazado</mat-option>
-      <mat-option value="pendiente">Pendiente</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Garantia</mat-label>
-    <input  formControlName="warranty" matInput placeholder="Placeholder">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Monto base</mat-label>
-    <input type="number"  formControlName="baseAmount" matInput placeholder="Placeholder">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Monto total</mat-label>
-    <input type="number" formControlName="totalAmount" matInput placeholder="Placeholder">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Moneda</mat-label>
-    <mat-select formControlName="currency" placeholder="Moneda">
-      <mat-option value="dolares">dolares</mat-option>
-      <mat-option value="m2">m2</mat-option>
-      <mat-option value="m3">m3</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Folder</mat-label>
-    <input type="number" formControlName="folder" matInput placeholder="Placeholder">
-  </mat-form-field>
-
+      <mat-form-field appearance="legacy" class="mx-4">
+        <mat-label>Empresa</mat-label>
+        <mat-select formControlName="company" placeholder="Empresa">
+          <mat-option *ngFor="let b of company" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field appearance="legacy" class="mx-4">
+        <mat-label>Cliente</mat-label>
+        <mat-select formControlName="customer" placeholder="Cliente">
+          <mat-option *ngFor="let b of customer" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field appearance="legacy" class="mx-4">
+        <mat-label>Cliente Referencia</mat-label>
+        <mat-select formControlName="customerReference" placeholder="Cliente Referencia">
+          <mat-option *ngFor="let b of customerReference" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field appearance="legacy" class="mx-4">
+        <mat-label>Concepto de Servicio</mat-label>
+        <input formControlName="servicioConcept" matInput placeholder="Placeholder">
+      </mat-form-field>
+    
+      <mat-form-field appearance="legacy" class="mx-4">
+        <mat-label>Tipo de servicio</mat-label>
+        <mat-select  formControlName="typeOfService" placeholder="Tipo de servicio">
+          <mat-option *ngFor="let b of typeOfService" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field appearance="legacy" class="mx-4">
+        <mat-label>Año</mat-label>
+        <mat-select type="number" formControlName="yearP" placeholder="Año">-->
+          <mat-option *ngFor="let b of years" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field appearance="legacy" class="mx-4">
+        <mat-label>Mes</mat-label>
+        <mat-select formControlName="monthP" placeholder="Mes">
+          <mat-option value="oct">oct</mat-option>
+          <mat-option value="nov">nov</mat-option>
+          <mat-option value="dic">dic</mat-option>
+          <mat-option value="ene">ene</mat-option>
+          <mat-option value="sep">sep</mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field appearance="legacy" class="mx-4">
+        <mat-label>Estado</mat-label>
+        <mat-select  formControlName="stateP" placeholder="Estado">
+          <mat-option *ngFor="let b of stateP" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field appearance="legacy" class="mx-4">
+        <mat-label>Garantia</mat-label>
+        <input  formControlName="warranty" matInput placeholder="Placeholder">
+      </mat-form-field>
+    
+      <mat-form-field appearance="legacy" class="mx-4">
+        <mat-label>Monto base</mat-label>
+        <input type="number"  formControlName="baseAmount" matInput placeholder="Placeholder">
+      </mat-form-field>
+    
+      <mat-form-field appearance="legacy" class="mx-4">
+        <mat-label>Monto total</mat-label>
+        <input type="number" formControlName="totalAmount" matInput placeholder="Placeholder">
+      </mat-form-field>
+    
+      <mat-form-field appearance="legacy" class="mx-4">
+        <mat-label>Moneda</mat-label>
+        <mat-select formControlName="currency" placeholder="Moneda">
+          <mat-option value="dolares">dolares</mat-option>
+          <mat-option value="m2">m2</mat-option>
+          <mat-option value="m3">m3</mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field appearance="outline" class="d-none">
+        <mat-label>Folder</mat-label>
+        <input type="number" formControlName="folder" matInput placeholder="Placeholder">
+      </mat-form-field>
 </form>
-</div>
 
 <div class="containerBtn">
   <div class="btn">

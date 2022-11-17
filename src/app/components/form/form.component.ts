@@ -3,7 +3,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { commercialProposal } from 'src/app/models/interfaces/commercialProposal.interfaces';
 import { BusinessProposalService } from 'src/app/services/business-proposal.service';
+import { DataFiltersService } from 'src/app/services/dataFilters/dataFilters.service';
 
+export interface data {
+  name: string
+}
 
 @Component({
   selector: 'app-form',
@@ -12,22 +16,43 @@ import { BusinessProposalService } from 'src/app/services/business-proposal.serv
 })
 export class FormComponent implements OnInit {
 
-  company = [ 'e1', 'e2']
-  customerReference = ['COLSUBSIDIO', 'R2', 'R3', 'R4']
-  customer = ['CSTI', 'C2', 'C3', "prueba1", 'CSTI 2']
-  yearP = ['2018', '2020', '2019', '2017', '2022'] 
-  monthP = ['oct', 'sep', 'dic', 'ene', 'feb', 'mar']
-  typeOfService = ['t1', 't2', 't3', 't4', 't5']
-  stateP = ['pendiente', 'rechazado', 'aprobado']
-  currency = ['dolares']
+  company: Array<String> = []
+  //company: data[] | undefined;
+  customer: Array<String> = []
+  customerReference: Array<String> = []
+  yearP: Array<String> = ['2022', '2021', '2009']
+  monthP: Array<String> = []
+  typeOfService: Array<String> = []
+  stateP: Array<String> = []
+  currency: Array<String> = ['dolares']
 
   filtersLabel = ['Cliente', 'Cliente referencia', 'Tipo de servicio', 'Empresa factura',
   'Year', 'Mes', 'Moneda', 'Estado']
   dataSource: MatTableDataSource<commercialProposal> | any
 
-  constructor(private businessProposalService: BusinessProposalService) {}
+  constructor(private businessProposalService: BusinessProposalService,
+    private dataFiltersService: DataFiltersService) {}
 
   ngOnInit(): void {
+    this.dataFiltersService.getAllCompany().subscribe((res) => {
+        this.company = res.data.map((r: any) => r.name)
+      })
+
+    this.dataFiltersService.getAllCustomer().subscribe((res) => {
+        this.customer = res.data.map((r: any) => r.name)
+      })
+
+    this.dataFiltersService.getAllCustomerReference().subscribe((res) => {
+      this.customerReference = res.data.map((r: any) => r.name)
+    })
+
+    this.dataFiltersService.getAllTypeOfService().subscribe((res) => {
+      this.typeOfService = res.data.map((r: any) => r.name)
+    })
+
+    this.dataFiltersService.getAllState().subscribe((res) => {
+      this.stateP = res.data.map((r: any) => r.name)
+    })
     this.dataSource = []
   }
 
