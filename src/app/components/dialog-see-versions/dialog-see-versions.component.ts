@@ -11,6 +11,7 @@ import { DialogSeeProposalComponent } from '../dialog-see-proposal/dialog-see-pr
 export class DialogSeeVersionsComponent implements OnInit {
 
   dataSource: any[] = [];
+  noMoreVersions: boolean = false;
 
   constructor(public dialog: MatDialog,  @Inject(MAT_DIALOG_DATA) public proposalSee: any,
   private businessProposalService: BusinessProposalService
@@ -20,18 +21,22 @@ export class DialogSeeVersionsComponent implements OnInit {
     console.log('this.proposalSee.proposalId', this.proposalSee)
     this.businessProposalService.getByVersionProposal(this.proposalSee.id).subscribe(
       (res)=>{
-        for(let le of res){
-
-          const gf = Date.parse(le.dateVersion)
-          const h = new Date(gf)
-          console.log('d', h.getMonth())
-          const d = `${h.getFullYear()}/${h.getMonth()}/${h.getDay()}`
-          this.dataSource.push({
-            dateVersion: d,
-            version: le.version
-          })
+        console.log('res', res)
+        if(res === null){
+          this.noMoreVersions = true
+        }else{
+          for(let le of res){
+            const gf = Date.parse(le.dateVersion)
+            const h = new Date(gf)
+            console.log('d', h.getMonth())
+            const d = `${h.getFullYear()}/${h.getMonth()}/${h.getDay()}`
+            this.dataSource.push({
+              dateVersion: d,
+              version: le.version
+            })
+          }
+          console.log('ddata source', this.dataSource)
         }
-        console.log('ddata source', this.dataSource)
       },
       (err) => console.log('ha ocurrido un error', err),
           () => console.info('se ha completado la llamada')

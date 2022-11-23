@@ -17,11 +17,7 @@ export class DialogAddProposalComponent implements OnInit {
   wayToPayDaysNumber: Number = 0;
   totalAmount: Number = 0;
   base: Number = 0;
-  /*tax: Object = {
-    COP: 19,
-    PEN: 18,
-    USD: 12
-  }*/
+  
   action: String = 'Crear';
   years = [2022, 2019, 2018, 2017];
   company: Array<String> = []
@@ -34,10 +30,14 @@ export class DialogAddProposalComponent implements OnInit {
   currency: Array<String> = ['dolares']
 
   newProposal!: FormGroup
+  newProposalContact!: FormGroup
+  idProposalContact: number = 0;
   accionBtn: string = "Guardar"
   shortLink: string = "";
   loading: boolean = false; // Flag variable
+  idNewProposal: number = 0;
   file = ""; // Variable to store file
+  disabled: boolean = false;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -93,10 +93,12 @@ export class DialogAddProposalComponent implements OnInit {
       telephoneContact: ['', Validators.required]
     })
 
-    /*this.newProposal.controls['wayToPayDays'].setValue(this.wayToPayDaysNumber)
-    if(this.newProposal.value.wayToPay === "contado"){
-
-    }*/
+    this.newProposalContact = this.formBuilder.group({
+      fullName: ['', Validators.required],
+      email: ['', Validators.required],
+      phoneNumber: [''],
+      idProposal: ['']
+    })
 
     if(this.editData){
       this.accionBtn = "Editar"
@@ -105,15 +107,18 @@ export class DialogAddProposalComponent implements OnInit {
       this.newProposal.controls['customerReference'].setValue(this.editData.customerReference)
       this.newProposal.controls['servicioConcept'].setValue(this.editData.servicioConcept)
       this.newProposal.controls['typeOfService'].setValue(this.editData.typeOfService)
-      this.newProposal.controls['yearP'].setValue(this.editData.yearP)
-      this.newProposal.controls['monthP'].setValue(this.editData.monthP)
-      //this.newProposal.controls['stateP'].setValue(this.editData.stateP)
       this.newProposal.controls['wayToPay'].setValue(this.editData.wayToPay)
       this.newProposal.controls['wayToPayDays'].setValue(this.editData.wayToPayDays)
       this.newProposal.controls['baseAmount'].setValue(this.editData.baseAmount)
       this.newProposal.controls['totalAmount'].setValue(this.editData.totalAmount)
       this.newProposal.controls['currency'].setValue(this.editData.currency)
       this.newProposal.controls['folder'].setValue(this.editData.folder)
+      this.newProposal.controls['code'].setValue(this.editData.code)
+      this.getContacts()
+      this.disabled = true
+      //const company = document.querySelector('#companyOption')
+      //company.disabled = true
+
     }
   }
 
@@ -145,6 +150,21 @@ export class DialogAddProposalComponent implements OnInit {
     this.file = event.target.files;
 }
 
+getContacts(){
+  console.log('this.editData.id', this.editData.id)
+  this.businessProposalService.getContacts(this.editData.id).subscribe(
+    (res) => {
+      console.log('res', res)
+      this.idProposalContact = res.id
+      this.newProposalContact.controls['fullName'].setValue(res.fullName)
+      this.newProposalContact.controls['email'].setValue(res.email)
+      this.newProposalContact.controls['phoneNumber'].setValue(res.phoneNumber)
+    },
+    (err) => console.log('ha ocurrido un error', err),
+    () => console.info('se ha completado la llamada')
+  )
+}
+
   addProposal(){
     this.action = 'Crear';
     if(this.file.length > 5){
@@ -156,8 +176,6 @@ export class DialogAddProposalComponent implements OnInit {
 
           const formData = new FormData();
           formData.append("file", this.file[0]);
-          console.log('file', this.file)
-          console.log('formdat', formData)
           
             this.http.post<any>("http://localhost:8080/proposal/upload", formData).subscribe(
               (res) => {
@@ -187,13 +205,11 @@ export class DialogAddProposalComponent implements OnInit {
                 this.businessProposalService.addNewProposal(data).subscribe(
                   (res) => {
                     console.log('res', res)
-                    Swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: 'La propuesta se ha creado',
-                      showConfirmButton: false,
-                      timer: 2000
-                    })
+                    //this.idNewProposal = res.data.id
+                    this.newProposalContact.controls['idProposal'].setValue(res.data.id)
+                    if(res.success){
+                      this.newContact();
+                    }
                   },
                   (err) => console.log('ha ocurrido un error', err),
                   () => console.info('se ha completado la llamada')
@@ -203,9 +219,7 @@ export class DialogAddProposalComponent implements OnInit {
               },
               (err) => {
                 console.log('err', err)
-              }
-            )
-        }
+              })}
   }else{
     console.log('entra en update')
     this.updateProposal();
@@ -214,8 +228,42 @@ export class DialogAddProposalComponent implements OnInit {
    }
 }
 
+newContact(){
+  this.businessProposalService.addNewProposalContact(this.newProposalContact.value).subscribe(
+    (res) => {
+      console.log('res contact', res)
+     if(res){
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'La propuesta se ha creado',
+        showConfirmButton: false,
+        timer: 2000
+      })
+     }
+    },
+    (err) => console.log('ha ocurrido un error', err),
+        () => console.info('se ha completado la llamada')
+    )
+}
+
   updateProposal(){
     console.log('new', this.newProposal.value, 'update', this.editData)
+    const contact = {
+      id: this.idProposalContact,
+      fullName: this.newProposalContact.value.fullName,
+      email:  this.newProposalContact.value.email,
+      phoneNumber:  this.newProposalContact.value.phoneNumber,
+      idProposal: this.editData.id
+    }
+    this.businessProposalService.putContact(contact).subscribe(
+      (res) => {
+        console.log('res', res)
+        if(res === null){
+          console.log('no tiene contacto')
+        }
+      }
+    )
     const data1 = {
       id:  this.editData.id,
       company: this.newProposal.value.company,

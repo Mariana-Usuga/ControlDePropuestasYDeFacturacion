@@ -5,6 +5,7 @@ import { HttpClient, HttpEvent, HttpParams, HttpRequest } from '@angular/common/
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import { DatePipe } from '@angular/common';
+import { proposalContact } from '../models/interfaces/ProposalContact.interface';
 const EXCEL_TYPE =
 'application/vnd.openxmlformats-officedocument.spredsheetml-sheet; charset=UTF-8';
 const EXCEL_EXT = '.xlsx';
@@ -102,6 +103,18 @@ export class BusinessProposalService {
     const req = new HttpRequest('POST', 'http://localhost:8080/proposal/upload',
     formData, options);
     return this.http.request(req);
+  }
+
+  addNewProposalContact(contact: any) {
+    return this.http.post('http://localhost:8080/contact', contact)
+  }
+
+  getContacts(id: number): Observable<any>{
+    return this.http.get('http://localhost:8080/contact/'+ id)
+  }
+
+  putContact(contact: proposalContact): Observable<any>{
+    return this.http.put('http://localhost:8080/contact', contact )
   }
 
   deleteProposal(id: number): Observable<any>{

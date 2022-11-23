@@ -6,28 +6,28 @@
     <div>{{proposal.company}}</div>
   </div>
   <div class="item">
-    <div class="subtitle">Tipo de servicio</div>
-    <div>{{proposal.typeOfService}}</div>
-  </div>
-  <!--<div class="item">
-    <div class="subtitle">Año</div>
-    <div>{{proposal.yearP}}</div>
-  </div>-->
-  <div class="item">
-    <div class="subtitle">Moneda</div>
-    <div>{{proposal.currency}}</div>
+    <div class="subtitle">Cliente</div>
+    <div> {{proposal.customer}}</div>
   </div>
   <div class="item">
     <div class="subtitle">Cliente Referencia</div>
     <div> {{proposal.customerReference}}</div>
   </div>
-  <!--<div class="item">
-    <div class="subtitle">Mes</div>
-    <div> {{proposal.monthP}}</div>
-  </div>-->
   <div class="item">
-    <div class="subtitle">Garantia</div>
-    <div> {{proposal.wayToPay}}</div>
+    <div class="subtitle">Tipo de servicio</div>
+    <div>{{proposal.typeOfService}}</div>
+  </div>
+  <div class="item">
+    <div class="subtitle">Servicio concepto</div>
+    <div>{{proposal.servicioConcept}}</div>
+  </div>
+  <div class="item">
+    <div class="subtitle">Estado</div>
+    <div>{{proposal.stateP}}</div>
+  </div>
+  <div class="item">
+    <div class="subtitle">Moneda</div>
+    <div>{{proposal.currency}}</div>
   </div>
   <div class="item">
     <div class="subtitle">Monto total</div>
@@ -37,12 +37,26 @@
     <div class="subtitle">Monto Base</div>
     <div> {{proposal.baseAmount}}</div>
   </div>
+  <div class="item">
+    <div class="subtitle">Forma de pago</div>
+    <div> {{proposal.wayToPay}}</div>
+  </div>
+  <div class="item">
+    <div class="subtitle">Dias de pago</div>
+    <div> {{proposal.wayToPayDays}}</div>
+  </div>
+  <div class="item">
+    <div class="subtitle">Creado por</div>
+    <div> {{proposal.creatorUser}}</div>
+  </div>
 
   <div class="btnCreate" (click)="export()">
+    <div class="d-inline me-3">Descargar archivos de la propuesta</div>
     <button _ngcontent-cgx-c245="" type="button" class="btn btn-outline-primary
-          btn-border-radius">
+          btn-border-radius d-inline">
             <span _ngcontent-cgx-c245="" class="mobile-hide">
-              Export
+              <mat-icon class="fs-6">arrow_downward</mat-icon>
+               Archivos
             </span>
           </button>
   </div>

@@ -5,21 +5,21 @@
       <mat-form-field appearance="legacy" class="mx-4">
         <mat-label>Empresa</mat-label>
         <mat-select formControlName="company" placeholder="Empresa">
-          <mat-option *ngFor="let b of company" [value]="b"> {{b}} </mat-option>
+          <mat-option [disabled]="disabled" id="companyOption" *ngFor="let b of company" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     
       <mat-form-field appearance="legacy" class="mx-4">
         <mat-label>Cliente</mat-label>
         <mat-select formControlName="customer" placeholder="Cliente">
-          <mat-option *ngFor="let b of customer" [value]="b"> {{b}} </mat-option>
+          <mat-option [disabled]="disabled" id="customer" *ngFor="let b of customer" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     
       <mat-form-field appearance="legacy" class="mx-4">
         <mat-label>Cliente Referencia</mat-label>
         <mat-select formControlName="customerReference" placeholder="Cliente Referencia">
-          <mat-option *ngFor="let b of customerReference" [value]="b"> {{b}} </mat-option>
+          <mat-option [disabled]="disabled" *ngFor="let b of customerReference" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     
@@ -65,36 +65,40 @@
 
       <mat-form-field appearance="legacy" class="mx-4">
         <mat-label>Codigo</mat-label>
-        <input type="text" formControlName="code" matInput placeholder="Placeholder">
+        <input matInput [readonly]="disabled"
+         type="text" formControlName="code" matInput placeholder="Placeholder">
       </mat-form-field>
 
       <mat-form-field appearance="legacy" class="col-8">
           <mat-label>Concepto de Servicio</mat-label>
-          <textarea formControlName="servicioConcept" matInput placeholder="Ex. It makes me feel...">
+          <textarea formControlName="servicioConcept" 
+          matInput placeholder="Ex. It makes me feel...">
           </textarea>
         </mat-form-field>
 
-        <h6>Contacto de la propuesta</h6>
+        <mat-form-field appearance="outline" class="d-none">
+          <mat-label>Folder</mat-label>
+          <input type="number" formControlName="folder" matInput placeholder="Placeholder">
+        </mat-form-field>
+</form>
+
+<h5>Contacto de la propuesta</h5>
+<form action="" [formGroup]="newProposalContact">
         <mat-form-field appearance="legacy" class="mx-4">
           <mat-label>Nombre Completo</mat-label>
-          <input type="text" formControlName="code" matInput placeholder="Placeholder">
+          <input type="text" formControlName="fullName" matInput placeholder="Placeholder">
         </mat-form-field>
 
         <mat-form-field appearance="legacy" class="mx-4">
           <mat-label>Correo</mat-label>
-          <input type="text" formControlName="code" matInput placeholder="Placeholder">
+          <input type="text" formControlName="email" matInput placeholder="Placeholder">
         </mat-form-field>
 
         <mat-form-field appearance="legacy" class="mx-4">
           <mat-label>Telefono</mat-label>
-          <input type="text" formControlName="code" matInput placeholder="Placeholder">
+          <input type="number" formControlName="phoneNumber" matInput placeholder="Placeholder">
         </mat-form-field>
-    
-      <mat-form-field appearance="outline" class="d-none">
-        <mat-label>Folder</mat-label>
-        <input type="number" formControlName="folder" matInput placeholder="Placeholder">
-      </mat-form-field>
-</form>
+    </form>
 
 <div class="containerBtn">
   <div class="btn">
