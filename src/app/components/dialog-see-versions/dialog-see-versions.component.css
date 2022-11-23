@@ -13,6 +13,10 @@
   /*padding: 5px;*/
 
 }
+.thead{
+  background-color: #f8f8f8;
+  color: #00008b;
+}
 
 .action{
   margin: 0 3px 0 3px;

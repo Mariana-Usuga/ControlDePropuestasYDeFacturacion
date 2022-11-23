@@ -1,3 +1,4 @@
+import { NgIfContext } from '@angular/common';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -13,9 +14,17 @@ import Swal from 'sweetalert2';
 })
 export class DialogAddProposalComponent implements OnInit {
 
+  wayToPayDaysNumber: Number = 0;
+  totalAmount: Number = 0;
+  base: Number = 0;
+  /*tax: Object = {
+    COP: 19,
+    PEN: 18,
+    USD: 12
+  }*/
+  action: String = 'Crear';
   years = [2022, 2019, 2018, 2017];
   company: Array<String> = []
-  //company: data[] | undefined;
   customer: Array<String> = []
   customerReference: Array<String> = []
   yearP: Array<String> = ['2022', '2021', '2009']
@@ -57,33 +66,37 @@ export class DialogAddProposalComponent implements OnInit {
   this.dataFiltersService.getAllState().subscribe((res) => {
     this.stateP = res.data.map((r: any) => r.name)
   })
-
-    console.log('this.editData', this.editData)
-    let idVersion =  Math.floor(Math.random() * (10000 - 100) + 100);
-    let v = 1
+    let v = null;
 
     if(this.editData != null){
-      idVersion = this.editData.proposalId;
-      v = this.editData.version + 1;
+      v = 1;
     }
 
     this.newProposal = this.formBuilder.group({
+      code: ['', Validators.required],
       company: ['', Validators.required],
       customer: ['', Validators.required],
       customerReference: [''],
-      yearP: [''],
-      monthP: ['', Validators.required],
       servicioConcept: [''],
       typeOfService: ['', Validators.required],
       currency: [''],
-      stateP: [''],
+      stateP: ['pendiente'],
       baseAmount: [''],
       totalAmount: [''],
-      warranty: [''],
       version: [v, Validators.required],
       dateVersion: [new Date(), Validators.required],
-      folder: ['']
+      folder: [''],
+      wayToPay: ['', Validators.required],
+      wayToPayDays: [''],
+      creatorUser: ['', Validators.required],
+      proposalContact: ['', Validators.required],
+      telephoneContact: ['', Validators.required]
     })
+
+    /*this.newProposal.controls['wayToPayDays'].setValue(this.wayToPayDaysNumber)
+    if(this.newProposal.value.wayToPay === "contado"){
+
+    }*/
 
     if(this.editData){
       this.accionBtn = "Editar"
@@ -94,8 +107,9 @@ export class DialogAddProposalComponent implements OnInit {
       this.newProposal.controls['typeOfService'].setValue(this.editData.typeOfService)
       this.newProposal.controls['yearP'].setValue(this.editData.yearP)
       this.newProposal.controls['monthP'].setValue(this.editData.monthP)
-      this.newProposal.controls['stateP'].setValue(this.editData.stateP)
-      this.newProposal.controls['warranty'].setValue(this.editData.warranty)
+      //this.newProposal.controls['stateP'].setValue(this.editData.stateP)
+      this.newProposal.controls['wayToPay'].setValue(this.editData.wayToPay)
+      this.newProposal.controls['wayToPayDays'].setValue(this.editData.wayToPayDays)
       this.newProposal.controls['baseAmount'].setValue(this.editData.baseAmount)
       this.newProposal.controls['totalAmount'].setValue(this.editData.totalAmount)
       this.newProposal.controls['currency'].setValue(this.editData.currency)
@@ -103,19 +117,74 @@ export class DialogAddProposalComponent implements OnInit {
     }
   }
 
+  method_page(value: string){
+    console.log('entra method')
+    if(value === "contado"){
+      this.newProposal.controls['wayToPayDays'].setValue(this.wayToPayDaysNumber)
+    }else{
+      this.newProposal.controls['wayToPayDays'].setValue(30)
+    }
+  }
+
+  calcuteTotalAmount(){
+    console.log('entra en calcute', this.newProposal.value.baseAmount)
+    console.log('this.newProposal.value.moneda', this.newProposal.value.currency)
+    let tax;
+    if(this.newProposal.value.currency === "COP"){
+      tax = 19
+    }else if(this.newProposal.value.currency === "PEN"){
+      tax = 18
+    }else{
+      tax = 12
+    }
+    console.log('tax', tax)
+    this.totalAmount = (this.newProposal.value.baseAmount * tax) + this.newProposal.value.baseAmount 
+    this.newProposal.controls['totalAmount'].setValue(this.totalAmount)
+  }
+  onFileSelect(event: any) {
+    this.file = event.target.files;
+}
+
   addProposal(){
-    if(!this.editData){
+    this.action = 'Crear';
+    if(this.file.length > 5){
+      return alert('solo puedes subir maximo 5 archivos')
+    }else{
+      if(!this.editData){
         if (this.file) {
-            //this.fileName = file.name;
-            const formData = new FormData();
-            formData.append("file", this.file);
-            //console.log("file", file, 'file name', this.fileName);
+          console.log('this.file.length',this.file.length)
+
+          const formData = new FormData();
+          formData.append("file", this.file[0]);
+          console.log('file', this.file)
+          console.log('formdat', formData)
+          
             this.http.post<any>("http://localhost:8080/proposal/upload", formData).subscribe(
               (res) => {
                 console.log('res', res)
                 this.newProposal.get('folder')?.setValue(res.message)
                 console.log('this.newProposal.value', this.newProposal.value)
-                this.businessProposalService.addNewProposal(this.newProposal.value).subscribe(
+                const data = {
+                  code: this.newProposal.value.code,
+                  company: this.newProposal.value.company,
+                  customer: this.newProposal.value.customer,
+                  customerReference: this.newProposal.value.customerReference,
+                  yearP: this.newProposal.value.yearP,
+                  monthP: this.newProposal.value.monthP,
+                  servicioConcept: this.newProposal.value.servicioConcept,
+                  typeOfService: this.newProposal.value.typeOfService,
+                  currency: this.newProposal.value.currency,
+                  stateP: this.newProposal.value.stateP,
+                  baseAmount: this.newProposal.value.baseAmount,
+                  totalAmount: this.newProposal.value.totalAmount,
+                  wayToPay: this.newProposal.value.wayToPay,
+                  wayToPayDays: this.newProposal.value.wayToPayDays,
+                  creatorUser: this.newProposal.value.creatorUser,
+                  version: 1,
+                  dateVersion: this.newProposal.value.dateVersion,
+                  folder: this.newProposal.value.folder
+                }
+                this.businessProposalService.addNewProposal(data).subscribe(
                   (res) => {
                     console.log('res', res)
                     Swal.fire({
@@ -142,12 +211,35 @@ export class DialogAddProposalComponent implements OnInit {
     this.updateProposal();
   }
 
+   }
 }
 
   updateProposal(){
-    //console.log('new', this.newProposal.value, 'update', this.editData)
-    this.businessProposalService.putProposal(this.newProposal.value).subscribe(
+    console.log('new', this.newProposal.value, 'update', this.editData)
+    const data1 = {
+      id:  this.editData.id,
+      company: this.newProposal.value.company,
+      customer: this.newProposal.value.customer,
+      customerReference: this.newProposal.value.customerReference,
+      yearP: this.newProposal.value.yearP,
+      monthP: this.newProposal.value.monthP,
+      servicioConcept: this.newProposal.value.servicioConcept,
+      typeOfService: this.newProposal.value.typeOfService,
+      currency: this.newProposal.value.currency,
+      stateP: this.newProposal.value.stateP,
+      baseAmount: this.newProposal.value.baseAmount,
+      totalAmount: this.newProposal.value.totalAmount,
+      warranty: this.newProposal.value.warranty,
+      version: Number(this.editData.version) + 1,
+      dateVersion: this.newProposal.value.dateVersion,
+      folder: this.newProposal.value.folder,
+      wayToPay: this.newProposal.value.wayToPay,
+      wayToPayDays: this.newProposal.value.wayToPayDays,
+      creatorUser: this.newProposal.value.creatorUser,
+    }
+    this.businessProposalService.putProposal(data1).subscribe(
       (res) => {
+        console.log('res put', res, 'version in add', this.editData.version)
         const data = {
           company: this.editData.company,
           customer: this.editData.customer,
@@ -164,10 +256,14 @@ export class DialogAddProposalComponent implements OnInit {
           version: this.editData.version,
           dateVersion: this.editData.dateVersion,
           proposalId: this.editData.id,
-          folder: this.editData.folder
+          folder: this.editData.folder,
+          wayToPay: this.editData.wayToPay,
+          wayToPayDays: this.editData.wayToPayDays,
+          creatorUser: this.editData.creatorUser,
         }
         this.businessProposalService.addNewVersion(data).subscribe(
           (res) => {
+            console.log('res add', res)
             Swal.fire({
               position: 'top-end',
               icon: 'success',
@@ -185,52 +281,6 @@ export class DialogAddProposalComponent implements OnInit {
     this.dialogRef.close('Editar')
   }
 
-onFileSelect(event: any) {
-    this.file = event.target.files[0];
-}
-
-onFileSelected() {
-  const file = this.file;
-  console.log('file', file)
-  if (file) {
-      const formData = new FormData();
-      formData.append("file", file);
-      //console.log("file", file, 'file name', this.fileName);
-      this.http.post<any>("http://localhost:8080/proposal/upload", formData).subscribe(
-        (res) => {
-          console.log('res', res)
-        },
-        (err) => {
-          console.log('err', err)
-        }
-      )
-
-  }
-}
-
-uploadFile() {
-
-  //let file: File = this.file;
-
-  this.businessProposalService.uploadFile(this.file)
-    .subscribe(
-      (res) => {
-        console.log('res', res)
-        /*if (event.type == HttpEventType.UploadProgress) {
-          const percentDone = Math.round(100 * event.loaded / event.total);
-          console.log(`File is ${percentDone}% loaded.`);
-        } else if (event instanceof HttpResponse) {
-          console.log('File is completely loaded!');
-        }
-      },
-      (err) => {
-        console.log("Upload Error:", err);
-      }, () => {
-        console.log("Upload done");
-      }*/
-    }
-    )
-}
 
   /*onUpload() {
     console.log('this.file', this.file)

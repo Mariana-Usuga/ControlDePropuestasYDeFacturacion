@@ -12,22 +12,23 @@ import { DialogRejectProposalComponent } from '../dialog-reject-proposal/dialog-
 export class DialogSeeProposalComponent implements OnInit {
 
   proposal: commercialProposal = {
+    code: this.proposalSee.code,
     customer: this.proposalSee.customer,
     company: this.proposalSee.company,
-    monthP: this.proposalSee.monthP,
     customerReference: this.proposalSee.customerReference,
-    yearP: this.proposalSee.yearP,
     servicioConcept: this.proposalSee.servicioConcept,
     typeOfService: this.proposalSee.typeOfService,
     stateP: this.proposalSee.stateP,
-    warranty: this.proposalSee.warranty,
     currency: this.proposalSee.currency,
     baseAmount: this.proposalSee.baseAmount,
     totalAmount: this.proposalSee.totalAmount,
     version: this.proposalSee.version,
     proposalId: this.proposalSee.proposalId,
     dateVersion: this.proposalSee.dateVersion,
-    folder: this.proposalSee.folder
+    folder: this.proposalSee.folder,
+    wayToPay: this.proposalSee.wayToPay,
+    wayToPayDays: this.proposalSee.wayToPayDays,
+    creatorUser: this.proposalSee.creatorUser,
   }
   fileService: any;
   toastr: any;
@@ -35,8 +36,22 @@ export class DialogSeeProposalComponent implements OnInit {
   constructor(public dialog: MatDialog,  @Inject(MAT_DIALOG_DATA) public proposalSee: any) { }
 
   ngOnInit(): void {
-  }
+    console.log('proposalSee', this.proposalSee);
 
+  }
+  export(): void{
+    const downloadInstance = document.createElement('a');
+    downloadInstance.href = 'assets/Mariana-Usuga(1).pdf'
+    downloadInstance.target = '_blank'
+    downloadInstance.download = 'mariana.pdf'
+    downloadInstance.click()
+
+    const downloadInstanc = document.createElement('a');
+    downloadInstanc.href = 'assets/my_export_export_proposal(2).xlsx'
+    downloadInstanc.target = '_blank'
+    downloadInstanc.download = 'mariana2'
+    downloadInstanc.click()
+  }
   /*down(){
     const fileName = `cart.git`
 

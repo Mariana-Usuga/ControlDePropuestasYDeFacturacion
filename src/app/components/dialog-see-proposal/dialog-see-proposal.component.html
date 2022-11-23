@@ -1,4 +1,4 @@
-<h2>Datos oportunidad V#{{proposal.version}} </h2>
+<h3>Datos oportunidad</h3>
 
 <div class="proposal">
   <div class="item">
@@ -9,10 +9,10 @@
     <div class="subtitle">Tipo de servicio</div>
     <div>{{proposal.typeOfService}}</div>
   </div>
-  <div class="item">
+  <!--<div class="item">
     <div class="subtitle">Año</div>
     <div>{{proposal.yearP}}</div>
-  </div>
+  </div>-->
   <div class="item">
     <div class="subtitle">Moneda</div>
     <div>{{proposal.currency}}</div>
@@ -21,13 +21,13 @@
     <div class="subtitle">Cliente Referencia</div>
     <div> {{proposal.customerReference}}</div>
   </div>
-  <div class="item">
+  <!--<div class="item">
     <div class="subtitle">Mes</div>
     <div> {{proposal.monthP}}</div>
-  </div>
+  </div>-->
   <div class="item">
     <div class="subtitle">Garantia</div>
-    <div> {{proposal.warranty}}</div>
+    <div> {{proposal.wayToPay}}</div>
   </div>
   <div class="item">
     <div class="subtitle">Monto total</div>
@@ -36,6 +36,15 @@
   <div class="item">
     <div class="subtitle">Monto Base</div>
     <div> {{proposal.baseAmount}}</div>
+  </div>
+
+  <div class="btnCreate" (click)="export()">
+    <button _ngcontent-cgx-c245="" type="button" class="btn btn-outline-primary
+          btn-border-radius">
+            <span _ngcontent-cgx-c245="" class="mobile-hide">
+              Export
+            </span>
+          </button>
   </div>
 </div>
 

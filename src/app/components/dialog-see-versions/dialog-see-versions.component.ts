@@ -17,13 +17,11 @@ export class DialogSeeVersionsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('this.proposalSee.proposalId', this.proposalSee.proposalId)
-    this.businessProposalService.getByVersionProposal(this.proposalSee.proposalId).subscribe(
+    console.log('this.proposalSee.proposalId', this.proposalSee)
+    this.businessProposalService.getByVersionProposal(this.proposalSee.id).subscribe(
       (res)=>{
         for(let le of res){
-          const date = new Date();
 
-          //const d = `${le.dateVersion.getFullYear()}/${le.dateVersion.getMonth()}/${le.dateVersion.getDay()}`
           const gf = Date.parse(le.dateVersion)
           const h = new Date(gf)
           console.log('d', h.getMonth())

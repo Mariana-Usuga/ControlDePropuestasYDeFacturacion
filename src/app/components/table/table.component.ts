@@ -24,41 +24,43 @@ export class TableComponent implements OnInit {
      public dialog: MatDialog){}
 
   filtrosObject: commercialProposal= {
+    code: null,
     company: null,
     customer: "",
-  customerReference: null,
-  yearP: null,
-  monthP: null,
-  servicioConcept: null,
-  typeOfService: null,
-  currency: null,
-  stateP: null,
-  baseAmount: null,
-  totalAmount: null,
-  warranty: null,
-  version: null,
-  dateVersion: null,
-  proposalId: null,
-  folder: null
+    customerReference: null,
+    servicioConcept: null,
+    typeOfService: null,
+    currency: null,
+    stateP: null,
+    baseAmount: null,
+    totalAmount: null,
+    version: null,
+    dateVersion: null,
+    proposalId: null,
+    folder: null,
+    wayToPay: null,
+    wayToPayDays: null,
+    creatorUser: null,
   }
 
   mayor: commercialProposal = {
+    code: null,
     company: null,
     customer: "",
   customerReference: null,
-  yearP: null,
-  monthP: null,
   servicioConcept: null,
   typeOfService: null,
   currency: null,
   stateP: null,
   baseAmount: null,
   totalAmount: null,
-  warranty: null,
   version: null,
   dateVersion: null,
   proposalId: null,
-  folder: null
+  folder: null,
+  wayToPay: null,
+  wayToPayDays: null,
+  creatorUser: null,
   };
 
   dataSource: any[] = [];
@@ -172,7 +174,8 @@ openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void 
   });
 }
 
-seeVersions(row: commercialProposal){
+seeVersions(row: any){
+  console.log('row', row)
   this.dialog.open(DialogSeeVersionsComponent, {
     width: '50%',
     data:row

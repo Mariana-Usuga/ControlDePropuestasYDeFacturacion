@@ -1,5 +1,17 @@
 
   <mat-grid-list cols="5" rowHeight="5:2" class="mat-grid-list" >
+
+
+    <mat-grid-tile class="mat-grid-tile">
+      <!--<label for="text" class="label"> Empresa que factura </label>-->
+      <mat-form-field appearance="legacy">
+        <mat-label>Empresa</mat-label>
+        <mat-select  [(ngModel)]="fieldsSelected.company">
+          <mat-option *ngFor="let b of company" (click)="search()" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+    
     <mat-grid-tile class="mat-grid-tile">
       <mat-form-field class="mat-grid-content" appearance="legacy">
         <mat-label>Cliente</mat-label>
@@ -18,6 +30,7 @@
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
+
     <mat-grid-tile class="mat-grid-tile">
       <!--<label for="text" class="label"> Tipo de servicio </label>-->
       <mat-form-field appearance="legacy">
@@ -27,34 +40,9 @@
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
-    <mat-grid-tile class="mat-grid-tile">
-      <!--<label for="text" class="label"> Empresa que factura </label>-->
-      <mat-form-field appearance="legacy">
-        <mat-label>Empresa</mat-label>
-        <mat-select  [(ngModel)]="fieldsSelected.company">
-          <mat-option *ngFor="let b of company" (click)="search()" [value]="b"> {{b}} </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
+
     <mat-grid-tile class="mat-grid-tile">
       <!--<label for="text" class="label"> Año </label>-->
-      <mat-form-field appearance="legacy">
-        <mat-label>Año</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.yearP"  placeholder="Año">
-          <mat-option *ngFor="let b of yearP" (click)="search()" [value]="b"> {{b}} </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile class="mat-grid-tile">
-      <!--<label for="text" class="label"> Mes </label>-->
-      <mat-form-field appearance="legacy">
-        <mat-label>Mes</mat-label>
-        <mat-select  [(ngModel)]="fieldsSelected.monthP">
-          <mat-option *ngFor="let b of monthP" (click)="search()" [value]="b"> {{b}} </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile class="mat-grid-tile">
       <!--<label for="text" class="label"> Moneda </label>-->
       <mat-form-field appearance="legacy">
         <mat-label>Moneda</mat-label>

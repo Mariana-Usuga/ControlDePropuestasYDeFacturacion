@@ -42,12 +42,10 @@
       <th class="th">Cliente</th>
       <th class="th">Cliente Referencia</th>
       <th class="th">Empresa</th>
-      <th class="th">Año</th>
-      <th class="th">Mes</th>
+      <th class="th">Creada por</th>
       <th class="th">Concepto De Servicio</th>
       <th class="th">Tipo de Sercicio</th>
       <th class="th">Estado</th>
-      
       <th class="th">Aprobar</th>
       <th class="th">Rechazar</th>
       <th class="th">Action</th>
@@ -56,8 +54,7 @@
       <td class="td"> {{b.customer}} </td>
       <td class="td"> {{b.company}} </td>
       <td class="td"> {{b.customerReference}} </td>
-      <td class="td"> {{b.yearP}} </td>
-      <td class="td"> {{b.monthP}} </td>
+      <td class="td"> {{b.creatorUser}} </td>
       <td class="td"> {{b.servicioConcept}} </td>
       <td class="td"> {{b.typeOfService}} </td>
       <td class="td"> {{b.stateP}} </td>
@@ -80,7 +77,7 @@
       <button type="button" class="btn btn-outline-primary btn-sm action" (click)="editProposal(b)">
         Editar
       </button>
-      <button type="button" class="btn btn-outline-danger btn-sm action" (click)="seeVersions(b.id)">
+      <button type="button" class="btn btn-outline-danger btn-sm action" (click)="seeVersions(b)">
         Historico
       </button>
       <button type="button" class="btn btn-outline-danger btn-sm action" (click)="deleteProposal(b.id)">

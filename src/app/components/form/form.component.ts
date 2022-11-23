@@ -24,7 +24,7 @@ export class FormComponent implements OnInit {
   monthP: Array<String> = []
   typeOfService: Array<String> = []
   stateP: Array<String> = []
-  currency: Array<String> = ['dolares']
+  currency: Array<String> = ['dolares', 'soles']
 
   filtersLabel = ['Cliente', 'Cliente referencia', 'Tipo de servicio', 'Empresa factura',
   'Year', 'Mes', 'Moneda', 'Estado']
@@ -57,18 +57,22 @@ export class FormComponent implements OnInit {
   }
 
   fieldsSelected: any = {
-    company: null,
-    customer: "",
-  customerReference: null,
-  monthP: null,
-  yearP: null,
-  servicioConcept: null,
-  typeOfService: null,
-  currency: null,
-  stateP: null,
-  baseAmount: null,
-  totalAmount: null,
-  warranty: null
+    code: null,
+   company: null,
+   customer: "",
+   customerReference: null,
+   typeOfService: null,
+   currency: null,
+   stateP: null,
+   servicioConcept: null,
+   baseAmount:  null,
+   totalAmount: null,
+   version: null,
+   proposalId: null,
+  folder:  null,
+  wayToPay: null,
+  wayToPayDays: null,
+  creatorUser:  null
   }
 
   search(){

@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 export class DialogApproveProposalComponent implements OnInit {
 
   verify!: FormGroup;
+  dialogRef: any;
 
   constructor( private businessProposalService: BusinessProposalService,
     @Inject(MAT_DIALOG_DATA) public proposalSee: any, private formBuilder: FormBuilder,) { }
@@ -95,6 +96,7 @@ export class DialogApproveProposalComponent implements OnInit {
       (err) => console.log('ha ocurrido un error', err),
           () => console.info('se ha completado la llamada')
     )
+    this.dialogRef.close('save')
     }
     else{
       Swal.fire({

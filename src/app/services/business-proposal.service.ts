@@ -15,22 +15,23 @@ const EXCEL_EXT = '.xlsx';
 export class BusinessProposalService {
 
   objectfiltros: commercialProposal = {
+    code: null,
     company: null,
     customer: "",
   customerReference: null,
-  yearP: null,
-  monthP: null,
   servicioConcept: null,
   typeOfService: null,
   currency: null,
   stateP: null,
   baseAmount: null,
   totalAmount: null,
-  warranty: null,
   version: null,
   dateVersion: null,
   proposalId: null,
-  folder: null
+  folder: null,
+  wayToPay: null,
+  wayToPayDays: null,
+  creatorUser: null,
   }
   objectfiltros$: Subject<commercialProposal>
 
@@ -63,17 +64,17 @@ export class BusinessProposalService {
     return this.http.post('http://localhost:8080/proposal/filter', filter)
   }
 
-  addNewProposal(proposal: commercialProposal): Observable<any>{
+  addNewProposal(proposal: any): Observable<any>{
     console.log('proposal', proposal);
     return this.http.post('http://localhost:8080/proposal', proposal)
   }
 
   getByVersionProposal(idProposal: number): Observable<any>{
     console.log('proposal', idProposal);
-    return this.http.get('http://localhost:8080/proposal/getProposalByIdProposal/'+idProposal)
+    return this.http.get('http://localhost:8080/proposalVersion/getProposalByIdProposal/'+idProposal)
   }
 
-  putProposal(data: commercialProposal): Observable<any>{
+  putProposal(data: any): Observable<any>{
     console.log('entra en servicio PUT', data)
     return this.http.put('http://localhost:8080/proposal', data)
   }
