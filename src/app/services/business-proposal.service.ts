@@ -33,11 +33,21 @@ export class BusinessProposalService {
   wayToPay: null,
   wayToPayDays: null,
   creatorUser: null,
+  removerUser: null
   }
+
+  dates: any = {
+    start: null,
+    end: null,
+  }
+
   objectfiltros$: Subject<commercialProposal>
+  dates$: Subject<any>
+
 
   constructor(private http: HttpClient) {
     this.objectfiltros$ = new Subject()
+    this.dates$ = new Subject()
   }
 
   exportToExcel(json:any[], excelFileName: string): void{
@@ -55,14 +65,30 @@ export class BusinessProposalService {
     FileSaver.saveAs(data, fileName + '_export_'+ 'proposal' + EXCEL_EXT);
   }
 
-  putStateOfProposal(proposal: commercialProposal): Observable<any>{
+  putStateOfProposal(proposal: any): Observable<any>{
     console.log('filter', proposal)
     return this.http.put('http://localhost:8080/proposal', proposal)
   }
 
-  getBusinessProposal(filter: commercialProposal): Observable<any> {
-    console.log('filter', filter)
-    return this.http.post('http://localhost:8080/proposal/filter', filter)
+  getBusinessProposal(filter: commercialProposal, dates: any): Observable<any> {
+    console.log('filter', filter, 'dates')
+    const dd = String(dates.start.getDate()).padStart(2, '0');
+    const mm = String(dates.start.getMonth() + 1).padStart(2, '0');
+    const yyyy = dates.start.getFullYear();
+
+    const ddEnd = String(dates.end.getDate()).padStart(2, '0');
+    const mmEnd = String(dates.end.getMonth() + 1).padStart(2, '0');
+    const yyyyEnd = dates.end.getFullYear();
+
+    const start = yyyy + '-' + mm + '-' + dd
+    const end = yyyyEnd + '-' + mmEnd + '-' + ddEnd
+console.log('start', start, 'end', end)
+    /*let params = new HttpParams();
+    params = params.append('startDate', start);
+    params = params.append('endDate', end);*/
+    //{data: filter, params: params}
+    return this.http.post(
+      `http://localhost:8080/proposal/filter?startDate=${start}&endDate=${end}`, filter);
   }
 
   addNewProposal(proposal: any): Observable<any>{
@@ -127,8 +153,18 @@ export class BusinessProposalService {
     this.objectfiltros$.next(this.objectfiltros)
   }
 
+  addFiltrosDate(dates: any){
+    console.log('dates', dates)
+    this.dates = dates
+    this.dates$.next(dates)
+  }
+
   getFiltros(): Observable<commercialProposal>{
     return this.objectfiltros$.asObservable()
+  }
+
+  getFiltrosDate(): Observable<any>{
+    return this.dates$.asObservable()
   }
 
 }

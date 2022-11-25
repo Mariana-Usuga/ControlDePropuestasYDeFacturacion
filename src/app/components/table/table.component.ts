@@ -41,26 +41,33 @@ export class TableComponent implements OnInit {
     wayToPay: null,
     wayToPayDays: null,
     creatorUser: null,
+    removerUser: null,
+  }
+
+  dates: any = {
+    start: '',
+    end: '',
   }
 
   mayor: commercialProposal = {
     code: null,
     company: null,
     customer: "",
-  customerReference: null,
-  servicioConcept: null,
-  typeOfService: null,
-  currency: null,
-  stateP: null,
-  baseAmount: null,
-  totalAmount: null,
-  version: null,
-  dateVersion: null,
-  proposalId: null,
-  folder: null,
-  wayToPay: null,
-  wayToPayDays: null,
-  creatorUser: null,
+    customerReference: null,
+    servicioConcept: null,
+    typeOfService: null,
+    currency: null,
+    stateP: null,
+    baseAmount: null,
+    totalAmount: null,
+    version: null,
+    dateVersion: null,
+    proposalId: null,
+    folder: null,
+    wayToPay: null,
+    wayToPayDays: null,
+    creatorUser: null,
+    removerUser: null,
   };
 
   dataSource: any[] = [];
@@ -69,6 +76,11 @@ export class TableComponent implements OnInit {
     this.businessProposalService.getFiltros().subscribe(obj => {
       console.log('obj', obj)
       this.filtrosObject = obj
+    })
+
+    this.businessProposalService.getFiltrosDate().subscribe(obj => {
+      console.log('date', obj)
+      this.dates = obj
     })
   }
 
@@ -85,8 +97,10 @@ export class TableComponent implements OnInit {
   }
 
 buscar(){
+  const inputDate = document.getElementById('#inputDate')
+    inputDate?.click()
   if(this.filtrosObject.customer != ""){
-    this.businessProposalService.getBusinessProposal(this.filtrosObject).subscribe(
+    this.businessProposalService.getBusinessProposal(this.filtrosObject, this.dates).subscribe(
       (res) => {
         if(res.length === 0){
           console.log('res', res)

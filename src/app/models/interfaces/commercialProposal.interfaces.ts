@@ -17,4 +17,5 @@ export interface commercialProposal  {
   wayToPay: string | null,
   wayToPayDays: string | null,
   creatorUser:  string |null,
+  removerUser: string |null,
 }

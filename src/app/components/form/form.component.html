@@ -11,7 +11,7 @@
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
-    
+
     <mat-grid-tile class="mat-grid-tile">
       <mat-form-field class="mat-grid-content" appearance="legacy">
         <mat-label>Cliente</mat-label>
@@ -21,10 +21,10 @@
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
+
     <mat-grid-tile class="mat-grid-tile">
-      <!--<label for="text" class="label"> Cliente Referencia </label>-->
       <mat-form-field appearance="legacy" class="mat-form-field">
-        <mat-label>cliente Referencia</mat-label>
+        <mat-label>Cliente Referencia</mat-label>
         <mat-select [(ngModel)]="fieldsSelected.customerReference">
           <mat-option *ngFor="let b of customerReference" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
@@ -32,7 +32,6 @@
     </mat-grid-tile>
 
     <mat-grid-tile class="mat-grid-tile">
-      <!--<label for="text" class="label"> Tipo de servicio </label>-->
       <mat-form-field appearance="legacy">
         <mat-label>Tipo De Servicio</mat-label>
         <mat-select [(ngModel)]="fieldsSelected.typeOfService">
@@ -42,8 +41,6 @@
     </mat-grid-tile>
 
     <mat-grid-tile class="mat-grid-tile">
-      <!--<label for="text" class="label"> Año </label>-->
-      <!--<label for="text" class="label"> Moneda </label>-->
       <mat-form-field appearance="legacy">
         <mat-label>Moneda</mat-label>
         <mat-select [(ngModel)]="fieldsSelected.currency">
@@ -51,8 +48,8 @@
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
+
     <mat-grid-tile class="mat-grid-tile">
-      <!--<label for="text" class="label"> Estado </label>-->
       <mat-form-field appearance="legacy">
         <mat-label>Estado</mat-label>
         <mat-select [(ngModel)]="fieldsSelected.stateP">
@@ -60,7 +57,35 @@
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
+
+    <mat-grid-tile class="mat-grid-tile">
+      <mat-form-field appearance="legacy">
+        <mat-label class="label">Enter a date range
+        </mat-label>
+
+        <div class="inputDate">
+          <mat-date-range-input [formGroup]="rangeDate" [rangePicker]="picker">
+            <input [(ngModel)]="this.rangeDate.value.start"
+            (click)="searchByDates()" matStartDate formControlName="start"
+            placeholder="Start date">
+            <input [(ngModel)]="this.rangeDate.value.end" matEndDate formControlName="end"
+            (click)="searchByDates()"
+            placeholder="End date">
+          </mat-date-range-input>
+          <div>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </div>
+        </div>
+        <mat-hint (click)="searchByDates()">MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <div (click)="searchByDates()" >
+          <button type="button">Aplicar fecha</button>
+        </div>
+      </mat-form-field>
+  </mat-grid-tile>
+
 </mat-grid-list>
+
 
 <!--<app-dialog-add-proposal></app-dialog-add-proposal>-->
 

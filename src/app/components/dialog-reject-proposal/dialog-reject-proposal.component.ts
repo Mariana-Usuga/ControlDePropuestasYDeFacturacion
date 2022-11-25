@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BusinessProposalService } from 'src/app/services/business-proposal.service';
 import Swal from 'sweetalert2';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-dialog-reject-proposal',
@@ -18,33 +19,36 @@ export class DialogRejectProposalComponent implements OnInit {
 
     ngOnInit(): void {
       this.verify = this.formBuilder.group({
-        company: ['', Validators.required],
+        rejectionDate:  ['', Validators.required],
+        removerUser: ['', Validators.required],
+        comments: ['']
       })
     }
 
-    cambio: any = {
+  recha(){
+    console.log('nameprop',)
+    const cambio = {
       id: this.proposalSee.id,
       customer: this.proposalSee.customer,
       company: this.proposalSee.company,
-      monthP: this.proposalSee.monthP,
       customerReference: this.proposalSee.customerReference,
-      yearP: this.proposalSee.yearP,
       servicioConcept: this.proposalSee.servicioConcept,
       typeOfService: this.proposalSee.typeOfService,
       stateP: "rechazado",
-      warranty: this.proposalSee.warranty,
       currency: this.proposalSee.currency,
       baseAmount: this.proposalSee.baseAmount,
       totalAmount: this.proposalSee.totalAmount,
       version: this.proposalSee.version,
-      proposalId: this.proposalSee.proposalId
+      proposalId: this.proposalSee.proposalId,
+      editorUser: this.proposalSee.editorUser,
+      wayToPay: this.proposalSee.wayToPay,
+      wayToPayDays: this.proposalSee.wayToPayDays,
+      creatorUser: this.proposalSee.creatorUser,
+      removerUser: this.verify.value.removerUser,
+      comments: this.verify.value.comments,
+      rejectionDate: this.verify.value.rejectionDate
     }
-
-  recha(){
-    console.log('cambio', this.cambio)
-    console.log('nameprop', this.verify.value.empresa)
-    if(this.verify.value.empresa === this.proposalSee.empresa){
-      this.businessProposalService.putStateOfProposal(this.cambio).subscribe(
+      this.businessProposalService.putStateOfProposal(cambio).subscribe(
       (res) => {
         console.log('res', res)
         Swal.fire({
@@ -58,15 +62,15 @@ export class DialogRejectProposalComponent implements OnInit {
       (err) => console.log('ha ocurrido un error', err),
           () => console.info('se ha completado la llamada')
     )
-    }else{
-      Swal.fire({
+    //}else{
+     /* Swal.fire({
         position: 'top-end',
         icon: 'success',
         title: 'Nombre no valido',
         showConfirmButton: false,
         timer: 2000
-      })
-    }
+      })*/
+    
   }
 
 }

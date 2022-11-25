@@ -90,7 +90,9 @@ export class DialogAddProposalComponent implements OnInit {
       wayToPayDays: [''],
       creatorUser: ['', Validators.required],
       proposalContact: ['', Validators.required],
-      telephoneContact: ['', Validators.required]
+      telephoneContact: ['', Validators.required],
+      editorUser: [''],
+      removerUser : [' ']
     })
 
     this.newProposalContact = this.formBuilder.group({
@@ -116,9 +118,6 @@ export class DialogAddProposalComponent implements OnInit {
       this.newProposal.controls['code'].setValue(this.editData.code)
       this.getContacts()
       this.disabled = true
-      //const company = document.querySelector('#companyOption')
-      //company.disabled = true
-
     }
   }
 
@@ -200,12 +199,14 @@ getContacts(){
                   creatorUser: this.newProposal.value.creatorUser,
                   version: 1,
                   dateVersion: this.newProposal.value.dateVersion,
-                  folder: this.newProposal.value.folder
+                  folder: this.newProposal.value.folder,
+                  editorUser: this.newProposal.value.editorUser,
+                  removerUser: this.newProposal.value.removerUser
                 }
+                
                 this.businessProposalService.addNewProposal(data).subscribe(
                   (res) => {
                     console.log('res', res)
-                    //this.idNewProposal = res.data.id
                     this.newProposalContact.controls['idProposal'].setValue(res.data.id)
                     if(res.success){
                       this.newContact();
@@ -284,6 +285,8 @@ newContact(){
       wayToPay: this.newProposal.value.wayToPay,
       wayToPayDays: this.newProposal.value.wayToPayDays,
       creatorUser: this.newProposal.value.creatorUser,
+      editorUser: this.newProposal.value.editorUser,
+      removerUser: this.newProposal.value.removerUser
     }
     this.businessProposalService.putProposal(data1).subscribe(
       (res) => {
@@ -308,6 +311,8 @@ newContact(){
           wayToPay: this.editData.wayToPay,
           wayToPayDays: this.editData.wayToPayDays,
           creatorUser: this.editData.creatorUser,
+          editorUser: this.editData.editorUser,
+          removerUser: this.editData.removerUser
         }
         this.businessProposalService.addNewVersion(data).subscribe(
           (res) => {
@@ -328,28 +333,5 @@ newContact(){
     this.newProposal.reset()
     this.dialogRef.close('Editar')
   }
-
-
-  /*onUpload() {
-    console.log('this.file', this.file)
-    this.businessProposalService.upload(this.file).subscribe(
-      (res) => {
-          console.log('res', res)
-      })
-
-    /*this.loading = !this.loading;
-    console.log(this.file);
-    this.businessProposalService.upload(this.file).subscribe(
-        (event: any) => {
-            if (typeof (event) === 'object') {
-
-                // Short link via api response
-                this.shortLink = event.link;
-
-                this.loading = false; // Flag variable
-            }
-        }
-    );*/
-//}
 
 }

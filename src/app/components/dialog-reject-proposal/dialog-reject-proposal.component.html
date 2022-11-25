@@ -1,21 +1,25 @@
 <h2>Rechazar oportunidad</h2>
 
-<label for="text" class="label"> Nombre de la oportunidad </label>
-
 <form action="" [formGroup]="verify">
-  <mat-form-field appearance="outline">
-    <mat-label>Nombre de la oportunidad</mat-label>
-    <input  formControlName="company" matInput placeholder="Placeholder">
+ <mat-form-field appearance="legacy"  class="mx-4">
+    <mat-label>Quien Rechaza</mat-label>
+    <input  formControlName="removerUser" matInput placeholder="Placeholder">
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Motivo</mat-label>
-    <input  matInput placeholder="Placeholder">
+  <mat-form-field appearance="legacy">
+    <mat-label>Fecha de rechazo</mat-label>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <input formControlName="rejectionDate" matInput [matDatepicker]="picker">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+  
 
-  <mat-form-field appearance="outline">
-    <mat-label>Observaciones</mat-label>
-    <input   matInput placeholder="Placeholder">
+  <mat-form-field appearance="legacy" class="col-8 mx-4">
+    <mat-label>Comentarios</mat-label>
+    <textarea formControlName="comments" 
+    matInput placeholder="Ex. It makes me feel...">
+    </textarea>
   </mat-form-field>
 </form>
 

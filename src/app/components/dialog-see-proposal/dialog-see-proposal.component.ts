@@ -29,6 +29,7 @@ export class DialogSeeProposalComponent implements OnInit {
     wayToPay: this.proposalSee.wayToPay,
     wayToPayDays: this.proposalSee.wayToPayDays,
     creatorUser: this.proposalSee.creatorUser,
+    removerUser: this.proposalSee.removerUser
   }
   fileService: any;
   toastr: any;
@@ -52,27 +53,7 @@ export class DialogSeeProposalComponent implements OnInit {
     downloadInstanc.download = 'mariana2'
     downloadInstanc.click()
   }
-  /*down(){
-    const fileName = `cart.git`
-
-    this.fileService.getReport().subscribe((res: any) => {
-      this.manageExcelFile(res, fileName);
-      this.toastr.success('resporte descargado exitosamente')
-    })
-  }*/
-  /*manageExcelFile(){
-    //const dataType = res.type;
-    const binaryData = [];
-    binaryData.push(res)
-    const filtePath = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}))
-    const downloadLink = document.createElement('a')
-    downloadLink.href = filtePath
-    downloadLink.setAttribute('download', "C:\Users\Mariana\spring-boot-proposal\cart.gif")
-    document.body.appendChild(downloadLink)
-    downloadLink.click()
-
-  }*/
-
+  
   openDialogApprove(){
     this.dialog.open(DialogApproveProposalComponent, {
       width: '70%',

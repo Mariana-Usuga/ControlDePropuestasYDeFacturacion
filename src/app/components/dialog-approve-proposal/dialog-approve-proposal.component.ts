@@ -11,64 +11,72 @@ import Swal from 'sweetalert2';
 })
 export class DialogApproveProposalComponent implements OnInit {
 
-  verify!: FormGroup;
+  approve!: FormGroup;
   dialogRef: any;
 
   constructor( private businessProposalService: BusinessProposalService,
     @Inject(MAT_DIALOG_DATA) public proposalSee: any, private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
-    this.verify = this.formBuilder.group({
-      company: ['', Validators.required],
+
+    this.approve = this.formBuilder.group({
+      userApproved: ['', Validators.required],
+      approvalDate: ['', Validators.required],
+      comments: ['']
     })
   }
-
-    cambio: any = {
-      //id: this.proposalSee.id,
-      customer: this.proposalSee.customer,
-      company: this.proposalSee.company,
-      monthP: this.proposalSee.monthP,
-      customerReference: this.proposalSee.customerReference,
-      yearP: this.proposalSee.yearP,
-      servicioConcept: this.proposalSee.servicioConcept,
-      typeOfService: this.proposalSee.typeOfService,
-      stateP: "aprobado",
-      warranty: this.proposalSee.warranty,
-      currency: this.proposalSee.currency,
-      baseAmount: this.proposalSee.baseAmount,
-      totalAmount: this.proposalSee.totalAmount,
-      version: this.proposalSee.version,
-      proposalId: this.proposalSee.proposalId,
-      dateVersion: this.proposalSee.dateVersion,
-      folder: this.proposalSee.folder
-    }
 
     approvedProposal: any = {
       id: this.proposalSee.id,
       customer: this.proposalSee.customer,
       company: this.proposalSee.company,
-      monthP: this.proposalSee.monthP,
       customerReference: this.proposalSee.customerReference,
-      yearP: this.proposalSee.yearP,
       servicioConcept: this.proposalSee.servicioConcept,
       typeOfService: this.proposalSee.typeOfService,
       stateP: "aprobado",
-      warranty: this.proposalSee.warranty,
       currency: this.proposalSee.currency,
       baseAmount: this.proposalSee.baseAmount,
       totalAmount: this.proposalSee.totalAmount,
       version: this.proposalSee.version,
       proposalId: this.proposalSee.proposalId,
       dateVersion: this.proposalSee.dateVersion,
-      folder: this.proposalSee.folder
+      folder: this.proposalSee.folder,
+      editorUser: this.proposalSee.editorUser,
+      wayToPay: this.proposalSee.wayToPay,
+      wayToPayDays: this.proposalSee.wayToPayDays,
+      creatorUser: this.proposalSee.creatorUser,
+      removerUser: this.proposalSee.removerUser,
+      rejectionDate: this.proposalSee.rejectionDate,
+      rejectionComments: this.proposalSee.rejectionComments
     }
 
   aprovar(){
-    console.log('cambio', this.cambio)
-    console.log('nameprop', this.verify.value.company, 'sacs',this.proposalSee.company)
+    console.log('nameprop', 'sacs',this.proposalSee.company)
 
-    if(this.verify.value.company === this.proposalSee.company){
-      this.businessProposalService.addApprovedProposal(this.cambio).subscribe(
+    const cambio = {
+        customer: this.proposalSee.customer,
+        company: this.proposalSee.company,
+        monthP: this.proposalSee.monthP,
+        customerReference: this.proposalSee.customerReference,
+        yearP: this.proposalSee.yearP,
+        servicioConcept: this.proposalSee.servicioConcept,
+        typeOfService: this.proposalSee.typeOfService,
+        stateP: "aprobado",
+        warranty: this.proposalSee.warranty,
+        currency: this.proposalSee.currency,
+        baseAmount: this.proposalSee.baseAmount,
+        totalAmount: this.proposalSee.totalAmount,
+        version: this.proposalSee.version,
+        proposalId: this.proposalSee.proposalId,
+        dateVersion: this.proposalSee.dateVersion,
+        folder: this.proposalSee.folder,
+        editorUser: this.proposalSee.editorUser,
+        removerUser: this.proposalSee.removerUser,
+        userApproved: this.approve.value.userApprove,
+        approvalDate: this.approve.value.approvalDate,
+        comments: this.approve.value.comments
+      }
+      this.businessProposalService.addApprovedProposal(cambio).subscribe(
       (res) => {
         this.businessProposalService.putStateOfProposal(this.approvedProposal).subscribe(
           (res) => {
@@ -97,16 +105,15 @@ export class DialogApproveProposalComponent implements OnInit {
           () => console.info('se ha completado la llamada')
     )
     this.dialogRef.close('save')
-    }
-    else{
+   // }
+   /* else{
       Swal.fire({
         position: 'top-end',
         icon: 'success',
         title: 'Nombre no valido',
         showConfirmButton: false,
         timer: 2000
-      })
+      })*/
     }
   }
 
-}
