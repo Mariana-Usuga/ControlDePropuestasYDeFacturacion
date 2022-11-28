@@ -3,6 +3,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { commercialProposal } from 'src/app/models/interfaces/commercialProposal.interfaces';
 import { DialogApproveProposalComponent } from '../dialog-approve-proposal/dialog-approve-proposal.component';
 import { DialogRejectProposalComponent } from '../dialog-reject-proposal/dialog-reject-proposal.component';
+import { DialogSeeVersionsComponent } from '../dialog-see-versions/dialog-see-versions.component';
 
 @Component({
   selector: 'app-dialog-see-proposal',
@@ -29,7 +30,6 @@ export class DialogSeeProposalComponent implements OnInit {
     wayToPay: this.proposalSee.wayToPay,
     wayToPayDays: this.proposalSee.wayToPayDays,
     creatorUser: this.proposalSee.creatorUser,
-    removerUser: this.proposalSee.removerUser
   }
   fileService: any;
   toastr: any;
@@ -53,7 +53,7 @@ export class DialogSeeProposalComponent implements OnInit {
     downloadInstanc.download = 'mariana2'
     downloadInstanc.click()
   }
-  
+
   openDialogApprove(){
     this.dialog.open(DialogApproveProposalComponent, {
       width: '70%',
@@ -68,4 +68,11 @@ export class DialogSeeProposalComponent implements OnInit {
     });
   }
 
+  seeVersions(row: any){
+    console.log('row', row)
+    this.dialog.open(DialogSeeVersionsComponent, {
+      width: '50%',
+      data:row
+    });
+  }
 }

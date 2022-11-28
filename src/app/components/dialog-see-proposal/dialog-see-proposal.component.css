@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css");
+
 .proposal{
   display: flex;
   flex-wrap: wrap;
@@ -13,5 +15,5 @@
 
 .btns{
   display: flex;
-  justify-content: center;
+  justify-content:center
 }

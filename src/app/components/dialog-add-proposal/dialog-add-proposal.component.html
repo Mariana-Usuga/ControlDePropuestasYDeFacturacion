@@ -8,28 +8,28 @@
           <mat-option [disabled]="disabled" id="companyOption" *ngFor="let b of company" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
-    
+
       <mat-form-field appearance="legacy" class="mx-4">
         <mat-label>Cliente</mat-label>
         <mat-select formControlName="customer" placeholder="Cliente">
           <mat-option [disabled]="disabled" id="customer" *ngFor="let b of customer" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
-    
+
       <mat-form-field appearance="legacy" class="mx-4">
         <mat-label>Cliente Referencia</mat-label>
         <mat-select formControlName="customerReference" placeholder="Cliente Referencia">
           <mat-option [disabled]="disabled" *ngFor="let b of customerReference" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
-    
+
       <mat-form-field appearance="legacy" class="mx-4">
         <mat-label>Tipo de servicio</mat-label>
         <mat-select  formControlName="typeOfService" placeholder="Tipo de servicio">
           <mat-option *ngFor="let b of typeOfService" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
-    
+
       <mat-form-field appearance="legacy" class="mx-4">
         <mat-label>Forma de pago</mat-label>
         <mat-select (selectionChange)="method_page($event.value)" formControlName="wayToPay" placeholder="forma de pago">
@@ -51,13 +51,13 @@
           <mat-option value="COP">COP</mat-option>
         </mat-select>
       </mat-form-field>
-    
+
       <mat-form-field appearance="legacy" class="mx-4">
         <mat-label>Monto base</mat-label>
         <input (ngModelChange)="calcuteTotalAmount()"  type="number"
         formControlName="baseAmount" matInput placeholder="Placeholder">
       </mat-form-field>
-    
+
       <mat-form-field appearance="legacy" class="mx-4">
         <mat-label>Monto total</mat-label>
         <input type="number" formControlName="totalAmount" matInput placeholder="Placeholder">
@@ -71,7 +71,7 @@
 
       <mat-form-field appearance="legacy" class="col-8">
           <mat-label>Concepto de Servicio</mat-label>
-          <textarea formControlName="servicioConcept" 
+          <textarea formControlName="servicioConcept"
           matInput placeholder="Ex. It makes me feel...">
           </textarea>
         </mat-form-field>
@@ -114,12 +114,14 @@
 
 
 
-<div>
+<div class="btns">
   <div class="btn">
-    <button mat-raised-button color="primary" (click)="addProposal()"> {{accionBtn}} </button>
+    <button class="btn btn-outline-primary btn-sm action" color="primary"
+    (click)="addProposal()"> {{accionBtn}} </button>
   </div>
   <div class="btn">
-    <button mat-raised-button mat-dialog-close color="warn">Cancelar</button>
+    <button class="btn btn-outline-danger btn-sm action"
+     mat-dialog-close color="warn">Cancelar</button>
   </div>
 </div>
 

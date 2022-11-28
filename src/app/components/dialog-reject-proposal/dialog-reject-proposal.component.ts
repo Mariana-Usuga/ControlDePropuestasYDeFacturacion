@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BusinessProposalService } from 'src/app/services/business-proposal.service';
 import Swal from 'sweetalert2';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -15,17 +15,19 @@ export class DialogRejectProposalComponent implements OnInit {
   verify!: FormGroup;
 
   constructor( private businessProposalService: BusinessProposalService,
-    @Inject(MAT_DIALOG_DATA) public proposalSee: any, private formBuilder: FormBuilder) { }
+    @Inject(MAT_DIALOG_DATA) public proposalSee: any, private formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<DialogRejectProposalComponent>) { }
 
     ngOnInit(): void {
       this.verify = this.formBuilder.group({
         rejectionDate:  ['', Validators.required],
-        removerUser: ['', Validators.required],
-        comments: ['']
+        rejectionUser: ['', Validators.required],
+        rejectionComments: ['']
       })
     }
 
   recha(){
+    const d =  this.verify.value.rejectionDate.toISOString();
     console.log('nameprop',)
     const cambio = {
       id: this.proposalSee.id,
@@ -44,9 +46,12 @@ export class DialogRejectProposalComponent implements OnInit {
       wayToPay: this.proposalSee.wayToPay,
       wayToPayDays: this.proposalSee.wayToPayDays,
       creatorUser: this.proposalSee.creatorUser,
-      removerUser: this.verify.value.removerUser,
-      comments: this.verify.value.comments,
-      rejectionDate: this.verify.value.rejectionDate
+      rejectionUser: this.verify.value.rejectionUser,
+      rejectionComments: this.verify.value.rejectionComments ,
+      rejectionDate: d,
+      code: this.proposalSee.code,
+      folder: this.proposalSee.folder,
+      dateVersion: this.proposalSee.dateVersion
     }
       this.businessProposalService.putStateOfProposal(cambio).subscribe(
       (res) => {
@@ -62,15 +67,8 @@ export class DialogRejectProposalComponent implements OnInit {
       (err) => console.log('ha ocurrido un error', err),
           () => console.info('se ha completado la llamada')
     )
-    //}else{
-     /* Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Nombre no valido',
-        showConfirmButton: false,
-        timer: 2000
-      })*/
-    
+      this.verify.reset()
+      this.dialogRef.close()
   }
 
 }

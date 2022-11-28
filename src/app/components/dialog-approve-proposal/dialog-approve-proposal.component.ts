@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BusinessProposalService } from 'src/app/services/business-proposal.service';
 import Swal from 'sweetalert2';
 
@@ -11,11 +11,14 @@ import Swal from 'sweetalert2';
 })
 export class DialogApproveProposalComponent implements OnInit {
 
+  hitos: any = [];
   approve!: FormGroup;
-  dialogRef: any;
+  hitoForm!: FormGroup;
+  //dialogRef: any;
 
   constructor( private businessProposalService: BusinessProposalService,
-    @Inject(MAT_DIALOG_DATA) public proposalSee: any, private formBuilder: FormBuilder,) { }
+    @Inject(MAT_DIALOG_DATA) public proposalSee: any, private formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<DialogApproveProposalComponent>) { }
 
   ngOnInit(): void {
 
@@ -24,10 +27,37 @@ export class DialogApproveProposalComponent implements OnInit {
       approvalDate: ['', Validators.required],
       comments: ['']
     })
+
+    this.hitoForm = this.formBuilder.group({
+      percentage: ['', Validators.required],
+      description: ['', Validators.required],
+    })
   }
 
-    approvedProposal: any = {
-      id: this.proposalSee.id,
+  addHito(){
+    console.log('this.hitoForm.value', this.hitoForm.value)
+    console.log('date', this.approve.value.approvalDate)
+
+    this.hitos.push({
+      "percentage": this.hitoForm.value.percentage,
+      "description": this.hitoForm.value.description
+    })
+    this.hitoForm.controls['description'].setValue('')
+    this.hitoForm.controls['percentage'].setValue('')
+  }
+
+  aprovar(){
+    console.log('hitos', this.hitos)
+    console.log('nameprop', 'sacs',this.proposalSee)
+
+    const date = this.approve.value.approvalDate
+
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const yyyy = date.getFullYear();
+    const d =  new Date(`${yyyy}-${mm}-${dd}`).toISOString();
+
+    const approvedProposal = {
       customer: this.proposalSee.customer,
       company: this.proposalSee.company,
       customerReference: this.proposalSee.customerReference,
@@ -38,22 +68,21 @@ export class DialogApproveProposalComponent implements OnInit {
       baseAmount: this.proposalSee.baseAmount,
       totalAmount: this.proposalSee.totalAmount,
       version: this.proposalSee.version,
-      proposalId: this.proposalSee.proposalId,
+      proposalId: this.proposalSee.id,
       dateVersion: this.proposalSee.dateVersion,
       folder: this.proposalSee.folder,
       editorUser: this.proposalSee.editorUser,
       wayToPay: this.proposalSee.wayToPay,
       wayToPayDays: this.proposalSee.wayToPayDays,
       creatorUser: this.proposalSee.creatorUser,
-      removerUser: this.proposalSee.removerUser,
-      rejectionDate: this.proposalSee.rejectionDate,
-      rejectionComments: this.proposalSee.rejectionComments
+      approvalDate: d,
+      userApproved: this.approve.value.userApproved,
+      comments:this.approve.value.comments,
+      code: this.proposalSee.code
     }
 
-  aprovar(){
-    console.log('nameprop', 'sacs',this.proposalSee.company)
-
     const cambio = {
+        id: this.proposalSee.id,
         customer: this.proposalSee.customer,
         company: this.proposalSee.company,
         monthP: this.proposalSee.monthP,
@@ -71,14 +100,27 @@ export class DialogApproveProposalComponent implements OnInit {
         dateVersion: this.proposalSee.dateVersion,
         folder: this.proposalSee.folder,
         editorUser: this.proposalSee.editorUser,
-        removerUser: this.proposalSee.removerUser,
-        userApproved: this.approve.value.userApprove,
-        approvalDate: this.approve.value.approvalDate,
-        comments: this.approve.value.comments
+        rejectionDate: this.proposalSee.rejectionDate,
+        rejectionComments: this.proposalSee.rejectionComments,
+        creatorUser: this.proposalSee.creatorUser,
+        wayToPay: this.proposalSee.wayToPay,
+        wayToPayDays: this.proposalSee.wayToPayDays,
+        code: this.proposalSee.code
       }
-      this.businessProposalService.addApprovedProposal(cambio).subscribe(
+      this.businessProposalService.addApprovedProposal(approvedProposal).subscribe(
       (res) => {
-        this.businessProposalService.putStateOfProposal(this.approvedProposal).subscribe(
+        console.log('res add table apro', res)
+        console.log('this.proposalSee.proposalId,', this.proposalSee.proposalId)
+       for(let hito of this.hitos){
+          this.businessProposalService.addHito(this.proposalSee.id, hito).subscribe(
+            (res) => {
+              console.log('hitos', res)
+            },
+            (err) => console.log('ha ocurrido un error', err),
+              () => console.info('se ha completado la llamada')
+            )
+         }
+        this.businessProposalService.putStateOfProposal(cambio).subscribe(
           (res) => {
             console.log('res', res)
             Swal.fire({
@@ -104,16 +146,9 @@ export class DialogApproveProposalComponent implements OnInit {
       (err) => console.log('ha ocurrido un error', err),
           () => console.info('se ha completado la llamada')
     )
-    this.dialogRef.close('save')
-   // }
-   /* else{
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Nombre no valido',
-        showConfirmButton: false,
-        timer: 2000
-      })*/
+    this.approve.reset()
+    this.hitoForm.reset()
+    this.dialogRef.close()
     }
   }
 

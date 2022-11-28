@@ -13,6 +13,7 @@ import {MatCardModule} from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [],
@@ -23,6 +24,7 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatSelectModule,
   ],
   exports: [
+    MatListModule,
     MatTableModule,
     MatSelectModule,
     MatGridListModule,

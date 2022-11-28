@@ -49,18 +49,27 @@
     <div class="subtitle">Creado por</div>
     <div> {{proposal.creatorUser}}</div>
   </div>
+</div>
 
-  <div class="btnCreate" (click)="export()">
-    <div class="d-inline me-3">Descargar archivos de la propuesta</div>
+<div class="btns">
+  <div class="me-4">
+    <button type="button" class="btn btn-outline-danger btn-sm action" (click)="seeVersions(proposal)">
+      Historico
+    </button>
+  </div>
+
+  <div class="btnCreate text-end" (click)="export()">
     <button _ngcontent-cgx-c245="" type="button" class="btn btn-outline-primary
           btn-border-radius d-inline">
-            <span _ngcontent-cgx-c245="" class="mobile-hide">
-              <!--<mat-icon class="fs-6">arrow_downward</mat-icon>-->
+          <i class="bi bi-download"></i>
                Archivos
-            </span>
           </button>
   </div>
+  <div>
+    <button class="btn btn-outline-danger btn-sm action" mat-dialog-close>Cerrar</button>
+  </div>
 </div>
+
 
 <!--<div class="btns mt-2">
   <button type="button" class="btn btn-outline-primary btn-sm me-3"

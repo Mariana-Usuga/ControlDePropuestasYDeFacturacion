@@ -95,30 +95,36 @@ export class FormComponent implements OnInit {
   }
 
   search(){
+    const today = new Date()
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    if(this.rangeDate.value.start === '' && this.rangeDate.value.end === ''){
+      console.log('entra en if')
+      //`${2023}-${01}-${01}`
+      this.rangeDate.controls['start'].setValue('2000-01-01')
+      this.rangeDate.controls['end'].setValue('2050-12-30')
+      console.log('this.rangeDate.value.start',this.rangeDate.value.start)
+      this.businessProposalService.addFiltrosDate(this.rangeDate.value)
+    }
     console.log('search', this.fieldsSelected)
-  //console.log('filtro en form', this.fieldsSelected)
     console.log('entra add', this.rangeDate.value)
     this.businessProposalService.addFiltros(this.fieldsSelected)
-    /*const inputDate = document.getElementById('#inputDate')
-    inputDate?.click()*/
-    //this.searchByDates()
-  }
-
-  nose(){
-    if(this.rangeDate.value != ''){
-      console.log('if')
-      const inputDate = document.getElementById('#inputDate')
-    inputDate?.click()
-    }else{
-      console.log('else')
-    this.searchByDates()
-    }
   }
 
   searchByDates(){
     console.log('entra datesss')
+    const dd = String(this.rangeDate.value.start.getDate()).padStart(2, '0');
+    const mm = String(this.rangeDate.value.start.getMonth() + 1).padStart(2, '0');
+    const yyyy = this.rangeDate.value.start.getFullYear();
 
-      this.businessProposalService.addFiltrosDate(this.rangeDate.value)
-  }
+    const ddEnd = String(this.rangeDate.value.end.getDate()).padStart(2, '0');
+    const mmEnd = String(this.rangeDate.value.end.getMonth() + 1).padStart(2, '0');
+    const yyyyEnd = this.rangeDate.value.end.getFullYear();
 
+    this.rangeDate.controls['start'].setValue(`${yyyy}-${mm}-${dd}`)
+    this.rangeDate.controls['end'].setValue(`${yyyyEnd}-${mmEnd}-${ddEnd}`)
+
+    this.businessProposalService.addFiltrosDate(this.rangeDate.value)
+    }
 }

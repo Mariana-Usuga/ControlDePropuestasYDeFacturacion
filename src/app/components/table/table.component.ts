@@ -41,7 +41,6 @@ export class TableComponent implements OnInit {
     wayToPay: null,
     wayToPayDays: null,
     creatorUser: null,
-    removerUser: null,
   }
 
   dates: any = {
@@ -67,7 +66,6 @@ export class TableComponent implements OnInit {
     wayToPay: null,
     wayToPayDays: null,
     creatorUser: null,
-    removerUser: null,
   };
 
   dataSource: any[] = [];
@@ -102,6 +100,7 @@ buscar(){
   if(this.filtrosObject.customer != ""){
     this.businessProposalService.getBusinessProposal(this.filtrosObject, this.dates).subscribe(
       (res) => {
+        console.log('res', res)
         if(res.length === 0){
           console.log('res', res)
           alert('no hay datos que coincidencia con la busqueda')
@@ -130,7 +129,7 @@ editProposal(row: commercialProposal){
 
 hostoricalProposal(row: commercialProposal){
   this.dialog.open(DialogSeeVersionsComponent, {
-    width: '50%',
+    width: '70%',
     data:row
   });
 }
@@ -142,42 +141,49 @@ consultProposal(pro: commercialProposal){
   });
 }
 
-deleteProposal(id: number){
+deleteProposal(proposal: commercialProposal, id: number){
   console.log('entra en delete')
-  const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: 'btn btn-success',
-      cancelButton: 'btn btn-danger'
-    },
-    buttonsStyling: true
-  })
+  if(proposal.stateP != "pendiente"){
+    alert('no puedes eliminar esta propuesta')
+    return
+  }else{
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: true
+    })
 
-  swalWithBootstrapButtons.fire({
-    title: '¿Estas seguro?',
-    text: "Estas seguro de eliminar esta propuesta!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Si, eliminarla!',
-    cancelButtonText: 'No, cancelar!',
-    reverseButtons: true
-  }).then((result) => {
-    if (result.isConfirmed) {
-      this.subcription = this.businessProposalService.deleteProposal(id).subscribe(
-        (v: boolean) => {
-        if(v){
-          swalWithBootstrapButtons.fire(
-            'Eliminada!',
-            'La propuesta ha sido eliminada.',
-            'success'
-          )
-        }
-      })
-    } else if (
-      /* Read more about handling dismissals below */
-      result.dismiss === Swal.DismissReason.cancel
-    ) {
-    }
-  })
+    swalWithBootstrapButtons.fire({
+      title: '¿Estas seguro?',
+      text: "Estas seguro de eliminar esta propuesta!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminarla!',
+      cancelButtonText: 'No, cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.dataSource = this.dataSource.filter(x => x != proposal)
+        this.subcription = this.businessProposalService.deleteProposal(id).subscribe(
+          (v: boolean) => {
+          if(v){
+            swalWithBootstrapButtons.fire(
+              'Eliminada!',
+              'La propuesta ha sido eliminada.',
+              'success'
+            )
+          }
+        })
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+      }
+    })
+  }
+
  }
 
 openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -188,15 +194,8 @@ openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void 
   });
 }
 
-seeVersions(row: any){
-  console.log('row', row)
-  this.dialog.open(DialogSeeVersionsComponent, {
-    width: '50%',
-    data:row
-  });
-}
-
-openDialogApprove(row: commercialProposal){
+openDialogApprove(row: any){
+  console.log('apro table', row)
   if(row.stateP != "pendiente"){
     alert('no puedes hacer esta accion')
     document.getElementById("tdApprove")?.classList.add('disabled')

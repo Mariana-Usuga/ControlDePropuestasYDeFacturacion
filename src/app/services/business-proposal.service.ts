@@ -33,7 +33,6 @@ export class BusinessProposalService {
   wayToPay: null,
   wayToPayDays: null,
   creatorUser: null,
-  removerUser: null
   }
 
   dates: any = {
@@ -72,23 +71,11 @@ export class BusinessProposalService {
 
   getBusinessProposal(filter: commercialProposal, dates: any): Observable<any> {
     console.log('filter', filter, 'dates')
-    const dd = String(dates.start.getDate()).padStart(2, '0');
-    const mm = String(dates.start.getMonth() + 1).padStart(2, '0');
-    const yyyy = dates.start.getFullYear();
+    console.log('dates in service', dates)
 
-    const ddEnd = String(dates.end.getDate()).padStart(2, '0');
-    const mmEnd = String(dates.end.getMonth() + 1).padStart(2, '0');
-    const yyyyEnd = dates.end.getFullYear();
-
-    const start = yyyy + '-' + mm + '-' + dd
-    const end = yyyyEnd + '-' + mmEnd + '-' + ddEnd
-console.log('start', start, 'end', end)
-    /*let params = new HttpParams();
-    params = params.append('startDate', start);
-    params = params.append('endDate', end);*/
-    //{data: filter, params: params}
-    return this.http.post(
-      `http://localhost:8080/proposal/filter?startDate=${start}&endDate=${end}`, filter);
+    const u = `http://localhost:8080/proposal/filter?startDate=${dates.start}&endDate=${dates.end}`
+    console.log('u', u)
+    return this.http.post(u, filter);
   }
 
   addNewProposal(proposal: any): Observable<any>{
@@ -145,6 +132,10 @@ console.log('start', start, 'end', end)
 
   deleteProposal(id: number): Observable<any>{
     return this.http.delete('http://localhost:8080/proposal/'+ id)
+  }
+
+  addHito(id: number, data: any){
+    return this.http.post('http://localhost:8080/hito/'+ id, data)
   }
 
   addFiltros(campos: commercialProposal){

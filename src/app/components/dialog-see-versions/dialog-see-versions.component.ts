@@ -18,29 +18,30 @@ export class DialogSeeVersionsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('this.proposalSee.proposalId', this.proposalSee)
-    this.businessProposalService.getByVersionProposal(this.proposalSee.id).subscribe(
-      (res)=>{
-        console.log('res', res)
-        if(res === null){
-          this.noMoreVersions = true
-        }else{
-          for(let le of res){
-            const gf = Date.parse(le.dateVersion)
-            const h = new Date(gf)
-            console.log('d', h.getMonth())
-            const d = `${h.getFullYear()}/${h.getMonth()}/${h.getDay()}`
-            this.dataSource.push({
-              dateVersion: d,
-              version: le.version
-            })
+    console.log('this.proposalSee.proposalId', this.proposalSee.proposalId)
+    if(this.proposalSee.proposalId === undefined){
+      this.noMoreVersions = true
+      return
+    }else{
+      this.businessProposalService.getByVersionProposal(this.proposalSee.id).subscribe(
+        (res)=>{
+          console.log('res', res)
+            for(let le of res){
+              const gf = Date.parse(le.dateVersion)
+              const h = new Date(gf)
+              console.log('d', h.getMonth())
+              const d = `${h.getFullYear()}/${h.getMonth()}/${h.getDay()}`
+              this.dataSource.push({
+                dateVersion: d,
+                version: le.version
+              })
+            console.log('ddata source', this.dataSource)
           }
-          console.log('ddata source', this.dataSource)
-        }
-      },
-      (err) => console.log('ha ocurrido un error', err),
-          () => console.info('se ha completado la llamada')
-    )
+        },
+        (err) => console.log('ha ocurrido un error', err),
+            () => console.info('se ha completado la llamada')
+      )
+    }
   }
 
   seeProposal(){

@@ -17,8 +17,14 @@
   justify-content: center;
 }
 
-.btn {
+.btns {
+  display: flex;
+  justify-content: right;
+}
+
+.btn{
   margin: 4px;
+  font-size: 18px;
 }
 
 .file-input {

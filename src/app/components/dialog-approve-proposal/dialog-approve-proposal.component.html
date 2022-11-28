@@ -2,42 +2,59 @@
 
 <form action="" [formGroup]="approve">
 
-  <mat-form-field appearance="legacy" class="d-block">
+  <mat-form-field appearance="legacy"  class="mx-4">
     <mat-label>Quien aprueba</mat-label>
     <input type="text"
       formControlName="userApproved" matInput placeholder="Placeholder">
   </mat-form-field>
 
-  <!--<mat-form-field appearance="legacy">
-    <mat-label>Fecha de aprobacion</mat-label>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <input formControlName="approvalDate" matInput [matDatepicker]="picker">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>-->
-  <div class="row form-group">
-    <label for="date" class="col-sm-1 col-form-label">Date</label>
-    <div class="col-sm-4">
-        <div class="input-group date" id="datepicker">
-            <input type="text" class="form-control">
-            <span class="input-group-append">
-                <span class="input-group-text bg-white">
-                    <i class="fa fa-calendar"></i>
-                </span>
-            </span>
-        </div>
-    </div>
-</div>
-  
   <mat-form-field appearance="legacy" class="">
+    <mat-label>Fecha Aprobacion</mat-label>
+    <div class="chooseDate">
+        <input matInput [matDatepicker]="picker" formControlName="approvalDate">
+      <div>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </div>
+  </div>
+    <mat-hint>MM/DD/YYYY</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy"  class="col-8">
     <mat-label>Comentarios</mat-label>
-    <textarea formControlName="comments" 
+    <textarea formControlName="comments"
     matInput placeholder="Ex. It makes me feel...">
     </textarea>
   </mat-form-field>
 </form>
 
+<h5 class="mt-4">Agregar hitos</h5>
+
+<ul *ngFor="let hito of hitos">
+  <li>{{hito.percentage}} - {{hito.description}} </li>
+</ul>
+
+<form action="" [formGroup]="hitoForm">
+  <mat-form-field appearance="legacy" class="mx-3">
+    <mat-label>Porcentaje</mat-label>
+    <input type="text" [(ngModel)] = "this.hitoForm.value.percentage"
+      formControlName="percentage" matInput placeholder="Placeholder">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" class="mx-3">
+    <mat-label>Descripcion</mat-label>
+    <textarea formControlName="description" [(ngModel)] = "this.hitoForm.value.description"
+    matInput placeholder="Ex. It makes me feel...">
+    </textarea>
+  </mat-form-field>
+
+  <div class="mb-4 d-inline">
+    <button class="btn btn-outline-primary btn-sm action" type="button" (click)="addHito()">Agregar Hito</button>
+  </div>
+</form>
+
 <div>
-  <button mat-raised-button color="primary" type="button" (click)="aprovar()">Aprobar</button>
-  <button mat-raised-button mat-dialog-close color="warn">Cancelar</button>
+  <button class="btn btn-outline-primary btn-sm action me-4" color="primary" type="button"
+  (click)="aprovar()">Aprobar</button>
+  <button class="btn btn-outline-danger btn-sm action" mat-dialog-close color="warn">Cancelar</button>
 </div>

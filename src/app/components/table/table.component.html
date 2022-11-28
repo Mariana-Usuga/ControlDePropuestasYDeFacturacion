@@ -58,14 +58,14 @@
       <td class="td"> {{b.servicioConcept}} </td>
       <td class="td"> {{b.typeOfService}} </td>
       <td class="td"> {{b.stateP}} </td>
-      <td class="td" > 
+      <td class="td" >
           <button id="tdApprove" type="button" class="btn btn-outline-primary btn-sm"
           (click)="openDialogApprove(b)">
            Aprobar
           </button>
       </td>
       <td class="td" >
-        <button id="tdReject" type="button" class="btn btn-outline-danger btn-sm" 
+        <button id="tdReject" type="button" class="btn btn-outline-danger btn-sm"
         (click)="openRecha(b)">
         Rechazar
       </button>
@@ -77,10 +77,7 @@
       <button type="button" class="btn btn-outline-primary btn-sm action" (click)="editProposal(b)">
         Editar
       </button>
-      <button type="button" class="btn btn-outline-danger btn-sm action" (click)="seeVersions(b)">
-        Historico
-      </button>
-      <button type="button" class="btn btn-outline-danger btn-sm action" (click)="deleteProposal(b.id)">
+      <button type="button" class="btn btn-outline-danger btn-sm action" (click)="deleteProposal(b, b.id)">
         Eliminar
       </button>
     </td>
