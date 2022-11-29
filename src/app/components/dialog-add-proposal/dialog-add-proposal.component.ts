@@ -117,8 +117,14 @@ export class DialogAddProposalComponent implements OnInit {
       this.newProposal.controls['currency'].setValue(this.editData.currency)
       this.newProposal.controls['folder'].setValue(this.editData.folder)
       this.newProposal.controls['code'].setValue(this.editData.code)
-      this.getContacts()
+      this.getContact()
       this.disabled = true
+
+      /*this.businessProposalService.getContact(this.editData.proposalId).subscribe(
+        (contact) => {
+          console.log('res', contact)
+        }
+      )*/
     }
   }
 
@@ -136,11 +142,11 @@ export class DialogAddProposalComponent implements OnInit {
     console.log('this.newProposal.value.moneda', this.newProposal.value.currency)
     let tax;
     if(this.newProposal.value.currency === "COP"){
-      tax = 19
+      tax = 0.19
     }else if(this.newProposal.value.currency === "PEN"){
-      tax = 18
+      tax = 0.18
     }else{
-      tax = 12
+      tax = 0.12
     }
     console.log('tax', tax)
     this.totalAmount = (this.newProposal.value.baseAmount * tax) + this.newProposal.value.baseAmount
@@ -150,9 +156,9 @@ export class DialogAddProposalComponent implements OnInit {
     this.file = event.target.files;
 }
 
-getContacts(){
+getContact(){
   console.log('this.editData.id', this.editData.id)
-  this.businessProposalService.getContacts(this.editData.id).subscribe(
+  this.businessProposalService.getContact(this.editData.id).subscribe(
     (res) => {
       console.log('res', res)
       this.idProposalContact = res.id
@@ -271,8 +277,6 @@ newContact(){
       company: this.newProposal.value.company,
       customer: this.newProposal.value.customer,
       customerReference: this.newProposal.value.customerReference,
-      yearP: this.newProposal.value.yearP,
-      monthP: this.newProposal.value.monthP,
       servicioConcept: this.newProposal.value.servicioConcept,
       typeOfService: this.newProposal.value.typeOfService,
       currency: this.newProposal.value.currency,
@@ -287,7 +291,8 @@ newContact(){
       wayToPayDays: this.newProposal.value.wayToPayDays,
       creatorUser: this.newProposal.value.creatorUser,
       editorUser: this.newProposal.value.editorUser,
-      removerUser: this.newProposal.value.removerUser
+      removerUser: this.newProposal.value.removerUser,
+      code: this.newProposal.value.code
     }
     this.businessProposalService.putProposal(data1).subscribe(
       (res) => {
@@ -296,8 +301,6 @@ newContact(){
           company: this.editData.company,
           customer: this.editData.customer,
           customerReference: this.editData.customerReference,
-          yearP: this.editData.yearP,
-          monthP: this.editData.monthP,
           servicioConcept: this.editData.servicioConcept,
           typeOfService: this.editData.typeOfService,
           currency: this.editData.currency,
@@ -313,7 +316,8 @@ newContact(){
           wayToPayDays: this.editData.wayToPayDays,
           creatorUser: this.editData.creatorUser,
           editorUser: this.editData.editorUser,
-          removerUser: this.editData.removerUser
+          removerUser: this.editData.removerUser,
+          code: this.editData.code
         }
         this.businessProposalService.addNewVersion(data).subscribe(
           (res) => {

@@ -122,7 +122,7 @@ export class BusinessProposalService {
     return this.http.post('http://localhost:8080/contact', contact)
   }
 
-  getContacts(id: number): Observable<any>{
+  getContact(id: number): Observable<any>{
     return this.http.get('http://localhost:8080/contact/'+ id)
   }
 
