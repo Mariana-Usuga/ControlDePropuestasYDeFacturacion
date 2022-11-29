@@ -17,7 +17,7 @@ export class DialogAddProposalComponent implements OnInit {
   wayToPayDaysNumber: Number = 0;
   totalAmount: Number = 0;
   base: Number = 0;
-  
+
   action: String = 'Crear';
   years = [2022, 2019, 2018, 2017];
   company: Array<String> = []
@@ -104,6 +104,7 @@ export class DialogAddProposalComponent implements OnInit {
 
     if(this.editData){
       this.accionBtn = "Editar"
+      this.action = "Editar"
       this.newProposal.controls['company'].setValue(this.editData.company)
       this.newProposal.controls['customer'].setValue(this.editData.customer)
       this.newProposal.controls['customerReference'].setValue(this.editData.customerReference)
@@ -142,7 +143,7 @@ export class DialogAddProposalComponent implements OnInit {
       tax = 12
     }
     console.log('tax', tax)
-    this.totalAmount = (this.newProposal.value.baseAmount * tax) + this.newProposal.value.baseAmount 
+    this.totalAmount = (this.newProposal.value.baseAmount * tax) + this.newProposal.value.baseAmount
     this.newProposal.controls['totalAmount'].setValue(this.totalAmount)
   }
   onFileSelect(event: any) {
@@ -175,7 +176,7 @@ getContacts(){
 
           const formData = new FormData();
           formData.append("file", this.file[0]);
-          
+
             this.http.post<any>("http://localhost:8080/proposal/upload", formData).subscribe(
               (res) => {
                 console.log('res', res)
@@ -203,7 +204,7 @@ getContacts(){
                   editorUser: this.newProposal.value.editorUser,
                   removerUser: this.newProposal.value.removerUser
                 }
-                
+
                 this.businessProposalService.addNewProposal(data).subscribe(
                   (res) => {
                     console.log('res', res)
