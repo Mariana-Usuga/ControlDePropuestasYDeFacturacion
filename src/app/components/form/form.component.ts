@@ -26,7 +26,7 @@ export class FormComponent implements OnInit {
   customerReference: Array<String> = []
   typeOfService: Array<String> = []
   stateP: Array<String> = []
-  currency: Array<String> = ['dolares', 'soles']
+  currency: Array<String> = ['PEN', 'USD', 'COP']
 
   filtersLabel = ['Cliente', 'Cliente referencia', 'Tipo de servicio', 'Empresa factura',
   'Year', 'Mes', 'Moneda', 'Estado']
