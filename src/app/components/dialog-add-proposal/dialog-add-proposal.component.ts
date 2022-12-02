@@ -124,7 +124,21 @@ export class DialogAddProposalComponent implements OnInit {
         (contact) => {
           console.log('res', contact)
         }
-      )*/
+      )
+
+      "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ],
+      */
     }
   }
 
@@ -152,6 +166,7 @@ export class DialogAddProposalComponent implements OnInit {
     this.totalAmount = (this.newProposal.value.baseAmount * tax) + this.newProposal.value.baseAmount
     this.newProposal.controls['totalAmount'].setValue(this.totalAmount)
   }
+
   onFileSelect(event: any) {
     this.file = event.target.files;
 }
