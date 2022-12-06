@@ -134,7 +134,7 @@ hostoricalProposal(row: commercialProposal){
   });
 }
 
-consultProposal(pro: commercialProposal){
+consultProposal(pro: any){
   this.dialog.open(DialogSeeProposalComponent, {
     width: '70%',
     data: pro

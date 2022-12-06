@@ -18,14 +18,18 @@ export class DialogSeeVersionsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('this.proposalSee.proposalId', this.proposalSee.proposalId)
-    if(this.proposalSee.proposalId === undefined){
+    console.log('this.proposalSee.proposalId', this.proposalSee.id)
+    if(this.proposalSee.id === undefined){
       this.noMoreVersions = true
       return
     }else{
       this.businessProposalService.getByVersionProposal(this.proposalSee.id).subscribe(
         (res)=>{
           console.log('res', res)
+          if(res.length === 0){
+            this.noMoreVersions = true
+            return
+          }else{
             for(let le of res){
               const gf = Date.parse(le.dateVersion)
               const h = new Date(gf)
@@ -36,6 +40,7 @@ export class DialogSeeVersionsComponent implements OnInit {
                 version: le.version
               })
             console.log('ddata source', this.dataSource)
+          }
           }
         },
         (err) => console.log('ha ocurrido un error', err),

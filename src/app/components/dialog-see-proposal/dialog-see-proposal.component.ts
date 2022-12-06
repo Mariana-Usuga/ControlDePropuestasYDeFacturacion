@@ -12,7 +12,8 @@ import { DialogSeeVersionsComponent } from '../dialog-see-versions/dialog-see-ve
 })
 export class DialogSeeProposalComponent implements OnInit {
 
-  proposal: commercialProposal = {
+  proposal: any = {
+    id: this.proposalSee.id,
     code: this.proposalSee.code,
     customer: this.proposalSee.customer,
     company: this.proposalSee.company,
@@ -24,7 +25,6 @@ export class DialogSeeProposalComponent implements OnInit {
     baseAmount: this.proposalSee.baseAmount,
     totalAmount: this.proposalSee.totalAmount,
     version: this.proposalSee.version,
-    proposalId: this.proposalSee.proposalId,
     dateVersion: this.proposalSee.dateVersion,
     folder: this.proposalSee.folder,
     wayToPay: this.proposalSee.wayToPay,
