@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 export interface data {
   name: string
 }
+const URL = 'http://119.8.153.220:8080/proposalControlV1-0.0.1'
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class DataFiltersService {
   currency: Array<String> = ['dolares']
 
   company$: Subject<data[]>
-  
+
   constructor(private http: HttpClient) {
     this.company = []
     this.company$ = new Subject()
@@ -29,27 +30,27 @@ export class DataFiltersService {
 
   getAllCompany(): Observable<any>{
     //console.log('proposal', idProposal);
-    return this.http.get('http://localhost:8080/data/getAllCompany')
+    return this.http.get(`${URL}/data/getAllCompany`)
   }
 
   getAllCustomer(): Observable<any>{
     //console.log('proposal', idProposal);
-    return this.http.get('http://localhost:8080/data/getAllCustomer')
+    return this.http.get(`${URL}/data/getAllCustomer`)
   }
 
   getAllCustomerReference(): Observable<any>{
     //console.log('proposal', idProposal);
-    return this.http.get('http://localhost:8080/data/getAllCustomerReference')
+    return this.http.get(`${URL}/data/getAllCustomerReference`)
   }
- 
+
   getAllState(): Observable<any>{
     //console.log('proposal', idProposal);
-    return this.http.get('http://localhost:8080/data/getAllState')
+    return this.http.get(`${URL}/data/getAllState`)
   }
 
   getAllTypeOfService(): Observable<any>{
     //console.log('proposal', idProposal);
-    return this.http.get('http://localhost:8080/data/getAllTypeOfService')
+    return this.http.get(`${URL}/data/getAllTypeOfService`)
   }
 
 }

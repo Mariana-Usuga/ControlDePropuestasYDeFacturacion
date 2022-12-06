@@ -42,43 +42,50 @@
       <th class="th">Cliente</th>
       <th class="th">Cliente Referencia</th>
       <th class="th">Empresa</th>
-      <th class="th">Creada por</th>
       <th class="th">Concepto De Servicio</th>
       <th class="th">Tipo de Sercicio</th>
       <th class="th">Estado</th>
       <th class="th">Aprobar</th>
       <th class="th">Rechazar</th>
-      <th class="th">Action</th>
+      <th class="th">Acciones</th>
     </tr>
     <tr *ngFor="let b of dataSource">
       <td class="td"> {{b.customer}} </td>
       <td class="td"> {{b.company}} </td>
       <td class="td"> {{b.customerReference}} </td>
-      <td class="td"> {{b.creatorUser}} </td>
       <td class="td"> {{b.servicioConcept}} </td>
       <td class="td"> {{b.typeOfService}} </td>
       <td class="td"> {{b.stateP}} </td>
-      <td class="td" >
-          <button id="tdApprove" type="button" class="btn btn-outline-primary btn-sm"
+      <td class="tdBtns" >
+          <button id="tdApprove" type="button" class="btn btn-outline-primary"
+          style="--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .60rem;
+          text-align: center;"
           (click)="openDialogApprove(b)">
-           Aprobar
+          <mat-icon>check</mat-icon>
           </button>
       </td>
-      <td class="td" >
+      <td class="tdBtns" >
         <button id="tdReject" type="button" class="btn btn-outline-danger btn-sm"
+        style="--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .60rem;"
         (click)="openRecha(b)">
-        Rechazar
+        <mat-icon>clear</mat-icon>
       </button>
     </td>
     <td class="td btns">
-      <button type="button" class="btn btn-outline-primary btn-sm action" (click)="consultProposal(b)">
-        Consultar
+      <button type="button" class="btn btn-outline-primary btn-sm action"
+      style="--bs-btn-padding-y: .15rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .60rem;"
+      (click)="consultProposal(b)">
+        <mat-icon>remove_red_eye</mat-icon>
       </button>
-      <button type="button" class="btn btn-outline-primary btn-sm action" (click)="editProposal(b)">
-        Editar
+      <button type="button" class="btn btn-outline-primary btn-sm action"
+      style="--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .60rem;"
+      (click)="editProposal(b)">
+        <span class="material-icons">edit</span>
       </button>
-      <button type="button" class="btn btn-outline-danger btn-sm action" (click)="deleteProposal(b, b.id)">
-        Eliminar
+      <button type="button" class="btn btn-outline-danger btn-sm action"
+      style="--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .60rem;"
+      (click)="deleteProposal(b, b.id)">
+        <mat-icon>delete</mat-icon>
       </button>
     </td>
     </tr>

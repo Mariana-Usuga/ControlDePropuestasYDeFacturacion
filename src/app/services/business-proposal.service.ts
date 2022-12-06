@@ -4,16 +4,19 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpEvent, HttpParams, HttpRequest } from '@angular/common/http';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import { DatePipe } from '@angular/common';
 import { proposalContact } from '../models/interfaces/ProposalContact.interface';
 const EXCEL_TYPE =
 'application/vnd.openxmlformats-officedocument.spredsheetml-sheet; charset=UTF-8';
 const EXCEL_EXT = '.xlsx';
 
+const URL = 'http://119.8.153.220:8080/proposalControlV1-0.0.1'
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class BusinessProposalService {
+
 
   objectfiltros: commercialProposal = {
     code: null,
@@ -66,40 +69,40 @@ export class BusinessProposalService {
 
   putStateOfProposal(proposal: any): Observable<any>{
     console.log('filter', proposal)
-    return this.http.put('http://localhost:8080/proposal', proposal)
+    return this.http.put(`${URL}/proposal`, proposal)
   }
 
   getBusinessProposal(filter: commercialProposal, dates: any): Observable<any> {
     console.log('filter', filter, 'dates')
     console.log('dates in service', dates)
 
-    const u = `http://localhost:8080/proposal/filter?startDate=${dates.start}&endDate=${dates.end}`
+    const u = `${URL}/proposal/filter?startDate=${dates.start}&endDate=${dates.end}`
     console.log('u', u)
     return this.http.post(u, filter);
   }
 
   addNewProposal(proposal: any): Observable<any>{
     console.log('proposal', proposal);
-    return this.http.post('http://localhost:8080/proposal', proposal)
+    return this.http.post(`${URL}/proposal`, proposal)
   }
 
   getByVersionProposal(idProposal: number): Observable<any>{
     console.log('proposal', idProposal);
-    return this.http.get('http://localhost:8080/proposalVersion/getProposalByIdProposal/'+idProposal)
+    return this.http.get(`${URL}/proposalVersion/getProposalByIdProposal/`+idProposal)
   }
 
   putProposal(data: any): Observable<any>{
     console.log('entra en servicio PUT', data)
-    return this.http.put('http://localhost:8080/proposal', data)
+    return this.http.put(`${URL}/proposal`, data)
   }
   addNewVersion(proposal: object): Observable<any>{
     console.log('proposal', proposal);
-    return this.http.post('http://localhost:8080/proposal/version', proposal)
+    return this.http.post(`${URL}/proposal/version`, proposal)
   }
 
   addApprovedProposal(proposal: object): Observable<any>{
     console.log('proposal', proposal);
-    return this.http.post('http://localhost:8080/approvedProposal', proposal)
+    return this.http.post(`${URL}/approvedProposal`, proposal)
   }
 
   uploadFile(file: any): Observable<HttpEvent<any>> {
@@ -113,29 +116,33 @@ export class BusinessProposalService {
     console.log('options', options);
     console.log('formData', formData)
 
-    const req = new HttpRequest('POST', 'http://localhost:8080/proposal/upload',
+    const req = new HttpRequest('POST', `${URL}/proposal/upload`,
     formData, options);
     return this.http.request(req);
   }
 
   addNewProposalContact(contact: any) {
-    return this.http.post('http://localhost:8080/contact', contact)
+    return this.http.post(`${URL}/contact`, contact)
   }
 
   getContact(id: number): Observable<any>{
-    return this.http.get('http://localhost:8080/contact/'+ id)
+    return this.http.get(`${URL}/contact/`+ id)
   }
 
   putContact(contact: proposalContact): Observable<any>{
-    return this.http.put('http://localhost:8080/contact', contact )
+    return this.http.put(`${URL}/contact`, contact )
   }
 
   deleteProposal(id: number): Observable<any>{
-    return this.http.delete('http://localhost:8080/proposal/'+ id)
+    return this.http.delete(`${URL}/proposal/`+ id)
   }
 
   addHito(id: number, data: any){
-    return this.http.post('http://localhost:8080/hito/'+ id, data)
+    return this.http.post(`${URL}/hito/`+ id, data)
+  }
+
+  getCurrency(){
+    return this.http.get(`${URL}/hito/`)
   }
 
   addFiltros(campos: commercialProposal){

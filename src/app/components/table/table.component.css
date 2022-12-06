@@ -36,6 +36,11 @@
   border: 1px solid #9dc8e2;
 }
 
+.tdBtns{
+  text-align: center;
+  border: 1px solid #9dc8e2;
+}
+
 .th{
   padding: 10px;
   font-size: 15.5px;
@@ -45,7 +50,7 @@
 }
 
 .btns{
-  display: flex;
+  text-align: center;
 }
 
 .containerBtn{

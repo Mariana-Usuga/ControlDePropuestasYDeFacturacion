@@ -198,11 +198,11 @@ getContact(){
           const formData = new FormData();
           formData.append("file", this.file[0]);
 
-            this.http.post<any>("http://localhost:8080/proposal/upload", formData).subscribe(
+            /*this.http.post<any>("http://localhost:8080/proposal/upload", formData).subscribe(
               (res) => {
                 console.log('res', res)
                 this.newProposal.get('folder')?.setValue(res.message)
-                console.log('this.newProposal.value', this.newProposal.value)
+                console.log('this.newProposal.value', this.newProposal.value)*/
                 const data = {
                   code: this.newProposal.value.code,
                   company: this.newProposal.value.company,
@@ -239,10 +239,12 @@ getContact(){
                 )
                 this.newProposal.reset()
                 this.dialogRef.close('save')
-              },
-              (err) => {
+              }
+              /*(err) => {
                 console.log('err', err)
-              })}
+              }*/
+              //)
+            //}
   }else{
     console.log('entra en update')
     this.updateProposal();
