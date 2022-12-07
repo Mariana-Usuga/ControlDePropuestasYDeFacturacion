@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   valores = []
   //title = 'ControlDePropuestasYDeFacturacion';
-  title = 'proposalControlF'
+  title = 'proposalControlF';
 
   ver(){
     console.log('lvalores', this.valores);
