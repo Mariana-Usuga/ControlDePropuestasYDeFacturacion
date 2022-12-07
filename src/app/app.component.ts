@@ -11,7 +11,7 @@ export class AppComponent {
   title = 'proposalControlF'
 
   ver(){
-    console.log('lvalores', this.valores)
+    console.log('lvalores', this.valores);
   }
 }
 /*"buildProduction": "ng build --configuration production --base-href /proposalControl_F/",
