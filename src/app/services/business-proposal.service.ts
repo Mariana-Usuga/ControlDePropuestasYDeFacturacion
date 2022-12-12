@@ -9,8 +9,8 @@ const EXCEL_TYPE =
 'application/vnd.openxmlformats-officedocument.spredsheetml-sheet; charset=UTF-8';
 const EXCEL_EXT = '.xlsx';
 
-const URL = 'http://119.8.153.220:8080/proposalControlV1-0.0.1'
-
+//const URL = 'http://119.8.153.220:8080/proposalControlV1-0.0.1'
+const URL = 'localhost:8080'
 @Injectable({
   providedIn: 'root'
 })
