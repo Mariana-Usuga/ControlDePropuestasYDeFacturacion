@@ -92,7 +92,9 @@ export class DialogAddProposalComponent implements OnInit {
       proposalContact: ['', Validators.required],
       telephoneContact: ['', Validators.required],
       editorUser: [''],
-      removerUser : [' ']
+      commercialManager: [''],
+      presaleManager: [''],
+      //removerUser : [' ']
     })
 
     this.newProposalContact = this.formBuilder.group({
@@ -117,6 +119,8 @@ export class DialogAddProposalComponent implements OnInit {
       this.newProposal.controls['currency'].setValue(this.editData.currency)
       this.newProposal.controls['folder'].setValue(this.editData.folder)
       this.newProposal.controls['code'].setValue(this.editData.code)
+      this.newProposal.controls['commercialManager'].setValue(this.editData.commercialManager)
+      this.newProposal.controls['presaleManager'].setValue(this.editData.presaleManager)
       this.getContact()
       this.disabled = true
 
@@ -198,11 +202,13 @@ getContact(){
           const formData = new FormData();
           formData.append("file", this.file[0]);
 
-            /*this.http.post<any>("http://localhost:8080/proposal/upload", formData).subscribe(
+            this.http.post<any>("http://localhost:8080/proposal/upload", formData).subscribe(
               (res) => {
                 console.log('res', res)
                 this.newProposal.get('folder')?.setValue(res.message)
-                console.log('this.newProposal.value', this.newProposal.value)*/
+                console.log('this.newProposal.value', this.newProposal.value)
+              }
+            )
                 const data = {
                   code: this.newProposal.value.code,
                   company: this.newProposal.value.company,
@@ -308,8 +314,11 @@ newContact(){
       wayToPayDays: this.newProposal.value.wayToPayDays,
       creatorUser: this.newProposal.value.creatorUser,
       editorUser: this.newProposal.value.editorUser,
-      removerUser: this.newProposal.value.removerUser,
-      code: this.newProposal.value.code
+      //removerUser: this.newProposal.value.removerUser,
+      code: this.newProposal.value.code,
+      commercialManager: this.newProposal.value.commercialManager,
+      presaleManager: this.newProposal.value.presaleManager,
+
     }
     this.businessProposalService.putProposal(data1).subscribe(
       (res) => {
@@ -334,7 +343,9 @@ newContact(){
           creatorUser: this.editData.creatorUser,
           editorUser: this.editData.editorUser,
           removerUser: this.editData.removerUser,
-          code: this.editData.code
+          code: this.editData.code,
+          commercialManager: this.editData.commercialManager,
+          presaleManager: this.editData.presaleManager
         }
         this.businessProposalService.addNewVersion(data).subscribe(
           (res) => {
