@@ -122,8 +122,8 @@ buscar(){
 editProposal(row: commercialProposal){
   console.log(' this.dataSource', this.dataSource)
   this.dialog.open(DialogAddProposalComponent, {
-    width: '70%',
-    data:row
+    maxHeight: '90vh',
+    data:row,
   });
 }
 
@@ -188,7 +188,7 @@ deleteProposal(proposal: commercialProposal, id: number){
 
 openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
   this.dialog.open(DialogAddProposalComponent, {
-    width: '70%',
+    maxHeight: '90vh',
     enterAnimationDuration,
     exitAnimationDuration,
   });

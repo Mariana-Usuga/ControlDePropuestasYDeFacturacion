@@ -36,8 +36,9 @@ export class DialogAddProposalComponent implements OnInit {
   shortLink: string = "";
   loading: boolean = false; // Flag variable
   idNewProposal: number = 0;
-  file = ""; // Variable to store file
+  files = ""; // Variable to store file
   disabled: boolean = false;
+  idProposalCreated: string = ""
 
 
   constructor(private formBuilder: FormBuilder,
@@ -172,7 +173,8 @@ export class DialogAddProposalComponent implements OnInit {
   }
 
   onFileSelect(event: any) {
-    this.file = event.target.files;
+    this.files = event.target.files;
+    console.log('fle!!!!!', event.target.files)
 }
 
 getContact(){
@@ -192,57 +194,66 @@ getContact(){
 
   addProposal(){
     this.action = 'Crear';
-    if(this.file.length > 5){
+    if(this.files.length > 5){
       return alert('solo puedes subir maximo 5 archivos')
     }else{
       if(!this.editData){
-        if (this.file) {
-          console.log('this.file.length',this.file.length)
+        if (this.files) {
 
-          const formData = new FormData();
-          formData.append("file", this.file[0]);
+          const data = {
+            code: this.newProposal.value.code,
+            company: this.newProposal.value.company,
+            customer: this.newProposal.value.customer,
+            customerReference: this.newProposal.value.customerReference,
+            servicioConcept: this.newProposal.value.servicioConcept,
+            typeOfService: this.newProposal.value.typeOfService,
+            currency: this.newProposal.value.currency,
+            stateP: this.newProposal.value.stateP,
+            baseAmount: this.newProposal.value.baseAmount,
+            totalAmount: this.newProposal.value.totalAmount,
+            wayToPay: this.newProposal.value.wayToPay,
+            wayToPayDays: this.newProposal.value.wayToPayDays,
+            creatorUser: this.newProposal.value.creatorUser,
+            version: 1,
+            dateVersion: this.newProposal.value.dateVersion,
+            folder: this.newProposal.value.folder,
+            editorUser: this.newProposal.value.editorUser,
+            removerUser: this.newProposal.value.removerUser
+          }
 
-            this.http.post<any>("http://localhost:8080/proposal/upload", formData).subscribe(
-              (res) => {
-                console.log('res', res)
-                this.newProposal.get('folder')?.setValue(res.message)
-                console.log('this.newProposal.value', this.newProposal.value)
-              }
-            )
-                const data = {
-                  code: this.newProposal.value.code,
-                  company: this.newProposal.value.company,
-                  customer: this.newProposal.value.customer,
-                  customerReference: this.newProposal.value.customerReference,
-                  yearP: this.newProposal.value.yearP,
-                  monthP: this.newProposal.value.monthP,
-                  servicioConcept: this.newProposal.value.servicioConcept,
-                  typeOfService: this.newProposal.value.typeOfService,
-                  currency: this.newProposal.value.currency,
-                  stateP: this.newProposal.value.stateP,
-                  baseAmount: this.newProposal.value.baseAmount,
-                  totalAmount: this.newProposal.value.totalAmount,
-                  wayToPay: this.newProposal.value.wayToPay,
-                  wayToPayDays: this.newProposal.value.wayToPayDays,
-                  creatorUser: this.newProposal.value.creatorUser,
-                  version: 1,
-                  dateVersion: this.newProposal.value.dateVersion,
-                  folder: this.newProposal.value.folder,
-                  editorUser: this.newProposal.value.editorUser,
-                  removerUser: this.newProposal.value.removerUser
-                }
+          this.businessProposalService.addNewProposal(data).subscribe(
+            (res) => {
+              console.log('res', res)
+              console.log('ID!!!!', res.data.id)
+              this.idProposalCreated = res.data.id;
+              this.newProposalContact.controls['idProposal'].setValue(res.data.id)
 
-                this.businessProposalService.addNewProposal(data).subscribe(
+       console.log('this.file', this.files)
+                for (let f of this.files) {
+
+                  const file = new FormData();
+                file.append("file", f);
+
+                this.http.post<any>(
+                  `http://localhost:8080/proposal/${res.data.id}/upload`, file)
+                  .subscribe(
                   (res) => {
                     console.log('res', res)
-                    this.newProposalContact.controls['idProposal'].setValue(res.data.id)
-                    if(res.success){
-                      this.newContact();
-                    }
-                  },
-                  (err) => console.log('ha ocurrido un error', err),
-                  () => console.info('se ha completado la llamada')
+                    this.newProposal.controls['folder'].setValue(res.message)
+                  }
                 )
+                }
+
+              if(res.success){
+                this.newContact();
+              }
+            },
+            (err) => console.log('ha ocurrido un error', err),
+            () => console.info('se ha completado la llamada')
+          )
+
+          //console.log('this.file.length',this.file.length)
+
                 this.newProposal.reset()
                 this.dialogRef.close('save')
               }

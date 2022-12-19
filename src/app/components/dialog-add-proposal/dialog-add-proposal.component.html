@@ -1,7 +1,8 @@
+<div class="scroll">
 
 <h3> {{action}} oportunidad</h3>
 
-  <form class="" action="" [formGroup]="newProposal">
+  <form data-bs-spy="scroll" action="" [formGroup]="newProposal">
       <mat-form-field appearance="legacy" class="mx-4">
         <mat-label>Empresa</mat-label>
         <mat-select formControlName="company" placeholder="Empresa">
@@ -63,10 +64,20 @@
         <input type="number" formControlName="totalAmount" matInput placeholder="Placeholder">
       </mat-form-field>
 
-      <mat-form-field appearance="legacy" class="mx-4">
+      <!--<mat-form-field appearance="legacy" class="mx-4">
         <mat-label>Codigo</mat-label>
         <input matInput [readonly]="disabled"
          type="text" formControlName="code" matInput placeholder="Placeholder">
+      </mat-form-field>-->
+
+      <mat-form-field appearance="legacy" class="mx-4">
+        <mat-label>Responsable Comercial</mat-label>
+        <input type="text" formControlName="commercialManager" matInput placeholder="Placeholder">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class="mx-4">
+        <mat-label>Responsable Pre-venta</mat-label>
+        <input type="text" formControlName="presaleManager" matInput placeholder="Placeholder">
       </mat-form-field>
 
       <mat-form-field appearance="legacy" class="col-8">
@@ -74,16 +85,6 @@
           <textarea formControlName="servicioConcept"
           matInput placeholder="Ex. It makes me feel...">
           </textarea>
-        </mat-form-field>
-
-        <mat-form-field appearance="legacy" class="mx-4">
-          <mat-label>Responsable Comercial</mat-label>
-          <input type="text" formControlName="commercialManager" matInput placeholder="Placeholder">
-        </mat-form-field>
-
-        <mat-form-field appearance="legacy" class="mx-4">
-          <mat-label>Responsable Pre-venta</mat-label>
-          <input type="text" formControlName="presaleManager" matInput placeholder="Placeholder">
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="d-none">
@@ -131,6 +132,8 @@
     <button class="btn btn-outline-danger btn-sm action"
      mat-dialog-close color="warn">Cancelar</button>
   </div>
+</div>
+
 </div>
 
 

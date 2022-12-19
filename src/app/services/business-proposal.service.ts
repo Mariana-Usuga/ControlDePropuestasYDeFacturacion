@@ -10,7 +10,7 @@ const EXCEL_TYPE =
 const EXCEL_EXT = '.xlsx';
 
 //const URL = 'http://119.8.153.220:8080/proposalControlV1-0.0.1'
-const URL = 'localhost:8080'
+const URL = 'http://localhost:8080'
 @Injectable({
   providedIn: 'root'
 })
@@ -105,7 +105,7 @@ export class BusinessProposalService {
     return this.http.post(`${URL}/approvedProposal`, proposal)
   }
 
-  uploadFile(file: any): Observable<HttpEvent<any>> {
+  uploadFile(id: number, file: any): Observable<HttpEvent<any>> {
     let formData = new FormData();
     formData.append('upload', file);
     let params = new HttpParams();
@@ -116,7 +116,7 @@ export class BusinessProposalService {
     console.log('options', options);
     console.log('formData', formData)
 
-    const req = new HttpRequest('POST', `${URL}/proposal/upload`,
+    const req = new HttpRequest('POST', `${URL}/proposal/${id}/upload`,
     formData, options);
     return this.http.request(req);
   }
