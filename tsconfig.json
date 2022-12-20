@@ -29,7 +29,7 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-    "compilerOptions": {    
+    "compilerOptions": {
       "esModuleInterop": true
     }
 }

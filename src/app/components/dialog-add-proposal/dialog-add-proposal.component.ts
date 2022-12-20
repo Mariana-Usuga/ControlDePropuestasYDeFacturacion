@@ -233,9 +233,9 @@ getContact(){
 
                   const file = new FormData();
                 file.append("file", f);
-
+                //`http://localhost:8080/proposal/${res.data.id}/upload`, file)
                 this.http.post<any>(
-                  `http://localhost:8080/proposal/${res.data.id}/upload`, file)
+                  `http://119.8.153.220:8080/proposalControlBackend-0.0.1/proposal/${res.data.id}/upload`, file)
                   .subscribe(
                   (res) => {
                     console.log('res', res)

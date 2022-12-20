@@ -5,8 +5,8 @@ import { Observable, Subject } from 'rxjs';
 export interface data {
   name: string
 }
-//const URL = 'http://119.8.153.220:8080/proposalControlV1-0.0.1'
-const URL = 'http://localhost:8080'
+const URL = 'http://119.8.153.220:8080/proposalControlBackend-0.0.1'
+//const URL = 'http://localhost:8080'
 @Injectable({
   providedIn: 'root'
 })

@@ -4,6 +4,7 @@ import { commercialProposal } from 'src/app/models/interfaces/commercialProposal
 import { DialogApproveProposalComponent } from '../dialog-approve-proposal/dialog-approve-proposal.component';
 import { DialogRejectProposalComponent } from '../dialog-reject-proposal/dialog-reject-proposal.component';
 import { DialogSeeVersionsComponent } from '../dialog-see-versions/dialog-see-versions.component';
+import { BusinessProposalService } from 'src/app/services/business-proposal.service';
 
 @Component({
   selector: 'app-dialog-see-proposal',
@@ -33,32 +34,52 @@ export class DialogSeeProposalComponent implements OnInit {
   }
   fileService: any;
   toastr: any;
+  arrayFiles: Array<string> = []
 
-  constructor(public dialog: MatDialog,  @Inject(MAT_DIALOG_DATA) public proposalSee: any) { }
+  constructor(public dialog: MatDialog,  @Inject(MAT_DIALOG_DATA) public proposalSee: any,
+  private businessProposalService: BusinessProposalService) { }
 
   ngOnInit(): void {
     console.log('proposalSee', this.proposalSee);
 
   }
-  export(): void{
-    const downloadInstance = document.createElement('a');
-    downloadInstance.href = 'assets/Mariana-Usuga(1).pdf'
-    downloadInstance.target = '_blank'
-    downloadInstance.download = 'mariana.pdf'
-    downloadInstance.click()
+  export(folder: any): void{ 
 
-    const downloadInstanc = document.createElement('a');
+    console.log('folder', folder)
+    const c = folder.split('\\')
+    console.log('C', c)
+
+    this.businessProposalService.getFilesProposal(c[5]).subscribe((res: any) => {
+      this.arrayFiles = res.data
+      //res.data.map((r) => {
+        console.log('date', res.data)
+      //})
+      //this.dates = obj
+    })
+    //for (let fi of this.arrayFiles) {
+      console.log('arrayfile', this.arrayFiles)
+      const downloadInstance = document.createElement('a');
+      //`${URL}/hito/`
+      downloadInstance.href = `file://C://Users//Mariana//Desktop//dataProposa//${c[5]}//Libro.xlsx`
+      downloadInstance.target = '_blank'
+      downloadInstance.download = 'descarga.xlsx'
+      downloadInstance.click()
+    //}
+
+   /* const downloadInstanc = document.createElement('a');
     downloadInstanc.href = 'assets/my_export_export_proposal(2).xlsx'
     downloadInstanc.target = '_blank'
     downloadInstanc.download = 'mariana2'
-    downloadInstanc.click()
+    downloadInstanc.click()*/
   }
 
   openDialogApprove(){
+    console.log('entra approvee!!!!')
+    /*console.log('arrayfile', this.arrayFiles)
     this.dialog.open(DialogApproveProposalComponent, {
       width: '70%',
       data:this.proposalSee
-    });
+    });*/
   }
 
   openRecha(){
