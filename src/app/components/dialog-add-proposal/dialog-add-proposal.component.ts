@@ -19,6 +19,7 @@ export class DialogAddProposalComponent implements OnInit {
   base: Number = 0;
 
   action: String = 'Crear';
+  showCode: boolean = false
   years = [2022, 2019, 2018, 2017];
   company: Array<String> = []
   customer: Array<String> = []
@@ -95,6 +96,8 @@ export class DialogAddProposalComponent implements OnInit {
       editorUser: [''],
       commercialManager: [''],
       presaleManager: [''],
+      comments: [''],
+      proposalSubmissionDeadline: ['']
       //removerUser : [' ']
     })
 
@@ -106,6 +109,7 @@ export class DialogAddProposalComponent implements OnInit {
     })
 
     if(this.editData){
+      this.showCode = true
       this.accionBtn = "Editar"
       this.action = "Editar"
       this.newProposal.controls['company'].setValue(this.editData.company)
@@ -122,6 +126,7 @@ export class DialogAddProposalComponent implements OnInit {
       this.newProposal.controls['code'].setValue(this.editData.code)
       this.newProposal.controls['commercialManager'].setValue(this.editData.commercialManager)
       this.newProposal.controls['presaleManager'].setValue(this.editData.presaleManager)
+      this.newProposal.controls['proposalSubmissionDeadline'].setValue(this.editData.proposalSubmissionDeadline)
       this.getContact()
       this.disabled = true
 
@@ -193,6 +198,7 @@ getContact(){
 }
 
   addProposal(){
+    this.showCode = false
     this.action = 'Crear';
     if(this.files.length > 5){
       return alert('solo puedes subir maximo 5 archivos')
@@ -218,7 +224,8 @@ getContact(){
             dateVersion: this.newProposal.value.dateVersion,
             folder: this.newProposal.value.folder,
             editorUser: this.newProposal.value.editorUser,
-            removerUser: this.newProposal.value.removerUser
+            removerUser: this.newProposal.value.removerUser,
+            proposalSubmissionDeadline: this.newProposal.value.proposalSubmissionDeadline
           }
 
           this.businessProposalService.addNewProposal(data).subscribe(
@@ -329,6 +336,7 @@ newContact(){
       code: this.newProposal.value.code,
       commercialManager: this.newProposal.value.commercialManager,
       presaleManager: this.newProposal.value.presaleManager,
+      proposalSubmissionDeadline: this.newProposal.value.proposalSubmissionDeadline
 
     }
     this.businessProposalService.putProposal(data1).subscribe(
@@ -356,7 +364,8 @@ newContact(){
           removerUser: this.editData.removerUser,
           code: this.editData.code,
           commercialManager: this.editData.commercialManager,
-          presaleManager: this.editData.presaleManager
+          presaleManager: this.editData.presaleManager,
+          proposalSubmissionDeadline: this.editData.proposalSubmissionDeadline
         }
         this.businessProposalService.addNewVersion(data).subscribe(
           (res) => {

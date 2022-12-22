@@ -64,11 +64,11 @@
         <input type="number" formControlName="totalAmount" matInput placeholder="Placeholder">
       </mat-form-field>
 
-      <!--<mat-form-field appearance="legacy" class="mx-4">
-        <mat-label>Codigo</mat-label>
-        <input matInput [readonly]="disabled"
-         type="text" formControlName="code" matInput placeholder="Placeholder">
-      </mat-form-field>-->
+        <mat-form-field *ngIf="showCode" appearance="legacy" class="mx-4">
+          <mat-label>Codigo</mat-label>
+          <input matInput
+           type="text" formControlName="code" matInput placeholder="Placeholder">
+        </mat-form-field>
 
       <mat-form-field appearance="legacy" class="mx-4">
         <mat-label>Responsable Comercial</mat-label>
@@ -81,7 +81,22 @@
       </mat-form-field>
 
       <mat-form-field appearance="legacy" class="col-8">
+        <mat-label>Fecha límite de envío de propuesta</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class="col-8">
           <mat-label>Concepto de Servicio</mat-label>
+          <textarea formControlName="servicioConcept"
+          matInput placeholder="Ex. It makes me feel...">
+          </textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy" class="col-8">
+          <mat-label>Comentarios</mat-label>
           <textarea formControlName="servicioConcept"
           matInput placeholder="Ex. It makes me feel...">
           </textarea>

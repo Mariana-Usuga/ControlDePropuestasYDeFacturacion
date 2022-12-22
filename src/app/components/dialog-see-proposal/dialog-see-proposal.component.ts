@@ -34,7 +34,7 @@ export class DialogSeeProposalComponent implements OnInit {
   }
   fileService: any;
   toastr: any;
-  arrayFiles: Array<string> = []
+  arrayFiles: Array<string> = ['j', 'o']
 
   constructor(public dialog: MatDialog,  @Inject(MAT_DIALOG_DATA) public proposalSee: any,
   private businessProposalService: BusinessProposalService) { }
@@ -43,27 +43,51 @@ export class DialogSeeProposalComponent implements OnInit {
     console.log('proposalSee', this.proposalSee);
 
   }
-  export(folder: any): void{ 
+  export(folder: any): void{
 
     console.log('folder', folder)
-    const c = folder.split('\\')
+    const c = folder.split('/')
     console.log('C', c)
 
     this.businessProposalService.getFilesProposal(c[5]).subscribe((res: any) => {
-      this.arrayFiles = res.data
+      for (var i = 0; i < res.data.length ; i++) {
+        console.log('arrayfile', res.data[i])
+      const part = res.data[i].split(".").pop();
+      console.log('part ', part)
+
+        //downloadInstance.href = `file://C://Users//Mariana//Desktop//dataProposa//${c[5]}//Libro.xlsx`
+          //const u = `/opt/tomcat/webapps/archivospropuesta/${c[5]}/${part}`
+          const u = `/opt/tomcat/webapps/archivospropuesta/${c[5]}/${res.data[i]}`
+          console.log('u ', u)
+        const downloadInstance = document.createElement('a');
+      downloadInstance.href = u
+      downloadInstance.target = '_blank'
+      downloadInstance.download = `${res.data[i]}`
+      downloadInstance.click()
+      }
+      //this.arrayFiles = res.data
       //res.data.map((r) => {
-        console.log('date', res.data)
+       //console.log('date', res.data)
       //})
       //this.dates = obj
     })
-    //for (let fi of this.arrayFiles) {
-      console.log('arrayfile', this.arrayFiles)
-      const downloadInstance = document.createElement('a');
+    //const fi = ['ijio.xlsx', 'ijio.xlsx']
+    //this.arrayFiles
+   // for (var i = 0; i < this.arrayFiles.length ; i++) {
+     // console.log('arrayfile', this.arrayFiles)
+      //console.log('f!!', this.arrayFiles[i])
       //`${URL}/hito/`
-      downloadInstance.href = `file://C://Users//Mariana//Desktop//dataProposa//${c[5]}//Libro.xlsx`
-      downloadInstance.target = '_blank'
-      downloadInstance.download = 'descarga.xlsx'
-      downloadInstance.click()
+      //const fi = ['ijio.xlsx', 'ijio.xlsx']
+      //const part = this.arrayFiles[i].split(".").pop();
+      //console.log('parts ',part)
+      //const u = `/opt/tomcat/webapps/archivospropuesta/${c[5]}/${part}`
+      //console.log('u ', u)
+      //downloadInstance.href = `file://C://Users//Mariana//Desktop//dataProposa//${c[5]}//Libro.xlsx`
+      //const downloadInstance = document.createElement('a');
+      //downloadInstance.href = u
+      //downloadInstance.target = '_blank'
+      //downloadInstance.download = 'descargo.xlsx'
+      //downloadInstance.click()
     //}
 
    /* const downloadInstanc = document.createElement('a');
