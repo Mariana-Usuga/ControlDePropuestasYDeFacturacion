@@ -26,21 +26,44 @@ export class DialogSeeProposalComponent implements OnInit {
     baseAmount: this.proposalSee.baseAmount,
     totalAmount: this.proposalSee.totalAmount,
     version: this.proposalSee.version,
-    dateVersion: this.proposalSee.dateVersion,
+    dateVersion: this.proposalSee.dateVersion?.split('T')[0],
     folder: this.proposalSee.folder,
     wayToPay: this.proposalSee.wayToPay,
     wayToPayDays: this.proposalSee.wayToPayDays,
     creatorUser: this.proposalSee.creatorUser,
+    comments: this.proposalSee.comments,
+    commercialManager: this.proposalSee.commercialManager,
+    presaleManager: this.proposalSee.presaleManager,
+    proposalSubmissionDeadline: this.proposalSee.proposalSubmissionDeadline?.split('T')[0],
+    editorUser: this.proposalSee.editorUser,
+    rejectionUser: this.proposalSee.rejectionUser,
+    rejectionDate: this.proposalSee.rejectionDate?.split('T')[0],
+    rejectionComments: this.proposalSee.rejectionComments
   }
   fileService: any;
   toastr: any;
   arrayFiles: Array<string> = ['j', 'o']
+  showEditorUser: boolean = false
+  showRejected: boolean = false
 
   constructor(public dialog: MatDialog,  @Inject(MAT_DIALOG_DATA) public proposalSee: any,
   private businessProposalService: BusinessProposalService) { }
 
   ngOnInit(): void {
     console.log('proposalSee', this.proposalSee);
+
+    const f = '2022-12-22T05:00:00.000+00:00'
+
+    const nu = f.split('T')
+
+    console.log('nu ', nu, '0 ', f.split('T')[0])
+
+    if(this.proposal.version != 1){
+      this.showEditorUser = true
+    }
+    if(this.proposal.stateP === "rechazado"){
+      this.showRejected = true
+    }
 
   }
   export(folder: any): void{
@@ -55,8 +78,6 @@ export class DialogSeeProposalComponent implements OnInit {
       const part = res.data[i].split(".").pop();
       console.log('part ', part)
 
-        //downloadInstance.href = `file://C://Users//Mariana//Desktop//dataProposa//${c[5]}//Libro.xlsx`
-          //const u = `/opt/tomcat/webapps/archivospropuesta/${c[5]}/${part}`
           const u = `/opt/tomcat/webapps/archivospropuesta/${c[5]}/${res.data[i]}`
           console.log('u ', u)
         const downloadInstance = document.createElement('a');
@@ -65,36 +86,7 @@ export class DialogSeeProposalComponent implements OnInit {
       downloadInstance.download = `${res.data[i]}`
       downloadInstance.click()
       }
-      //this.arrayFiles = res.data
-      //res.data.map((r) => {
-       //console.log('date', res.data)
-      //})
-      //this.dates = obj
     })
-    //const fi = ['ijio.xlsx', 'ijio.xlsx']
-    //this.arrayFiles
-   // for (var i = 0; i < this.arrayFiles.length ; i++) {
-     // console.log('arrayfile', this.arrayFiles)
-      //console.log('f!!', this.arrayFiles[i])
-      //`${URL}/hito/`
-      //const fi = ['ijio.xlsx', 'ijio.xlsx']
-      //const part = this.arrayFiles[i].split(".").pop();
-      //console.log('parts ',part)
-      //const u = `/opt/tomcat/webapps/archivospropuesta/${c[5]}/${part}`
-      //console.log('u ', u)
-      //downloadInstance.href = `file://C://Users//Mariana//Desktop//dataProposa//${c[5]}//Libro.xlsx`
-      //const downloadInstance = document.createElement('a');
-      //downloadInstance.href = u
-      //downloadInstance.target = '_blank'
-      //downloadInstance.download = 'descargo.xlsx'
-      //downloadInstance.click()
-    //}
-
-   /* const downloadInstanc = document.createElement('a');
-    downloadInstanc.href = 'assets/my_export_export_proposal(2).xlsx'
-    downloadInstanc.target = '_blank'
-    downloadInstanc.download = 'mariana2'
-    downloadInstanc.click()*/
   }
 
   openDialogApprove(){

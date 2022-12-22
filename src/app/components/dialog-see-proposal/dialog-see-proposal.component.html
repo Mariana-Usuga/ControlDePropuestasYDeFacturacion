@@ -18,26 +18,6 @@
     <div>{{proposal.typeOfService}}</div>
   </div>
   <div class="item">
-    <div class="subtitle">Servicio concepto</div>
-    <div>{{proposal.servicioConcept}}</div>
-  </div>
-  <div class="item">
-    <div class="subtitle">Estado</div>
-    <div>{{proposal.stateP}}</div>
-  </div>
-  <div class="item">
-    <div class="subtitle">Moneda</div>
-    <div>{{proposal.currency}}</div>
-  </div>
-  <div class="item">
-    <div class="subtitle">Monto total</div>
-    <div> {{proposal.totalAmount}}</div>
-  </div>
-  <div class="item">
-    <div class="subtitle">Monto Base</div>
-    <div> {{proposal.baseAmount}}</div>
-  </div>
-  <div class="item">
     <div class="subtitle">Forma de pago</div>
     <div> {{proposal.wayToPay}}</div>
   </div>
@@ -46,8 +26,60 @@
     <div> {{proposal.wayToPayDays}}</div>
   </div>
   <div class="item">
+    <div class="subtitle">Moneda</div>
+    <div>{{proposal.currency}}</div>
+  </div>
+  <div class="item">
+    <div class="subtitle">Monto Base</div>
+    <div> {{proposal.baseAmount}}</div>
+  </div>
+  <div class="item">
+    <div class="subtitle">Monto total</div>
+    <div> {{proposal.totalAmount}}</div>
+  </div>
+  <div class="item">
+    <div class="subtitle">Codigo</div>
+    <div> {{proposal.code}}</div>
+  </div>
+  <div class="item">
+    <div class="subtitle">Responsable Comercial</div>
+    <div> {{proposal.commercialManager}}</div>
+  </div>
+  <div class="item">
+    <div class="subtitle">Responsable Pre-venta</div>
+    <div> {{proposal.presaleManager}}</div>
+  </div>
+  <div class="item">
+    <div class="subtitle">Fech. envio de propuesta</div>
+    <div> {{proposal.proposalSubmissionDeadline}}</div>
+  </div>
+  <div class="item">
+    <div class="subtitle">Concepto servicio</div>
+    <div>{{proposal.servicioConcept}}</div>
+  </div>
+  <div class="item">
+    <div class="subtitle">Comentarios</div>
+    <div>{{proposal.comments}}</div>
+  </div>
+  <div class="item" *ngIf="showEditorUser">
+    <div class="subtitle">Editado por</div>
+    <div> {{proposal.editorUser}}</div>
+  </div>
+  <div class="item">
     <div class="subtitle">Creado por</div>
     <div> {{proposal.creatorUser}}</div>
+  </div>
+  <div class="item" *ngIf="showRejected">
+    <div class="subtitle">Quien la rechazo?</div>
+    <div> {{proposal.rejectionUser}}</div>
+  </div>
+  <div class="item" *ngIf="showRejected">
+    <div class="subtitle">Fecha de rechazo</div>
+    <div> {{proposal.rejectionDate}}</div>
+  </div>
+  <div class="item" *ngIf="showRejected">
+    <div class="subtitle">Comentarios de rechazo</div>
+    <div> {{proposal.rejectionComments}}</div>
   </div>
 </div>
 
