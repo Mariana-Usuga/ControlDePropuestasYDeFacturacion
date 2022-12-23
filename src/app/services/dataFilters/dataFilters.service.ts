@@ -5,8 +5,8 @@ import { Observable, Subject } from 'rxjs';
 export interface data {
   name: string
 }
-const URL = 'http://119.8.153.220:8080/proposalControlBackend-0.0.1'
-//const URL = 'http://localhost:8080'
+//const URL = 'http://119.8.153.220:8080/proposalControlBackend-0.0.1'
+const URL = 'http://localhost:8080'
 @Injectable({
   providedIn: 'root'
 })
@@ -51,6 +51,16 @@ export class DataFiltersService {
   getAllTypeOfService(): Observable<any>{
     //console.log('proposal', idProposal);
     return this.http.get(`${URL}/data/getAllTypeOfService`)
+  }
+
+  addCustomer(customer: any) {
+    console.log('proposal', customer);
+    return this.http.post(`${URL}/data/customer`, customer)
+  }
+
+  addCustomerReference(customer: any){
+    console.log('proposal', customer);
+    return this.http.post(`${URL}/data/customerReference`, customer)
   }
 
 }

@@ -1,0 +1,30 @@
+<h3> Crear Clientes</h3>
+
+<form data-bs-spy="scroll" action="" [formGroup]="newCustomer">
+  
+  <mat-form-field appearance="legacy" class="mx-4">
+    <mat-label>Cliente</mat-label>
+    <input type="text" formControlName="name" matInput placeholder="Placeholder">
+  </mat-form-field>
+
+  </form>
+
+  <form data-bs-spy="scroll" action="" [formGroup]="newCustomerReference">
+  
+    <mat-form-field appearance="legacy" class="mx-4">
+      <mat-label>Cliente Referencia</mat-label>
+      <input type="text" formControlName="name" matInput placeholder="Placeholder">
+    </mat-form-field>
+  
+    </form>
+
+  <div class="btns">
+    <div class="btn">
+      <button class="btn btn-outline-primary btn-sm action" color="primary"
+      (click)="addCustomers()"> Guardar </button>
+    </div>
+    <div class="btn">
+      <button class="btn btn-outline-danger btn-sm action"
+       mat-dialog-close color="warn">Cancelar</button>
+    </div>
+  </div>

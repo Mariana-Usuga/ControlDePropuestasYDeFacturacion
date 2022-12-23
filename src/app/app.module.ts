@@ -20,6 +20,7 @@ import { FileUploadComponentComponent } from './components/file-upload-component
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { DialogAddCustomersComponent } from './components/dialog-add-customers/dialog-add-customers.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { MatSelectModule } from '@angular/material/select';
     DialogSeeProposalComponent,
     DialogApproveProposalComponent,
     DialogRejectProposalComponent,
-    FileUploadComponentComponent
+    FileUploadComponentComponent,
+    DialogAddCustomersComponent,
   ],
   imports: [
     BrowserModule,

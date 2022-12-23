@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { DialogSeeProposalComponent } from '../dialog-see-proposal/dialog-see-proposal.component';
 import { DialogApproveProposalComponent } from '../dialog-approve-proposal/dialog-approve-proposal.component';
 import { DialogRejectProposalComponent } from '../dialog-reject-proposal/dialog-reject-proposal.component';
+import { DialogAddCustomersComponent } from '../dialog-add-customers/dialog-add-customers.component';
 
 @Component({
   selector: 'app-table',
@@ -205,6 +206,14 @@ openDialogApprove(row: any){
       data:row
     });
   }
+}
+
+openDialogCreateCustomers(){
+  console.log('clientes')
+  this.dialog.open(DialogAddCustomersComponent, {
+    maxHeight: '100vh',
+    width: '70%',
+  });
 }
 
 openRecha(row: commercialProposal){
