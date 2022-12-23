@@ -234,8 +234,7 @@ getContact(){
               console.log('ID!!!!', res.data.id)
               this.idProposalCreated = res.data.id;
               this.newProposalContact.controls['idProposal'].setValue(res.data.id)
-
-       console.log('this.file', this.files)
+              console.log('this.file', this.files)
                 for (let f of this.files) {
 
                   const file = new FormData();
@@ -258,8 +257,6 @@ getContact(){
             (err) => console.log('ha ocurrido un error', err),
             () => console.info('se ha completado la llamada')
           )
-
-          //console.log('this.file.length',this.file.length)
 
                 this.newProposal.reset()
                 this.dialogRef.close('save')
