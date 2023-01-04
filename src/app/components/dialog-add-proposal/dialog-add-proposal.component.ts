@@ -82,7 +82,7 @@ export class DialogAddProposalComponent implements OnInit {
       servicioConcept: [''],
       typeOfService: ['', Validators.required],
       currency: [''],
-      stateP: ['pendiente'],
+      stateP: ['PENDIENTE'],
       baseAmount: [''],
       totalAmount: [''],
       version: [v, Validators.required],
@@ -127,28 +127,9 @@ export class DialogAddProposalComponent implements OnInit {
       this.newProposal.controls['commercialManager'].setValue(this.editData.commercialManager)
       this.newProposal.controls['presaleManager'].setValue(this.editData.presaleManager)
       this.newProposal.controls['proposalSubmissionDeadline'].setValue(this.editData.proposalSubmissionDeadline)
+      this.newProposal.controls['comments'].setValue(this.editData.comments)
       this.getContact()
       this.disabled = true
-
-      /*this.businessProposalService.getContact(this.editData.proposalId).subscribe(
-        (contact) => {
-          console.log('res', contact)
-        }
-      )
-
-      "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ],
-      */
     }
   }
 
@@ -333,7 +314,8 @@ newContact(){
       code: this.newProposal.value.code,
       commercialManager: this.newProposal.value.commercialManager,
       presaleManager: this.newProposal.value.presaleManager,
-      proposalSubmissionDeadline: this.newProposal.value.proposalSubmissionDeadline
+      proposalSubmissionDeadline: this.newProposal.value.proposalSubmissionDeadline,
+      comments: this.newProposal.value.comments
 
     }
     this.businessProposalService.putProposal(data1).subscribe(
@@ -362,7 +344,8 @@ newContact(){
           code: this.editData.code,
           commercialManager: this.editData.commercialManager,
           presaleManager: this.editData.presaleManager,
-          proposalSubmissionDeadline: this.editData.proposalSubmissionDeadline
+          proposalSubmissionDeadline: this.editData.proposalSubmissionDeadline,
+          comments: this.editData.comments
         }
         this.businessProposalService.addNewVersion(data).subscribe(
           (res) => {

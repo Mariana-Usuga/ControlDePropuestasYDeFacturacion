@@ -20,7 +20,7 @@
       <mat-form-field appearance="legacy" class="mx-4">
         <mat-label>Cliente Referencia</mat-label>
         <mat-select formControlName="customerReference" placeholder="Cliente Referencia">
-          <mat-option [disabled]="disabled" *ngFor="let b of customerReference" [value]="b"> {{b}} </mat-option>
+          <mat-option [disabled]="disabled" *ngFor="let b of customer" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -39,7 +39,8 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="legacy" class="col-2" style="margin-right: 60px;">
+      <mat-form-field appearance="legacy" class="mx-4" style="margin-right: 60px;">
+        <!--col-2-->
         <mat-label>Dias</mat-label>
         <input formControlName="wayToPayDays" type="number" matInput placeholder="Placeholder">
       </mat-form-field>
@@ -80,12 +81,16 @@
         <input type="text" formControlName="presaleManager" matInput placeholder="Placeholder">
       </mat-form-field>
 
-      <mat-form-field appearance="legacy" class="col-8">
-        <mat-label>Fecha límite de envío de propuesta</mat-label>
-        <input matInput [matDatepicker]="picker">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+      <mat-form-field appearance="legacy" class="n mx-4">
+        <mat-label>Fecha límite de envío</mat-label>
+          <div class="m">
+            <input matInput [matDatepicker]="picker">
+            </div>
+            <div>
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            </div>     
       </mat-form-field>
 
       <mat-form-field appearance="legacy" class="col-8">
@@ -97,7 +102,7 @@
 
         <mat-form-field appearance="legacy" class="col-8">
           <mat-label>Comentarios</mat-label>
-          <textarea formControlName="servicioConcept"
+          <textarea formControlName="comments"
           matInput placeholder="Ex. It makes me feel...">
           </textarea>
         </mat-form-field>

@@ -36,7 +36,7 @@ export class DialogRejectProposalComponent implements OnInit {
       customerReference: this.proposalSee.customerReference,
       servicioConcept: this.proposalSee.servicioConcept,
       typeOfService: this.proposalSee.typeOfService,
-      stateP: "rechazado",
+      stateP: "RECHAZADO",
       currency: this.proposalSee.currency,
       baseAmount: this.proposalSee.baseAmount,
       totalAmount: this.proposalSee.totalAmount,

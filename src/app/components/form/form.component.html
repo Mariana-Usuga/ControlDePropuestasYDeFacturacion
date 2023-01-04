@@ -6,7 +6,7 @@
       <!--<label for="text" class="label"> Empresa que factura </label>-->
       <mat-form-field appearance="legacy">
         <mat-label>Empresa</mat-label>
-        <mat-select  [(ngModel)]="fieldsSelected.company">
+        <mat-select  [(ngModel)]="fieldsSelected.company" class="select">
           <mat-option *ngFor="let b of company" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
@@ -16,7 +16,7 @@
       <mat-form-field class="mat-grid-content" appearance="legacy">
         <mat-label>Cliente</mat-label>
         <mat-select [(ngModel)]="fieldsSelected.customer "
-        placeholder="Cliente">
+        placeholder="Cliente" class="select">
           <mat-option *ngFor="let b of customer"  (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
@@ -25,8 +25,8 @@
     <mat-grid-tile class="mat-grid-tile">
       <mat-form-field appearance="legacy" class="mat-form-field">
         <mat-label>Cliente Referencia</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.customerReference">
-          <mat-option *ngFor="let b of customerReference" (click)="search()" [value]="b"> {{b}} </mat-option>
+        <mat-select [(ngModel)]="fieldsSelected.customer" class="select">
+          <mat-option *ngFor="let b of customer" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
@@ -34,7 +34,7 @@
     <mat-grid-tile class="mat-grid-tile">
       <mat-form-field appearance="legacy">
         <mat-label>Tipo De Servicio</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.typeOfService">
+        <mat-select [(ngModel)]="fieldsSelected.typeOfService" class="select">
           <mat-option *ngFor="let b of typeOfService" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
@@ -43,7 +43,7 @@
     <mat-grid-tile class="mat-grid-tile">
       <mat-form-field appearance="legacy">
         <mat-label>Moneda</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.currency">
+        <mat-select [(ngModel)]="fieldsSelected.currency" class="select">
           <mat-option *ngFor="let b of currency" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
@@ -52,24 +52,22 @@
     <mat-grid-tile class="mat-grid-tile">
       <mat-form-field appearance="legacy">
         <mat-label>Estado</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.stateP">
+        <mat-select [(ngModel)]="fieldsSelected.stateP" class="select">
           <mat-option *ngFor="let b of stateP" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
-
-    <mat-grid-tile class="mat-grid-tile">
-      <mat-form-field appearance="legacy">
+  
+    <mat-grid-tile class="mat-grid-tile"  >
+      <mat-form-field appearance="legacy" style="width: 70%;">
         <mat-label class="label">Enter a date range
         </mat-label>
-
         <div class="inputDate">
-          <mat-date-range-input [formGroup]="rangeDate" [rangePicker]="picker">
+          <mat-date-range-input style="font-size:11.8px"  [formGroup]="rangeDate" [rangePicker]="picker">
             <input [(ngModel)]="this.rangeDate.value.start"
-            (click)="searchByDates()" matStartDate formControlName="start"
+             matStartDate formControlName="start"
             placeholder="Start date">
             <input [(ngModel)]="this.rangeDate.value.end" matEndDate formControlName="end"
-            (click)="searchByDates()"
             placeholder="End date">
           </mat-date-range-input>
           <div>
@@ -77,14 +75,16 @@
             <mat-date-range-picker #picker></mat-date-range-picker>
           </div>
         </div>
-        <mat-hint (click)="searchByDates()">MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-        <div (click)="searchByDates()" >
-          <button type="button" class="btn btn-outline-primary btn-sm action">Aplicar fecha</button>
-        </div>
+        <mat-hint>MM/DD/YYYY–MM/DD/YYYY</mat-hint>
       </mat-form-field>
+      <div (click)="searchByDates()"> 
+        <button style="font-size:10.9px;" 
+        type="button" class="btn btn-outline-primary btn-sm action">Aplicar fecha</button>
+      </div>       
   </mat-grid-tile>
 
 </mat-grid-list>
+
 
 
 <!--<app-dialog-add-proposal></app-dialog-add-proposal>-->

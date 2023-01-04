@@ -12,7 +12,6 @@ import Swal from 'sweetalert2';
 export class DialogAddCustomersComponent implements OnInit {
 
   newCustomer!: FormGroup
-  newCustomerReference!: FormGroup
 
   constructor(private formBuilder: FormBuilder,
     private dataFiltersService: DataFiltersService,
@@ -23,11 +22,17 @@ export class DialogAddCustomersComponent implements OnInit {
 
     this.newCustomer = this.formBuilder.group({
       name: ['', Validators.required],
+      businessName: [''],
+      ruc: [''],
+      legalRepresentative: [''],
+      fieldToWhichItIsDedicated: [''],
+      telephone1: [''],
+      telephone2:  [''],
+      email1: [''],
+      direction: ['']
+
     })
 
-    this.newCustomerReference = this.formBuilder.group({
-      name: ['', Validators.required],
-    })
   }
 
   addCustomers(){
@@ -41,26 +46,8 @@ export class DialogAddCustomersComponent implements OnInit {
     () => console.info('se ha completado la llamada')
     )
 
-    const customerReference = {
-      name : this.newCustomerReference.value.name
-    }
-    this.dataFiltersService.addCustomerReference(customerReference).subscribe((res: any) => {
-      console.log('res', res)
-      if(res.sucess){
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Clientes creados',
-          showConfirmButton: false,
-          timer: 4000
-        })
-      }
-    },
-    (err) => console.log('ha ocurrido un error', err),
-    () => console.info('se ha completado la llamada')
-    )
+    
     this.newCustomer.reset()
-    this.newCustomerReference.reset()
     this.dialogRef.close()
   }
 }

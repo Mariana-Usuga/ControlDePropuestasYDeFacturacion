@@ -23,7 +23,6 @@ export class FormComponent implements OnInit {
 
   company: Array<String> = []
   customer: Array<String> = []
-  customerReference: Array<String> = []
   typeOfService: Array<String> = []
   stateP: Array<String> = []
   currency: Array<String> = ['PEN', 'USD', 'COP']
@@ -59,10 +58,6 @@ export class FormComponent implements OnInit {
     this.dataFiltersService.getAllCustomer().subscribe((res) => {
         this.customer = res.data.map((r: any) => r.name)
       })
-
-    this.dataFiltersService.getAllCustomerReference().subscribe((res) => {
-      this.customerReference = res.data.map((r: any) => r.name)
-    })
 
     this.dataFiltersService.getAllTypeOfService().subscribe((res) => {
       this.typeOfService = res.data.map((r: any) => r.name)
@@ -110,6 +105,7 @@ export class FormComponent implements OnInit {
     console.log('search', this.fieldsSelected)
     console.log('entra add', this.rangeDate.value)
     this.businessProposalService.addFiltros(this.fieldsSelected)
+    //this.businessProposalService.addFiltrosDate(this.rangeDate.value)
   }
 
   searchByDates(){
@@ -118,12 +114,16 @@ export class FormComponent implements OnInit {
     const mm = String(this.rangeDate.value.start.getMonth() + 1).padStart(2, '0');
     const yyyy = this.rangeDate.value.start.getFullYear();
 
+    console.log('START', `${yyyy}-${mm}-${dd}`)
+
     const ddEnd = String(this.rangeDate.value.end.getDate()).padStart(2, '0');
     const mmEnd = String(this.rangeDate.value.end.getMonth() + 1).padStart(2, '0');
     const yyyyEnd = this.rangeDate.value.end.getFullYear();
 
-    this.rangeDate.controls['start'].setValue(`${yyyy}-${mm}-${dd}`)
-    this.rangeDate.controls['end'].setValue(`${yyyyEnd}-${mmEnd}-${ddEnd}`)
+    console.log('END', `${yyyyEnd}-${mmEnd}-${ddEnd}`)
+
+    //this.rangeDate.controls['start'].setValue(`${yyyy}-${mm}-${dd}`)
+    //this.rangeDate.controls['end'].setValue(`${yyyyEnd}-${mmEnd}-${ddEnd}`)
 
     this.businessProposalService.addFiltrosDate(this.rangeDate.value)
     }

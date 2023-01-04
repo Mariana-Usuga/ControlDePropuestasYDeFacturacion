@@ -31,6 +31,10 @@
 
 .mat-form-field{
 }
+
+.select{
+  margin-top: 5.5%;
+}
 /*.mat-grid-content{
   display: flex;
   justify-content: left;

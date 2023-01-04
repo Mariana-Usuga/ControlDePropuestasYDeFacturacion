@@ -84,7 +84,7 @@ export class TableComponent implements OnInit {
   }
 
   state(state: string){
-    if(state === "aprobado" || state === "rechazado"){
+    if(state === "APROBADO" || state === "RECHAZADO"){
       console.log('aprobado')
       this.dis = false;
     }
@@ -104,7 +104,7 @@ buscar(){
         console.log('res', res)
         if(res.length === 0){
           console.log('res', res)
-          alert('no hay datos que coincidencia con la busqueda')
+          alert('No hay datos que coincidan con la búsqueda')
         }else{
           console.log('res', res)
           this.dataSource = res
@@ -198,7 +198,7 @@ openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void 
 openDialogApprove(row: any){
   console.log('apro table', row)
   if(row.stateP != "pendiente"){
-    alert('no puedes hacer esta accion')
+    alert('No puedes realizar esta accion')
     document.getElementById("tdApprove")?.classList.add('disabled')
   }else{
     this.dialog.open(DialogApproveProposalComponent, {

@@ -1,22 +1,62 @@
-<h3> Crear Clientes</h3>
+<h3> Crear Cliente</h3>
 
 <form data-bs-spy="scroll" action="" [formGroup]="newCustomer">
   
   <mat-form-field appearance="legacy" class="mx-4">
-    <mat-label>Cliente</mat-label>
-    <input type="text" formControlName="name" matInput placeholder="Placeholder">
+    <mat-label>Nombre</mat-label>
+    <input type="text" formControlName="name" matInput placeholder="Nombre">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" class="mx-4">
+    <mat-label>Razón Social</mat-label>
+    <input type="text" formControlName="businessName" matInput placeholder="Razón Social">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" class="mx-4">
+    <mat-label>RUC</mat-label>
+    <input type="text" formControlName="ruc" matInput placeholder="RUC">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" class="mx-4">
+    <mat-label>Representante Legal</mat-label>
+    <input type="text" formControlName="legalRepresentative" matInput placeholder="Representante Legal">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" class="mx-4">
+    <mat-label>Rubro al que se dedica</mat-label>
+    <input type="text" formControlName="fieldToWhichItIsDedicated" matInput placeholder="Rubro al que se dedica">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" class="mx-4">
+    <mat-label>Telefono 1</mat-label>
+    <input type="text" formControlName="telephone1" matInput placeholder="Telefono 1">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" class="mx-4">
+    <mat-label>Telefono 2</mat-label>
+    <input type="text" formControlName="telephone2" matInput placeholder="Telefono 2">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" class="mx-4">
+    <mat-label>Correo 1</mat-label>
+    <input type="text" formControlName="email1" matInput placeholder="Correo 1">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy" class="mx-4">
+    <mat-label>Dirección</mat-label>
+    <input type="text" formControlName="direction" matInput placeholder="Dirección">
   </mat-form-field>
 
   </form>
 
-  <form data-bs-spy="scroll" action="" [formGroup]="newCustomerReference">
+  <!--<form data-bs-spy="scroll" action="" [formGroup]="newCustomerReference">
   
     <mat-form-field appearance="legacy" class="mx-4">
       <mat-label>Cliente Referencia</mat-label>
-      <input type="text" formControlName="name" matInput placeholder="Placeholder">
+      <input type="text" formControlName="name" matInput placeholder="Cliente Referencia">
     </mat-form-field>
   
-    </form>
+    </form>-->
 
   <div class="btns">
     <div class="btn">
