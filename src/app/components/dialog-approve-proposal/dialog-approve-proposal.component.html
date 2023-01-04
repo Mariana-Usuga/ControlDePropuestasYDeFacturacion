@@ -2,13 +2,13 @@
 
 <form action="" [formGroup]="approve">
 
-  <mat-form-field appearance="legacy"  class="mx-4">
+  <mat-form-field appearance="legacy"  class="" style="height: 10px;">
     <mat-label>Quien aprueba</mat-label>
     <input type="text"
       formControlName="userApproved" matInput placeholder="Placeholder">
   </mat-form-field>
 
-  <mat-form-field appearance="legacy" class="">
+  <mat-form-field appearance="legacy" class="mx-3" style="font-size: small;">
     <mat-label>Fecha Aprobacion</mat-label>
     <div class="chooseDate">
         <input matInput [matDatepicker]="picker" formControlName="approvalDate">
@@ -37,11 +37,12 @@
 <form action="" [formGroup]="hitoForm">
   <mat-form-field appearance="legacy" class="mx-3">
     <mat-label>Porcentaje</mat-label>
-    <input type="text" [(ngModel)] = "this.hitoForm.value.percentage"
+    <textarea type="text" [(ngModel)] = "this.hitoForm.value.percentage"
       formControlName="percentage" matInput placeholder="Placeholder">
+  </textarea>
   </mat-form-field>
 
-  <mat-form-field appearance="legacy" class="mx-3">
+  <mat-form-field appearance="legacy" class="col-4">
     <mat-label>Descripcion</mat-label>
     <textarea formControlName="description" [(ngModel)] = "this.hitoForm.value.description"
     matInput placeholder="Ex. It makes me feel...">

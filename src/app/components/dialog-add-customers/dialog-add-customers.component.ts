@@ -36,10 +36,10 @@ export class DialogAddCustomersComponent implements OnInit {
   }
 
   addCustomers(){
-    const customer = {
+    /*const customer = {
       name : this.newCustomer.value.name
-    }
-    this.dataFiltersService.addCustomer(customer).subscribe((res) => {
+    }*/
+    this.dataFiltersService.addCustomer(this.newCustomer.value).subscribe((res) => {
       console.log('res', res)
     },
     (err) => console.log('ha ocurrido un error', err),

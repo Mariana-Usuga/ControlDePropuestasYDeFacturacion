@@ -25,7 +25,7 @@
     <mat-grid-tile class="mat-grid-tile">
       <mat-form-field appearance="legacy" class="mat-form-field">
         <mat-label>Cliente Referencia</mat-label>
-        <mat-select [(ngModel)]="fieldsSelected.customer" class="select">
+        <mat-select [(ngModel)]="fieldsSelected.customerReference" class="select">
           <mat-option *ngFor="let b of customer" (click)="search()" [value]="b"> {{b}} </mat-option>
         </mat-select>
       </mat-form-field>
@@ -57,19 +57,49 @@
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
-  
-    <mat-grid-tile class="mat-grid-tile"  >
+
+    <mat-grid-tile class="mat-grid-tile">
+    <mat-form-field appearance="legacy">
+      <mat-label>Fecha inicial</mat-label>
+      <input [(ngModel)]="this.rangeDate.value.start" (ngModelChange)="search()" matInput [matDatepicker]="picker">
+      <mat-hint> MM/DD/YYYY</mat-hint>
+      <div class="date">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </div>
+    </mat-form-field>
+  </mat-grid-tile>
+
+  <mat-grid-tile class="mat-grid-tile">
+    <mat-form-field appearance="legacy">
+      <mat-label >
+        Fecha final
+      </mat-label>
+      <input [(ngModel)]="this.rangeDate.value.end" (ngModelChange)="search()" matInput [matDatepicker]="picker">
+      <mat-hint> MM/DD/YYYY</mat-hint>
+      <div class="date">
+        <mat-datepicker-toggle  matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </div>
+        
+    </mat-form-field>
+  </mat-grid-tile>
+
+
+   <!----<mat-grid-tile class="mat-grid-tile"  >
       <mat-form-field appearance="legacy" style="width: 70%;">
         <mat-label class="label">Enter a date range
         </mat-label>
         <div class="inputDate">
-          <mat-date-range-input style="font-size:11.8px"  [formGroup]="rangeDate" [rangePicker]="picker">
+          <div style="font-size:11.8px"  [formGroup]="rangeDate">
             <input [(ngModel)]="this.rangeDate.value.start"
+            ngModelChange)="search()"
              matStartDate formControlName="start"
             placeholder="Start date">
             <input [(ngModel)]="this.rangeDate.value.end" matEndDate formControlName="end"
+            ngModelChange)="search()"
             placeholder="End date">
-          </mat-date-range-input>
+          </div>
           <div>
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-date-range-picker #picker></mat-date-range-picker>
@@ -77,14 +107,20 @@
         </div>
         <mat-hint>MM/DD/YYYY–MM/DD/YYYY</mat-hint>
       </mat-form-field>
-      <div (click)="searchByDates()"> 
-        <button style="font-size:10.9px;" 
-        type="button" class="btn btn-outline-primary btn-sm action">Aplicar fecha</button>
-      </div>       
-  </mat-grid-tile>
+  </mat-grid-tile>-->
 
 </mat-grid-list>
 
+<!--<div (click)="searchByDates()" class="applyDate"> 
+  <div>
+    1
+  </div>
+  <div>
+    <button style="font-size:10.9px;" 
+    type="button" class="btn btn-outline-primary btn-sm action">Aplicar fecha</button>
+  </div>
+  
+</div> -->
 
 
 <!--<app-dialog-add-proposal></app-dialog-add-proposal>-->

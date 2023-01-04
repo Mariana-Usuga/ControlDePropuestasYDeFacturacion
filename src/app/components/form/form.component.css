@@ -35,6 +35,18 @@
 .select{
   margin-top: 5.5%;
 }
+
+ .mat-label{
+  margin-bottom: 10%;
+ }
+.date{
+  display: inline;
+  position:absolute;
+  right: 3%;
+  bottom: 5%;
+  /*bottom: 70%;*/
+}
+
 /*.mat-grid-content{
   display: flex;
   justify-content: left;

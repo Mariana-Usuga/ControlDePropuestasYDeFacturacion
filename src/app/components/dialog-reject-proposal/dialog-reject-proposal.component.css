@@ -1,3 +1,7 @@
 .chooseDate{
   display: flex;
 }
+
+.commentsReject{
+  right: 12px;
+}

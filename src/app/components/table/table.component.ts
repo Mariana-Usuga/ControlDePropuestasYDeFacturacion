@@ -21,6 +21,7 @@ export class TableComponent implements OnInit {
   dis: boolean = true;
   subcription: Subscription | undefined;
 
+
   constructor(private businessProposalService: BusinessProposalService,
      public dialog: MatDialog){}
 
@@ -197,7 +198,7 @@ openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void 
 
 openDialogApprove(row: any){
   console.log('apro table', row)
-  if(row.stateP != "pendiente"){
+  if(row.stateP != "PENDIENTE"){
     alert('No puedes realizar esta accion')
     document.getElementById("tdApprove")?.classList.add('disabled')
   }else{
@@ -217,7 +218,7 @@ openDialogCreateCustomers(){
 }
 
 openRecha(row: commercialProposal){
-  if(row.stateP != "pendiente"){
+  if(row.stateP != "PENDIENTE"){
     alert('no puedes hacer esta accion')
     document.getElementById("tdReject")?.classList.add('disabled')
   }else{
@@ -227,4 +228,24 @@ openRecha(row: commercialProposal){
   });
   }
 }
+
+searchByDates(){
+  console.log('entra datesss', this.dates.start)
+  /*const dd = String(this.rangeDate.value.start.getDate()).padStart(2, '0');
+  const mm = String(this.rangeDate.value.start.getMonth() + 1).padStart(2, '0');
+  const yyyy = this.rangeDate.value.start.getFullYear();
+
+  console.log('START', `${yyyy}-${mm}-${dd}`)
+
+  const ddEnd = String(this.rangeDate.value.end.getDate()).padStart(2, '0');
+  const mmEnd = String(this.rangeDate.value.end.getMonth() + 1).padStart(2, '0');
+  const yyyyEnd = this.rangeDate.value.end.getFullYear();
+
+  console.log('END', `${yyyyEnd}-${mmEnd}-${ddEnd}`)*/
+
+  //this.rangeDate.controls['start'].setValue(`${yyyy}-${mm}-${dd}`)
+  //this.rangeDate.controls['end'].setValue(`${yyyyEnd}-${mmEnd}-${ddEnd}`)
+
+  //this.businessProposalService.addFiltrosDate(this.rangeDate.value)
+  }
 }

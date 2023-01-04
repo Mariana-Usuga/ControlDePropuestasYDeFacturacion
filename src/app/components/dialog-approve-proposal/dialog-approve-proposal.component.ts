@@ -29,8 +29,8 @@ export class DialogApproveProposalComponent implements OnInit {
     })
 
     this.hitoForm = this.formBuilder.group({
-      percentage: ['', Validators.required],
-      description: ['', Validators.required],
+      percentage: [''],
+      description: [''],
     })
   }
 
@@ -50,7 +50,10 @@ export class DialogApproveProposalComponent implements OnInit {
     console.log('hitos', this.hitos)
     console.log('nameprop', 'sacs',this.proposalSee)
 
-    const date = this.approve.value.approvalDate
+    if(this.approve.value.userApproved === '' || this.approve.value.approvalDate === ''){
+      alert('Quien aprueba y Fecha de aprobacion son campos obligatorios')
+    }else{
+      const date = this.approve.value.approvalDate
 
     const dd = String(date.getDate()).padStart(2, '0');
     const mm = String(date.getMonth() + 1).padStart(2, '0');
@@ -149,6 +152,7 @@ export class DialogApproveProposalComponent implements OnInit {
     this.approve.reset()
     this.hitoForm.reset()
     this.dialogRef.close()
+    }
     }
   }
 

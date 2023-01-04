@@ -90,26 +90,27 @@ export class FormComponent implements OnInit {
   }
 
   search(){
+    console.log('entra search')
     const today = new Date()
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const yyyy = today.getFullYear();
-    if(this.rangeDate.value.start === '' && this.rangeDate.value.end === ''){
-      console.log('entra en if')
       //`${2023}-${01}-${01}`
-      this.rangeDate.controls['start'].setValue('2000-01-01')
-      this.rangeDate.controls['end'].setValue('2050-12-30')
-      console.log('this.rangeDate.value.start',this.rangeDate.value.start)
-      this.businessProposalService.addFiltrosDate(this.rangeDate.value)
-    }
-    console.log('search', this.fieldsSelected)
-    console.log('entra add', this.rangeDate.value)
+      //this.rangeDate.controls['start'].setValue('2000-01-01')
+      //this.rangeDate.controls['end'].setValue('2050-12-30')
+      //console.log('this.rangeDate.value.start',this.rangeDate.value.start)
+      //this.businessProposalService.addFiltrosDate(this.rangeDate.value)
+ 
+    //console.log('search', this.fieldsSelected)
+    //console.log('entra add', this.rangeDate.value)
     this.businessProposalService.addFiltros(this.fieldsSelected)
     //this.businessProposalService.addFiltrosDate(this.rangeDate.value)
+
+    this.searchByDates()
   }
 
   searchByDates(){
-    console.log('entra datesss')
+    console.log('entra datesss', this.rangeDate.value)
     const dd = String(this.rangeDate.value.start.getDate()).padStart(2, '0');
     const mm = String(this.rangeDate.value.start.getMonth() + 1).padStart(2, '0');
     const yyyy = this.rangeDate.value.start.getFullYear();
