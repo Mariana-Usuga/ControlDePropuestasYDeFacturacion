@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { commercialProposal } from '../models/interfaces/commercialProposal.interfaces';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, toArray } from 'rxjs';
 import { HttpClient, HttpEvent, HttpParams, HttpRequest } from '@angular/common/http';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -43,13 +43,19 @@ export class BusinessProposalService {
     end: null,
   }
 
+  proposals: any[] = []; 
+  //proposal: any = {
+    //start: null,
+    //end: null,
+
   objectfiltros$: Subject<commercialProposal>
   dates$: Subject<any>
-
+  proposals$: Subject<any>
 
   constructor(private http: HttpClient) {
     this.objectfiltros$ = new Subject()
     this.dates$ = new Subject()
+    this.proposals$ = new Subject<any[]>()
   }
 
   exportToExcel(json:any[], excelFileName: string): void{
@@ -68,35 +74,27 @@ export class BusinessProposalService {
   }
 
   putStateOfProposal(proposal: any): Observable<any>{
-    console.log('filter', proposal)
+    //console.log('filter', proposal)
     return this.http.put(`${URL}/proposal`, proposal)
   }
 
-  getBusinessProposal(filter: commercialProposal, dates: any): Observable<any> {
-    console.log('filter', filter, 'dates')
-    console.log('dates in service', dates)
-
-    const u = `${URL}/proposal/filter?startDate=${dates.start}&endDate=${dates.end}`
-    console.log('u', u)
-    return this.http.post(u, filter);
-  }
 
   addNewProposal(proposal: any): Observable<any>{
-    console.log('proposal', proposal);
+    //console.log('proposal', proposal);
     return this.http.post(`${URL}/proposal`, proposal)
   }
 
   getByVersionProposal(idProposal: number): Observable<any>{
-    console.log('proposal', idProposal);
+    //console.log('proposal', idProposal);
     return this.http.get(`${URL}/proposalVersion/getProposalByIdProposal/`+idProposal)
   }
 
   putProposal(data: any): Observable<any>{
-    console.log('entra en servicio PUT', data)
+    //console.log('entra en servicio PUT', data)
     return this.http.put(`${URL}/proposal`, data)
   }
   addNewVersion(proposal: object): Observable<any>{
-    console.log('proposal', proposal);
+    //console.log('proposal', proposal);
     return this.http.post(`${URL}/proposal/version`, proposal)
   }
 
@@ -150,23 +148,44 @@ export class BusinessProposalService {
   }
 
   addFiltros(campos: commercialProposal){
-    console.log('campos', campos)
+    //console.log('ADD FILTROS', campos)
     this.objectfiltros = campos
     this.objectfiltros$.next(this.objectfiltros)
   }
 
+  getFiltros(): Observable<commercialProposal>{
+    //console.log('ENTRA EN GET FILTROS')
+    return this.objectfiltros$.asObservable()
+  }
+
   addFiltrosDate(dates: any){
-    console.log('dates', dates)
+    console.log('AD DATES', dates)
     this.dates = dates
     this.dates$.next(dates)
   }
 
-  getFiltros(): Observable<commercialProposal>{
-    return this.objectfiltros$.asObservable()
-  }
-
   getFiltrosDate(): Observable<any>{
     return this.dates$.asObservable()
+  }
+
+
+  getBusinessProposal(filter: commercialProposal, dates: any): Observable<any> {
+    console.log('filter ', filter)
+    //console.log('dates in service', dates)
+    console.log('start ', dates.start, 'end ', dates.end)
+    const u = `${URL}/proposal/filter?startDate=${dates.start}&endDate=${dates.end}`
+    //console.log('u', u)
+    return this.http.post(u, filter);
+  }
+
+  getProposals():Observable<any[]>{
+    return this.proposals$.asObservable()
+  }
+
+  addProposals(proposals: any[]){
+    console.log('campos', proposals)
+    this.proposals = proposals
+    this.proposals$.next(this.proposals)
   }
 
 }

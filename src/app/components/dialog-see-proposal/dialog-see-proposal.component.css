@@ -17,3 +17,8 @@
   display: flex;
   justify-content:center
 }
+
+.itemReject{
+  margin: 12px;
+  width: 60%;
+}

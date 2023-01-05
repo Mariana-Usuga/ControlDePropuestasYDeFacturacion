@@ -57,10 +57,6 @@
     <div class="subtitle">Concepto servicio</div>
     <div>{{proposal.servicioConcept}}</div>
   </div>
-  <div class="item" >
-    <div class="subtitle">Comentarios</div>
-    <div style="width: 50%;">{{proposal.comments}}</div>
-  </div>
   <div class="item" *ngIf="showEditorUser">
     <div class="subtitle">Editado por</div>
     <div> {{proposal.editorUser}}</div>
@@ -69,21 +65,29 @@
     <div class="subtitle">Creado por</div>
     <div> {{proposal.creatorUser}}</div>
   </div>
-  <div class="item" *ngIf="showRejected">
+  <div class="item" >
+    <div class="subtitle">Comentarios</div>
+    <div style="width: 150%;">{{proposal.comments}}</div>
+  </div>
+
+</div>
+
+<div class="d-flex justify-content-start" *ngIf="showRejected">
+  <div class="itemReject" >
     <div class="subtitle">Quien la rechazo?</div>
     <div> {{proposal.rejectionUser}}</div>
   </div>
-  <div class="item" *ngIf="showRejected">
+  <div class="itemReject">
     <div class="subtitle">Fecha de rechazo</div>
     <div> {{proposal.rejectionDate}}</div>
   </div>
-  <div class="item" *ngIf="showRejected">
+  <div class="itemReject">
     <div class="subtitle">Comentarios de rechazo</div>
     <div> {{proposal.rejectionComments}}</div>
   </div>
 </div>
 
-<div class="d-flex justify-content-end">
+<div class="d-flex justify-content-end mt-5">
   <div>
     <button type="button" class="btn btn-outline-danger btn-sm action" (click)="seeVersions(proposal)">
       Historico
@@ -112,5 +116,6 @@
     <a href="../../../../docs/yo.jpg"
     download>Descargar archivo de la propuesta</a>
   </section>
-</div>-->
+</div>
+*ngIf="showRejected"-->
 

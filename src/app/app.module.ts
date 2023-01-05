@@ -21,7 +21,7 @@ import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { DialogAddCustomersComponent } from './components/dialog-add-customers/dialog-add-customers.component';
-
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 
 @NgModule({
   declarations: [
@@ -51,7 +51,8 @@ import { DialogAddCustomersComponent } from './components/dialog-add-customers/d
     MatFormFieldModule,
     MatSelectModule,
   ],
-  providers: [],
+  providers: [ { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,8 +1,9 @@
 import { NgIfContext } from '@angular/common';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Input, Output} from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { commercialProposal } from 'src/app/models/interfaces/commercialProposal.interfaces';
 import { BusinessProposalService } from 'src/app/services/business-proposal.service';
 import { DataFiltersService } from 'src/app/services/dataFilters/dataFilters.service';
 import Swal from 'sweetalert2';
@@ -13,6 +14,12 @@ import Swal from 'sweetalert2';
   styleUrls: ['./dialog-add-proposal.component.css']
 })
 export class DialogAddProposalComponent implements OnInit {
+
+  @Input() incomingFilters:any
+  @Input() incomingDate:any
+
+  filters: any;
+  date: any
 
   wayToPayDaysNumber: Number = 0;
   totalAmount: Number = 0;
@@ -41,14 +48,50 @@ export class DialogAddProposalComponent implements OnInit {
   disabled: boolean = false;
   idProposalCreated: string = ""
 
+  dates: any = {
+    start: '',
+    end: '',
+  }
+
+  dataSource: any[] = [];
+
+  filtrosObject: commercialProposal= {
+    code: null,
+    company: null,
+    customer: "",
+    customerReference: null,
+    servicioConcept: null,
+    typeOfService: null,
+    currency: null,
+    stateP: null,
+    baseAmount: null,
+    totalAmount: null,
+    version: null,
+    dateVersion: null,
+    proposalId: null,
+    folder: null,
+    wayToPay: null,
+    wayToPayDays: null,
+    creatorUser: null,
+  }
+
 
   constructor(private formBuilder: FormBuilder,
     private businessProposalService: BusinessProposalService,
-    @Inject(MAT_DIALOG_DATA) public editData: any,
+    @Inject(MAT_DIALOG_DATA) public getDataArray: any,
     private dialogRef: MatDialogRef<DialogAddProposalComponent>,
     private http: HttpClient, private dataFiltersService: DataFiltersService) { }
 
+    
+    editData: any
+
   ngOnInit(): void {
+    if(this.getDataArray[0].company){
+      this.editData = this.getDataArray[0]
+    }
+
+    this.filters = this.incomingFilters
+    console.log('entra de ngOnInit, data entrante ', this.incomingFilters)
     this.dataFiltersService.getAllCompany().subscribe((res) => {
       this.company = res.data.map((r: any) => r.name)
     })
@@ -56,10 +99,6 @@ export class DialogAddProposalComponent implements OnInit {
   this.dataFiltersService.getAllCustomer().subscribe((res) => {
       this.customer = res.data.map((r: any) => r.name)
     })
-
-  this.dataFiltersService.getAllCustomerReference().subscribe((res) => {
-    this.customerReference = res.data.map((r: any) => r.name)
-  })
 
   this.dataFiltersService.getAllTypeOfService().subscribe((res) => {
     this.typeOfService = res.data.map((r: any) => r.name)
@@ -90,9 +129,7 @@ export class DialogAddProposalComponent implements OnInit {
       folder: [''],
       wayToPay: ['', Validators.required],
       wayToPayDays: [''],
-      creatorUser: ['', Validators.required],
-      proposalContact: ['', Validators.required],
-      telephoneContact: ['', Validators.required],
+      creatorUser: [''],
       editorUser: [''],
       commercialManager: [''],
       presaleManager: [''],
@@ -164,10 +201,10 @@ export class DialogAddProposalComponent implements OnInit {
 }
 
 getContact(){
-  console.log('this.editData.id', this.editData.id)
+  //console.log('this.editData.id', this.editData.id)
   this.businessProposalService.getContact(this.editData.id).subscribe(
     (res) => {
-      console.log('res', res)
+      //console.log('res', res)
       this.idProposalContact = res.id
       this.newProposalContact.controls['fullName'].setValue(res.fullName)
       this.newProposalContact.controls['email'].setValue(res.email)
@@ -183,7 +220,12 @@ getContact(){
     this.action = 'Crear';
     if(this.files.length > 5){
       return alert('solo puedes subir maximo 5 archivos')
-    }else{
+      
+    }else if(this.newProposal.value.company === '' || this.newProposal.value.customer === '' ||
+    this.newProposal.value.typeOfService === '' || this.newProposal.value.wayToPay === '' ||
+    this.newProposalContact.value.fullName === '' || this.newProposalContact.value.email === ''){
+      alert('Todos los campos con asterisco son obligatorios')
+    } else{
       if(!this.editData){
         if (this.files) {
 
@@ -275,7 +317,7 @@ newContact(){
 }
 
   updateProposal(){
-    console.log('new', this.newProposal.value, 'update', this.editData)
+    //console.log('new', this.newProposal.value, 'update', this.editData)
     const contact = {
       id: this.idProposalContact,
       fullName: this.newProposalContact.value.fullName,
@@ -285,7 +327,7 @@ newContact(){
     }
     this.businessProposalService.putContact(contact).subscribe(
       (res) => {
-        console.log('res', res)
+        //console.log('res', res)
         if(res === null){
           console.log('no tiene contacto')
         }
@@ -320,7 +362,7 @@ newContact(){
     }
     this.businessProposalService.putProposal(data1).subscribe(
       (res) => {
-        console.log('res put', res, 'version in add', this.editData.version)
+        //console.log('res put', res, 'version in add', this.editData.version)
         const data = {
           company: this.editData.company,
           customer: this.editData.customer,
@@ -349,7 +391,31 @@ newContact(){
         }
         this.businessProposalService.addNewVersion(data).subscribe(
           (res) => {
-            console.log('res add', res)
+            //const inputDate = document.getElementById('#inputDate')
+            //inputDate?.click()
+            console.log('FILTORS EN EDITAR ', this.getDataArray[1])
+            console.log('DATES EN EDITAR ', this.getDataArray[2].end)
+            console.log('DATES EN EDITAR ', this.getDataArray[2].start)
+
+            this.businessProposalService.getBusinessProposal(this.getDataArray[1], 
+              this.getDataArray[2]).subscribe(
+              (resProposals) => {
+                console.log('res despues de editar', resProposals)
+        
+                if(resProposals.length === 0){
+                  alert('No hay datos que coincidan con la búsqueda')
+                }else{
+                  this.dataSource = resProposals
+                  this.businessProposalService.addProposals(this.dataSource)
+                }
+              },
+              (err) => console.log('ha ocurrido un error', err),
+              () =>  {
+                console.info('se ha completado la llamada')
+              }
+            )
+
+            //console.log('res add', res)
             Swal.fire({
               position: 'top-end',
               icon: 'success',

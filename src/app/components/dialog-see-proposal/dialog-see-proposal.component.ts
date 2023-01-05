@@ -89,15 +89,6 @@ export class DialogSeeProposalComponent implements OnInit {
     })
   }
 
-  openDialogApprove(){
-    console.log('entra approvee!!!!')
-    /*console.log('arrayfile', this.arrayFiles)
-    this.dialog.open(DialogApproveProposalComponent, {
-      width: '70%',
-      data:this.proposalSee
-    });*/
-  }
-
   openRecha(){
     this.dialog.open(DialogRejectProposalComponent, {
       width: '70%',
@@ -108,7 +99,8 @@ export class DialogSeeProposalComponent implements OnInit {
   seeVersions(row: any){
     console.log('row', row)
     this.dialog.open(DialogSeeVersionsComponent, {
-      width: '50%',
+      maxHeight: '70vh',
+      //width: '50%',
       data:row
     });
   }

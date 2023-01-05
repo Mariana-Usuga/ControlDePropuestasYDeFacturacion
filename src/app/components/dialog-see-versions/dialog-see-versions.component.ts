@@ -31,15 +31,12 @@ export class DialogSeeVersionsComponent implements OnInit {
             return
           }else{
             for(let le of res){
-              const gf = Date.parse(le.dateVersion)
-              const h = new Date(gf)
-              console.log('d', h.getMonth())
-              const d = `${h.getFullYear()}/${h.getMonth()}/${h.getDay()}`
+              const date = le.dateVersion.split('T')
+          
               this.dataSource.push({
-                dateVersion: d,
+                dateVersion: date[0].replaceAll('-', '/'),
                 version: le.version
               })
-            console.log('ddata source', this.dataSource)
           }
           }
         },

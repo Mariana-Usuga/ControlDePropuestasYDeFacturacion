@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { commercialProposal } from 'src/app/models/interfaces/commercialProposal.interfaces';
 import { BusinessProposalService } from 'src/app/services/business-proposal.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogAddProposalComponent } from '../dialog-add-proposal/dialog-add-proposal.component';
 import { DialogSeeVersionsComponent } from '../dialog-see-versions/dialog-see-versions.component';
 import Swal from 'sweetalert2';
@@ -23,7 +24,7 @@ export class TableComponent implements OnInit {
 
 
   constructor(private businessProposalService: BusinessProposalService,
-     public dialog: MatDialog){}
+     public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public editData: any){}
 
   filtrosObject: commercialProposal= {
     code: null,
@@ -73,6 +74,7 @@ export class TableComponent implements OnInit {
   dataSource: any[] = [];
 
   ngOnInit(): void {
+    console.log('en table')
     this.businessProposalService.getFiltros().subscribe(obj => {
       console.log('obj', obj)
       this.filtrosObject = obj
@@ -81,6 +83,11 @@ export class TableComponent implements OnInit {
     this.businessProposalService.getFiltrosDate().subscribe(obj => {
       console.log('date', obj)
       this.dates = obj
+    })
+
+    this.businessProposalService.getProposals().subscribe(obj => {
+      console.log('EDIATDOO nuevos ', obj)
+      this.dataSource = obj
     })
   }
 
@@ -102,12 +109,11 @@ buscar(){
   if(this.filtrosObject.customer != ""){
     this.businessProposalService.getBusinessProposal(this.filtrosObject, this.dates).subscribe(
       (res) => {
-        console.log('res', res)
         if(res.length === 0){
-          console.log('res', res)
           alert('No hay datos que coincidan con la búsqueda')
         }else{
           console.log('res', res)
+          //this.businessProposalService.addProposals(res)
           this.dataSource = res
         }
       },
@@ -122,10 +128,16 @@ buscar(){
 }
 
 editProposal(row: commercialProposal){
-  console.log(' this.dataSource', this.dataSource)
+  console.log('entra en editar')
+  //console.log(' this.dataSource', this.dataSource)
+  const array = [
+    row,
+    this.filtrosObject,
+    this.dates
+  ]
   this.dialog.open(DialogAddProposalComponent, {
     maxHeight: '70vh',
-    data:row,
+    data:array,
   });
 }
 
@@ -189,10 +201,16 @@ deleteProposal(proposal: commercialProposal, id: number){
  }
 
 openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  const array = [
+    {},
+    this.filtrosObject,
+    this.dates
+  ]
   this.dialog.open(DialogAddProposalComponent, {
     maxHeight: '70vh',
     enterAnimationDuration,
     exitAnimationDuration,
+    data:array
   });
 }
 
