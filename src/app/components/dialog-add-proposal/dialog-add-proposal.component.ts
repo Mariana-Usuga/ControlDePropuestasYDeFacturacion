@@ -88,6 +88,8 @@ export class DialogAddProposalComponent implements OnInit {
   ngOnInit(): void {
     if(this.getDataArray[0].company){
       this.editData = this.getDataArray[0]
+    }else{
+
     }
 
     this.filters = this.incomingFilters
@@ -225,6 +227,8 @@ getContact(){
     this.newProposal.value.typeOfService === '' || this.newProposal.value.wayToPay === '' ||
     this.newProposalContact.value.fullName === '' || this.newProposalContact.value.email === ''){
       alert('Todos los campos con asterisco son obligatorios')
+    }else if(this.files === ""){
+      alert('Debes subir archivos')
     } else{
       if(!this.editData){
         if (this.files) {
@@ -318,119 +322,123 @@ newContact(){
 
   updateProposal(){
     //console.log('new', this.newProposal.value, 'update', this.editData)
-    const contact = {
-      id: this.idProposalContact,
-      fullName: this.newProposalContact.value.fullName,
-      email:  this.newProposalContact.value.email,
-      phoneNumber:  this.newProposalContact.value.phoneNumber,
-      idProposal: this.editData.id
-    }
-    this.businessProposalService.putContact(contact).subscribe(
-      (res) => {
-        //console.log('res', res)
-        if(res === null){
-          console.log('no tiene contacto')
-        }
+    if(this.files === ""){
+      alert('Debes subir archivos')
+    }else{
+      const contact = {
+        id: this.idProposalContact,
+        fullName: this.newProposalContact.value.fullName,
+        email:  this.newProposalContact.value.email,
+        phoneNumber:  this.newProposalContact.value.phoneNumber,
+        idProposal: this.editData.id
       }
-    )
-    const data1 = {
-      id:  this.editData.id,
-      company: this.newProposal.value.company,
-      customer: this.newProposal.value.customer,
-      customerReference: this.newProposal.value.customerReference,
-      servicioConcept: this.newProposal.value.servicioConcept,
-      typeOfService: this.newProposal.value.typeOfService,
-      currency: this.newProposal.value.currency,
-      stateP: this.newProposal.value.stateP,
-      baseAmount: this.newProposal.value.baseAmount,
-      totalAmount: this.newProposal.value.totalAmount,
-      warranty: this.newProposal.value.warranty,
-      version: Number(this.editData.version) + 1,
-      dateVersion: this.newProposal.value.dateVersion,
-      folder: this.newProposal.value.folder,
-      wayToPay: this.newProposal.value.wayToPay,
-      wayToPayDays: this.newProposal.value.wayToPayDays,
-      creatorUser: this.newProposal.value.creatorUser,
-      editorUser: this.newProposal.value.editorUser,
-      //removerUser: this.newProposal.value.removerUser,
-      code: this.newProposal.value.code,
-      commercialManager: this.newProposal.value.commercialManager,
-      presaleManager: this.newProposal.value.presaleManager,
-      proposalSubmissionDeadline: this.newProposal.value.proposalSubmissionDeadline,
-      comments: this.newProposal.value.comments
-
-    }
-    this.businessProposalService.putProposal(data1).subscribe(
-      (res) => {
-        //console.log('res put', res, 'version in add', this.editData.version)
-        const data = {
-          company: this.editData.company,
-          customer: this.editData.customer,
-          customerReference: this.editData.customerReference,
-          servicioConcept: this.editData.servicioConcept,
-          typeOfService: this.editData.typeOfService,
-          currency: this.editData.currency,
-          stateP: this.editData.stateP,
-          baseAmount: this.editData.baseAmount,
-          totalAmount: this.editData.totalAmount,
-          warranty: this.editData.warranty,
-          version: this.editData.version,
-          dateVersion: this.editData.dateVersion,
-          proposalId: this.editData.id,
-          folder: this.editData.folder,
-          wayToPay: this.editData.wayToPay,
-          wayToPayDays: this.editData.wayToPayDays,
-          creatorUser: this.editData.creatorUser,
-          editorUser: this.editData.editorUser,
-          removerUser: this.editData.removerUser,
-          code: this.editData.code,
-          commercialManager: this.editData.commercialManager,
-          presaleManager: this.editData.presaleManager,
-          proposalSubmissionDeadline: this.editData.proposalSubmissionDeadline,
-          comments: this.editData.comments
-        }
-        this.businessProposalService.addNewVersion(data).subscribe(
-          (res) => {
-            //const inputDate = document.getElementById('#inputDate')
-            //inputDate?.click()
-            console.log('FILTORS EN EDITAR ', this.getDataArray[1])
-            console.log('DATES EN EDITAR ', this.getDataArray[2].end)
-            console.log('DATES EN EDITAR ', this.getDataArray[2].start)
-
-            this.businessProposalService.getBusinessProposal(this.getDataArray[1], 
-              this.getDataArray[2]).subscribe(
-              (resProposals) => {
-                console.log('res despues de editar', resProposals)
-        
-                if(resProposals.length === 0){
-                  alert('No hay datos que coincidan con la búsqueda')
-                }else{
-                  this.dataSource = resProposals
-                  this.businessProposalService.addProposals(this.dataSource)
-                }
-              },
-              (err) => console.log('ha ocurrido un error', err),
-              () =>  {
-                console.info('se ha completado la llamada')
-              }
-            )
-
-            //console.log('res add', res)
-            Swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: 'La propuesta se ha editado',
-              showConfirmButton: false,
-              timer: 4000
-            })
+      this.businessProposalService.putContact(contact).subscribe(
+        (res) => {
+          //console.log('res', res)
+          if(res === null){
+            console.log('no tiene contacto')
           }
-        )
-      },
-      (err) => console.log('ha ocurrido un error', err),
-      () => console.info('se ha completado la llamada')
-    )
-    this.newProposal.reset()
-    this.dialogRef.close('Editar')
-  }
+        }
+      )
+      const data1 = {
+        id:  this.editData.id,
+        company: this.newProposal.value.company,
+        customer: this.newProposal.value.customer,
+        customerReference: this.newProposal.value.customerReference,
+        servicioConcept: this.newProposal.value.servicioConcept,
+        typeOfService: this.newProposal.value.typeOfService,
+        currency: this.newProposal.value.currency,
+        stateP: this.newProposal.value.stateP,
+        baseAmount: this.newProposal.value.baseAmount,
+        totalAmount: this.newProposal.value.totalAmount,
+        warranty: this.newProposal.value.warranty,
+        version: Number(this.editData.version) + 1,
+        dateVersion: this.newProposal.value.dateVersion,
+        folder: this.newProposal.value.folder,
+        wayToPay: this.newProposal.value.wayToPay,
+        wayToPayDays: this.newProposal.value.wayToPayDays,
+        creatorUser: this.newProposal.value.creatorUser,
+        editorUser: this.newProposal.value.editorUser,
+        //removerUser: this.newProposal.value.removerUser,
+        code: this.newProposal.value.code,
+        commercialManager: this.newProposal.value.commercialManager,
+        presaleManager: this.newProposal.value.presaleManager,
+        proposalSubmissionDeadline: this.newProposal.value.proposalSubmissionDeadline,
+        comments: this.newProposal.value.comments
+  
+      }
+      this.businessProposalService.putProposal(data1).subscribe(
+        (res) => {
+          //console.log('res put', res, 'version in add', this.editData.version)
+          const data = {
+            company: this.editData.company,
+            customer: this.editData.customer,
+            customerReference: this.editData.customerReference,
+            servicioConcept: this.editData.servicioConcept,
+            typeOfService: this.editData.typeOfService,
+            currency: this.editData.currency,
+            stateP: this.editData.stateP,
+            baseAmount: this.editData.baseAmount,
+            totalAmount: this.editData.totalAmount,
+            warranty: this.editData.warranty,
+            version: this.editData.version,
+            dateVersion: this.editData.dateVersion,
+            proposalId: this.editData.id,
+            folder: this.editData.folder,
+            wayToPay: this.editData.wayToPay,
+            wayToPayDays: this.editData.wayToPayDays,
+            creatorUser: this.editData.creatorUser,
+            editorUser: this.editData.editorUser,
+            removerUser: this.editData.removerUser,
+            code: this.editData.code,
+            commercialManager: this.editData.commercialManager,
+            presaleManager: this.editData.presaleManager,
+            proposalSubmissionDeadline: this.editData.proposalSubmissionDeadline,
+            comments: this.editData.comments
+          }
+          this.businessProposalService.addNewVersion(data).subscribe(
+            (res) => {
+              //const inputDate = document.getElementById('#inputDate')
+              //inputDate?.click()
+              console.log('FILTORS EN EDITAR ', this.getDataArray[1])
+              console.log('DATES EN EDITAR ', this.getDataArray[2].end)
+              console.log('DATES EN EDITAR ', this.getDataArray[2].start)
+  
+              this.businessProposalService.getBusinessProposal(this.getDataArray[1], 
+                this.getDataArray[2]).subscribe(
+                (resProposals) => {
+                  console.log('res despues de editar', resProposals)
+          
+                  if(resProposals.length === 0){
+                    alert('No hay datos que coincidan con la búsqueda')
+                  }else{
+                    this.dataSource = resProposals
+                    this.businessProposalService.addProposals(this.dataSource)
+                  }
+                },
+                (err) => console.log('ha ocurrido un error', err),
+                () =>  {
+                  console.info('se ha completado la llamada')
+                }
+              )
+  
+              //console.log('res add', res)
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'La propuesta se ha editado',
+                showConfirmButton: false,
+                timer: 4000
+              })
+            }
+          )
+        },
+        (err) => console.log('ha ocurrido un error', err),
+        () => console.info('se ha completado la llamada')
+      )
+      this.newProposal.reset()
+      this.dialogRef.close('Editar')
+    }
+    }
 
 }
