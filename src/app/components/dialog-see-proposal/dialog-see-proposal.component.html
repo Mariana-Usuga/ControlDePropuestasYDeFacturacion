@@ -1,4 +1,4 @@
-<h3>Datos oportunidad</h3>
+<h4 class="mb-4">Datos oportunidad</h4>
 
 <div class="proposal">
   <div class="item">
@@ -57,9 +57,9 @@
     <div class="subtitle">Concepto servicio</div>
     <div>{{proposal.servicioConcept}}</div>
   </div>
-  <div class="item">
+  <div class="item" >
     <div class="subtitle">Comentarios</div>
-    <div>{{proposal.comments}}</div>
+    <div style="width: 50%;">{{proposal.comments}}</div>
   </div>
   <div class="item" *ngIf="showEditorUser">
     <div class="subtitle">Editado por</div>
@@ -83,16 +83,16 @@
   </div>
 </div>
 
-<div class="btns">
-  <div class="me-4">
+<div class="d-flex justify-content-end">
+  <div>
     <button type="button" class="btn btn-outline-danger btn-sm action" (click)="seeVersions(proposal)">
       Historico
     </button>
   </div>
 
-  <div class="btnCreate text-end" (click)="export(proposal.folder)">
+  <div class="btnCreate text-end ms-4 me-4" (click)="export(proposal.folder)">
     <button _ngcontent-cgx-c245="" type="button" class="btn btn-outline-primary
-          btn-border-radius d-inline">
+          btn-border-radius d-inline btn-sm">
           <i class="bi bi-download"></i>
                Archivos
           </button>

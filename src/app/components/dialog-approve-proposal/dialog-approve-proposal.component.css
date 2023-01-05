@@ -9,3 +9,20 @@
 .btnAddHito{
 
 }
+
+.date{
+  display: inline;
+  position:absolute;
+  right: 3%;
+  bottom: 5%;
+  /*bottom: 70%;*/
+}
+
+.comments{
+  position: relative;
+  right: 2%;
+}
+
+.btns{
+  display:flex;
+}

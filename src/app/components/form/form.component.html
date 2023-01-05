@@ -61,11 +61,12 @@
     <mat-grid-tile class="mat-grid-tile">
     <mat-form-field appearance="legacy">
       <mat-label>Fecha inicial</mat-label>
-      <input [(ngModel)]="this.rangeDate.value.start" (ngModelChange)="search()" matInput [matDatepicker]="picker">
+      <input [(ngModel)]="this.rangeDate.value.start" (ngModelChange)="search()" matInput 
+      [matDatepicker]="start">
       <mat-hint> MM/DD/YYYY</mat-hint>
       <div class="date">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker-toggle matIconSuffix [for]="start"></mat-datepicker-toggle>
+        <mat-datepicker #start></mat-datepicker>
       </div>
     </mat-form-field>
   </mat-grid-tile>
@@ -75,13 +76,13 @@
       <mat-label >
         Fecha final
       </mat-label>
-      <input [(ngModel)]="this.rangeDate.value.end" (ngModelChange)="search()" matInput [matDatepicker]="picker">
+      <input [(ngModel)]="this.rangeDate.value.end" (ngModelChange)="search()" matInput 
+      [matDatepicker]="end">
       <mat-hint> MM/DD/YYYY</mat-hint>
       <div class="date">
-        <mat-datepicker-toggle  matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker-toggle  matIconSuffix [for]="end"></mat-datepicker-toggle>
+        <mat-datepicker #end></mat-datepicker>
       </div>
-        
     </mat-form-field>
   </mat-grid-tile>
 

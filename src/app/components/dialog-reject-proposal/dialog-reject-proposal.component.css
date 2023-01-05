@@ -5,3 +5,11 @@
 .commentsReject{
   right: 12px;
 }
+
+.date{
+  display: inline;
+  position:absolute;
+  right: 3%;
+  bottom: 5%;
+  /*bottom: 70%;*/
+}

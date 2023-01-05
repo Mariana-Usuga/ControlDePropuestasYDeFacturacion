@@ -124,21 +124,21 @@ buscar(){
 editProposal(row: commercialProposal){
   console.log(' this.dataSource', this.dataSource)
   this.dialog.open(DialogAddProposalComponent, {
-    maxHeight: '90vh',
+    maxHeight: '70vh',
     data:row,
   });
 }
 
 hostoricalProposal(row: commercialProposal){
   this.dialog.open(DialogSeeVersionsComponent, {
-    width: '70%',
+    maxHeight: '70vh',
     data:row
   });
 }
 
 consultProposal(pro: any){
   this.dialog.open(DialogSeeProposalComponent, {
-    width: '70%',
+    maxHeight: '70vh',
     data: pro
   });
 }
@@ -190,7 +190,7 @@ deleteProposal(proposal: commercialProposal, id: number){
 
 openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
   this.dialog.open(DialogAddProposalComponent, {
-    maxHeight: '90vh',
+    maxHeight: '70vh',
     enterAnimationDuration,
     exitAnimationDuration,
   });
@@ -203,7 +203,8 @@ openDialogApprove(row: any){
     document.getElementById("tdApprove")?.classList.add('disabled')
   }else{
     this.dialog.open(DialogApproveProposalComponent, {
-      width: '70%',
+      //width: '70%',
+      maxHeight: '70vh',
       data:row
     });
   }
@@ -212,8 +213,8 @@ openDialogApprove(row: any){
 openDialogCreateCustomers(){
   console.log('clientes')
   this.dialog.open(DialogAddCustomersComponent, {
-    maxHeight: '100vh',
-    width: '70%',
+    maxHeight: '70vh',
+    //width: '70%',
   });
 }
 
@@ -223,29 +224,10 @@ openRecha(row: commercialProposal){
     document.getElementById("tdReject")?.classList.add('disabled')
   }else{
   this.dialog.open(DialogRejectProposalComponent, {
-    width: '70%',
+    maxHeight: '70vh',
     data: row
   });
   }
 }
 
-searchByDates(){
-  console.log('entra datesss', this.dates.start)
-  /*const dd = String(this.rangeDate.value.start.getDate()).padStart(2, '0');
-  const mm = String(this.rangeDate.value.start.getMonth() + 1).padStart(2, '0');
-  const yyyy = this.rangeDate.value.start.getFullYear();
-
-  console.log('START', `${yyyy}-${mm}-${dd}`)
-
-  const ddEnd = String(this.rangeDate.value.end.getDate()).padStart(2, '0');
-  const mmEnd = String(this.rangeDate.value.end.getMonth() + 1).padStart(2, '0');
-  const yyyyEnd = this.rangeDate.value.end.getFullYear();
-
-  console.log('END', `${yyyyEnd}-${mmEnd}-${ddEnd}`)*/
-
-  //this.rangeDate.controls['start'].setValue(`${yyyy}-${mm}-${dd}`)
-  //this.rangeDate.controls['end'].setValue(`${yyyyEnd}-${mmEnd}-${ddEnd}`)
-
-  //this.businessProposalService.addFiltrosDate(this.rangeDate.value)
-  }
 }

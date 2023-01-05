@@ -27,7 +27,10 @@ export class DialogRejectProposalComponent implements OnInit {
     }
 
   recha(){
-    const d =  this.verify.value.rejectionDate.toISOString();
+    if(this.verify.value.rejectionDate === '' || this.verify.value.rejectionUser === ''){
+      alert('los campos Quien rechaza y Fecha de rechazo son obligatorios')
+    }else{
+      const d =  this.verify.value.rejectionDate.toISOString();
     console.log('nameprop',)
     const cambio = {
       id: this.proposalSee.id,
@@ -70,5 +73,6 @@ export class DialogRejectProposalComponent implements OnInit {
       this.verify.reset()
       this.dialogRef.close()
   }
+    }
 
 }
