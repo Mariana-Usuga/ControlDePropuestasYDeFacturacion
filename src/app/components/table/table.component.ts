@@ -191,7 +191,6 @@ deleteProposal(proposal: commercialProposal, id: number){
           }
         })
       } else if (
-        /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel
       ) {
       }
@@ -215,15 +214,20 @@ openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void 
 }
 
 openDialogApprove(row: any){
+  const array = [
+    row,
+    this.filtrosObject,
+    this.dates
+  ]
   console.log('apro table', row)
   if(row.stateP != "PENDIENTE"){
     alert('No puedes realizar esta accion')
-    document.getElementById("tdApprove")?.classList.add('disabled')
+    document.getElementById(row.code)?.classList.add('disabled')
   }else{
     this.dialog.open(DialogApproveProposalComponent, {
       //width: '70%',
       maxHeight: '70vh',
-      data:row
+      data:array
     });
   }
 }
@@ -236,14 +240,19 @@ openDialogCreateCustomers(){
   });
 }
 
-openRecha(row: commercialProposal){
+openRecha(row: any){
+  const array = [
+    row,
+    this.filtrosObject,
+    this.dates
+  ]
   if(row.stateP != "PENDIENTE"){
     alert('no puedes hacer esta accion')
-    document.getElementById("tdReject")?.classList.add('disabled')
+    document.getElementById(row.code)?.classList.add('disabled')
   }else{
   this.dialog.open(DialogRejectProposalComponent, {
     maxHeight: '70vh',
-    data: row
+    data: array
   });
   }
 }

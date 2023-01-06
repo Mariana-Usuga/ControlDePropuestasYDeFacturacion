@@ -13,12 +13,19 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 export class DialogRejectProposalComponent implements OnInit {
 
   verify!: FormGroup;
+  dataSource: any[] = [];
 
   constructor( private businessProposalService: BusinessProposalService,
-    @Inject(MAT_DIALOG_DATA) public proposalSee: any, private formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public getDataArray: any, private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogRejectProposalComponent>) { }
 
+    proposalSee: any
+
     ngOnInit(): void {
+      if(this.getDataArray[0].company){
+        this.proposalSee = this.getDataArray[0]
+      }
+
       this.verify = this.formBuilder.group({
         rejectionDate:  ['', Validators.required],
         rejectionUser: ['', Validators.required],
@@ -26,7 +33,7 @@ export class DialogRejectProposalComponent implements OnInit {
       })
     }
 
-  recha(){
+    rejectProposal(){
     if(this.verify.value.rejectionDate === '' || this.verify.value.rejectionUser === ''){
       alert('los campos Quien rechaza y Fecha de rechazo son obligatorios')
     }else{
@@ -68,11 +75,34 @@ export class DialogRejectProposalComponent implements OnInit {
         })
       },
       (err) => console.log('ha ocurrido un error', err),
-          () => console.info('se ha completado la llamada')
+          () => {
+            console.info('se ha completado la llamada')
+            this.getListProposals()
+          } 
     )
       this.verify.reset()
       this.dialogRef.close()
   }
+    }
+
+    getListProposals(){
+      this.businessProposalService.getBusinessProposal(this.getDataArray[1], 
+        this.getDataArray[2]).subscribe(
+        (resProposals) => {
+          console.log('res despues de editar', resProposals)
+  
+          if(resProposals.length === 0){
+            alert('No hay datos que coincidan con la búsqueda')
+          }else{
+            this.dataSource = resProposals
+            this.businessProposalService.addProposals(this.dataSource)
+          }
+        },
+        (err) => console.log('ha ocurrido un error', err),
+        () =>  {
+          console.info('se ha completado la llamada')
+        }
+      )
     }
 
 }

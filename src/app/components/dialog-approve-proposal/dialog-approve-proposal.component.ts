@@ -14,13 +14,18 @@ export class DialogApproveProposalComponent implements OnInit {
   hitos: any = [];
   approve!: FormGroup;
   hitoForm!: FormGroup;
-  //dialogRef: any;
+  dataSource: any[] = [];
 
   constructor( private businessProposalService: BusinessProposalService,
-    @Inject(MAT_DIALOG_DATA) public proposalSee: any, private formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public getDataArray: any, private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogApproveProposalComponent>) { }
 
+    proposalSee: any
+
   ngOnInit(): void {
+    if(this.getDataArray[0].company){
+      this.proposalSee = this.getDataArray[0]
+    }
 
     this.approve = this.formBuilder.group({
       userApproved: ['', Validators.required],
@@ -35,8 +40,6 @@ export class DialogApproveProposalComponent implements OnInit {
   }
 
   addHito(){
-    console.log('this.hitoForm.value', this.hitoForm.value)
-    console.log('date', this.approve.value.approvalDate)
 
     this.hitos.push({
       "percentage": this.hitoForm.value.percentage,
@@ -47,9 +50,6 @@ export class DialogApproveProposalComponent implements OnInit {
   }
 
   aprovar(){
-    console.log('hitos', this.hitos)
-    console.log('nameprop', 'sacs',this.proposalSee)
-
     if(this.approve.value.userApproved === '' || this.approve.value.approvalDate === ''){
       alert('Quien aprueba y Fecha de aprobacion son campos obligatorios')
     }else{
@@ -112,8 +112,7 @@ export class DialogApproveProposalComponent implements OnInit {
       }
       this.businessProposalService.addApprovedProposal(approvedProposal).subscribe(
       (res) => {
-        console.log('res add table apro', res)
-        console.log('this.proposalSee.proposalId,', this.proposalSee.proposalId)
+  
        for(let hito of this.hitos){
           this.businessProposalService.addHito(this.proposalSee.id, hito).subscribe(
             (res) => {
@@ -125,6 +124,7 @@ export class DialogApproveProposalComponent implements OnInit {
          }
         this.businessProposalService.putStateOfProposal(cambio).subscribe(
           (res) => {
+            this.getListProposals()
             console.log('res', res)
             Swal.fire({
               position: 'top-end',
@@ -153,6 +153,26 @@ export class DialogApproveProposalComponent implements OnInit {
     this.hitoForm.reset()
     this.dialogRef.close()
     }
+    }
+
+    getListProposals(){
+      this.businessProposalService.getBusinessProposal(this.getDataArray[1], 
+        this.getDataArray[2]).subscribe(
+        (resProposals) => {
+          console.log('res despues de editar', resProposals)
+  
+          if(resProposals.length === 0){
+            alert('No hay datos que coincidan con la búsqueda')
+          }else{
+            this.dataSource = resProposals
+            this.businessProposalService.addProposals(this.dataSource)
+          }
+        },
+        (err) => console.log('ha ocurrido un error', err),
+        () =>  {
+          console.info('se ha completado la llamada')
+        }
+      )
     }
   }
 

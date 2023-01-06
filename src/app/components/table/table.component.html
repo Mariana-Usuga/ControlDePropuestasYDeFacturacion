@@ -30,7 +30,7 @@
     <button _ngcontent-cgx-c245="" type="button" class="btn btn-outline-primary
           btn-border-radius">
             <span _ngcontent-cgx-c245="" class="mobile-hide">
-              Export
+              Descargar
             </span>
           </button>
   </div>
@@ -65,7 +65,7 @@
       <td class="td"> {{b.typeOfService}} </td>
       <td class="td"> {{b.stateP}} </td>
       <td class="tdBtns" >
-          <button id="tdApprove" type="button" class="btn btn-outline-primary"
+          <button [id]="b.code" type="button" class="btn btn-outline-primary"
           style="--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .60rem;
           text-align: center;"
           (click)="openDialogApprove(b)">
@@ -73,7 +73,7 @@
           </button>
       </td>
       <td class="tdBtns" >
-        <button id="tdReject" type="button" class="btn btn-outline-danger btn-sm"
+        <button [id]="b.code" type="button" class="btn btn-outline-danger btn-sm"
         style="--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .60rem;"
         (click)="openRecha(b)">
         <mat-icon>clear</mat-icon>

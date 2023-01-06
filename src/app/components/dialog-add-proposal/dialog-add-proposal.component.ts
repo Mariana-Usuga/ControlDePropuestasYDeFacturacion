@@ -82,14 +82,11 @@ export class DialogAddProposalComponent implements OnInit {
     private dialogRef: MatDialogRef<DialogAddProposalComponent>,
     private http: HttpClient, private dataFiltersService: DataFiltersService) { }
 
-    
     editData: any
 
   ngOnInit(): void {
     if(this.getDataArray[0].company){
       this.editData = this.getDataArray[0]
-    }else{
-
     }
 
     this.filters = this.incomingFilters
@@ -258,7 +255,6 @@ getContact(){
           this.businessProposalService.addNewProposal(data).subscribe(
             (res) => {
               console.log('res', res)
-              console.log('ID!!!!', res.data.id)
               this.idProposalCreated = res.data.id;
               this.newProposalContact.controls['idProposal'].setValue(res.data.id)
               console.log('this.file', this.files)
@@ -266,7 +262,7 @@ getContact(){
 
                   const file = new FormData();
                 file.append("file", f);
-                //`http://localhost:8080/proposal/${res.data.id}/upload`, file)
+
                 this.http.post<any>(
                   `http://119.8.153.220:8080/proposalControlBackend-0.0.1/proposal/${res.data.id}/upload`, file)
                   .subscribe(
@@ -279,6 +275,7 @@ getContact(){
 
               if(res.success){
                 this.newContact();
+                this.getListProposals()
               }
             },
             (err) => console.log('ha ocurrido un error', err),
@@ -288,11 +285,6 @@ getContact(){
                 this.newProposal.reset()
                 this.dialogRef.close('save')
               }
-              /*(err) => {
-                console.log('err', err)
-              }*/
-              //)
-            //}
   }else{
     console.log('entra en update')
     this.updateProposal();
@@ -398,31 +390,8 @@ newContact(){
           }
           this.businessProposalService.addNewVersion(data).subscribe(
             (res) => {
-              //const inputDate = document.getElementById('#inputDate')
-              //inputDate?.click()
-              console.log('FILTORS EN EDITAR ', this.getDataArray[1])
-              console.log('DATES EN EDITAR ', this.getDataArray[2].end)
-              console.log('DATES EN EDITAR ', this.getDataArray[2].start)
+              this.getListProposals()
   
-              this.businessProposalService.getBusinessProposal(this.getDataArray[1], 
-                this.getDataArray[2]).subscribe(
-                (resProposals) => {
-                  console.log('res despues de editar', resProposals)
-          
-                  if(resProposals.length === 0){
-                    alert('No hay datos que coincidan con la búsqueda')
-                  }else{
-                    this.dataSource = resProposals
-                    this.businessProposalService.addProposals(this.dataSource)
-                  }
-                },
-                (err) => console.log('ha ocurrido un error', err),
-                () =>  {
-                  console.info('se ha completado la llamada')
-                }
-              )
-  
-              //console.log('res add', res)
               Swal.fire({
                 position: 'top-end',
                 icon: 'success',
@@ -439,6 +408,26 @@ newContact(){
       this.newProposal.reset()
       this.dialogRef.close('Editar')
     }
+    }
+
+    getListProposals(){
+      this.businessProposalService.getBusinessProposal(this.getDataArray[1], 
+        this.getDataArray[2]).subscribe(
+        (resProposals) => {
+          console.log('res despues de editar', resProposals)
+  
+          if(resProposals.length === 0){
+            alert('No hay datos que coincidan con la búsqueda')
+          }else{
+            this.dataSource = resProposals
+            this.businessProposalService.addProposals(this.dataSource)
+          }
+        },
+        (err) => console.log('ha ocurrido un error', err),
+        () =>  {
+          console.info('se ha completado la llamada')
+        }
+      )
     }
 
 }
