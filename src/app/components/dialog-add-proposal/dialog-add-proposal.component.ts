@@ -133,7 +133,7 @@ export class DialogAddProposalComponent implements OnInit {
       commercialManager: [''],
       presaleManager: [''],
       comments: [''],
-      proposalSubmissionDeadline: ['']
+      proposalSubmissionDeadline: [''],
       //removerUser : [' ']
     })
 

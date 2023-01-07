@@ -206,7 +206,8 @@ openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void 
     this.dates
   ]
   this.dialog.open(DialogAddProposalComponent, {
-    maxHeight: '70vh',
+    maxHeight: '100vh',
+    autoFocus: false,
     enterAnimationDuration,
     exitAnimationDuration,
     data:array

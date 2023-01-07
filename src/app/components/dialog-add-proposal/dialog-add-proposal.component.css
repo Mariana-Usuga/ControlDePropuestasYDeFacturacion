@@ -11,6 +11,10 @@
   scroll-behavior: auto;
 }
 
+.upload-icon{
+  right: 25%;
+}
+
 .mat-grid-list{
   position:inherit;
   background-color: aqua;
@@ -27,6 +31,13 @@
   justify-content: right;
 }
 
+.date{
+  display: inline;
+  position:absolute;
+  right: 0.3%;
+  bottom: 5%;
+}
+
 .btn{
   margin: 4px;
   font-size: 18px;
@@ -38,3 +49,11 @@
  .n{
   display: flex;
  }
+
+ .cdk-global-overlay-wrapper {
+  pointer-events: auto;
+  display: block;
+  position: relative;
+  overflow: auto;
+  text-align: center;
+}

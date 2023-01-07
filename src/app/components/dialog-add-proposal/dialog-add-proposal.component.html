@@ -84,26 +84,25 @@
         placeholder="Responsable Pre-venta">
       </mat-form-field>
 
-      <mat-form-field appearance="legacy" class="n mx-4">
-        <mat-label>Fecha límite de envío</mat-label>
-          <div class="m">
-            <input matInput [matDatepicker]="picker">
-            </div>
-            <div>
-              <mat-hint>MM/DD/YYYY</mat-hint>
-              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-form-field appearance="legacy" class="mx-4">
+          <mat-label>Fec. límite de envío</mat-label>
+          <input formControlName="proposalSubmissionDeadline" matInput 
+          [matDatepicker]="picker">
+          <mat-hint> MM/DD/YYYY</mat-hint>
+          <div class="date">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            </div>     
-      </mat-form-field>
+          </div>
+        </mat-form-field>
 
-      <mat-form-field appearance="legacy" class="col-8">
+      <mat-form-field appearance="legacy" class="col-5">
           <mat-label>Concepto de Servicio</mat-label>
           <textarea formControlName="servicioConcept"
           matInput placeholder="Ex. It makes me feel...">
           </textarea>
         </mat-form-field>
 
-        <mat-form-field appearance="legacy" class="col-8">
+        <mat-form-field appearance="legacy" class="col-5">
           <mat-label>Comentarios</mat-label>
           <textarea formControlName="comments"
           matInput placeholder="Ex. It makes me feel...">
@@ -134,19 +133,16 @@
         </mat-form-field>
     </form>
 
-<div class="containerBtn">
+<div class="d-flex justify-content-around flex-wrap">
   <div class="btn">
     <input (change)="onFileSelect($event)" type="file" multiple
     class="file-upload" >
+    <button mat-mini-fab color="primary" class="upload-icon">
+      <mat-icon>attach_file</mat-icon>
+    </button>
   </div>
-  <div class="file-upload">
-     <button mat-mini-fab color="primary" class="upload-btn">
-         <mat-icon>attach_file</mat-icon>
-     </button>
- </div>
- </div>
 
-<div class="btns">
+ <div class="d-flex justify-content-end">
   <div class="btn">
     <button class="btn btn-outline-primary btn-sm action" color="primary"
     (click)="addProposal()"> {{accionBtn}} </button>
@@ -156,6 +152,18 @@
      mat-dialog-close color="warn">Cancelar</button>
   </div>
 </div>
+ </div>
+
+<!--<div class="btns">
+  <div class="btn">
+    <button class="btn btn-outline-primary btn-sm action" color="primary"
+    (click)="addProposal()"> {{accionBtn}} </button>
+  </div>
+  <div class="btn">
+    <button class="btn btn-outline-danger btn-sm action"
+     mat-dialog-close color="warn">Cancelar</button>
+  </div>
+</div>-->
 
 </div>
 
