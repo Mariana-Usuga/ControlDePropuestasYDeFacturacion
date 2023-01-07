@@ -51,7 +51,8 @@ export class DialogApproveProposalComponent implements OnInit {
 
   aprovar(){
     if(this.approve.value.userApproved === '' || this.approve.value.approvalDate === ''){
-      alert('Quien aprueba y Fecha de aprobacion son campos obligatorios')
+      //alert('Quien aprueba y Fecha de aprobacion son campos obligatorios')
+      Swal.fire('Quien aprueba y Fecha de aprobacion son campos obligatorios')
     }else{
       const date = this.approve.value.approvalDate
 

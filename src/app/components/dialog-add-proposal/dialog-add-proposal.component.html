@@ -8,6 +8,9 @@
         <mat-select formControlName="company" placeholder="Empresa">
           <mat-option [disabled]="disabled" id="companyOption" *ngFor="let b of company" [value]="b"> {{b}} </mat-option>
         </mat-select>
+        <mat-error *ngIf="!error.company">
+          Este campo es requerido
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="legacy" class="mx-4">
@@ -15,6 +18,9 @@
         <mat-select formControlName="customer" placeholder="Cliente">
           <mat-option [disabled]="disabled" id="customer" *ngFor="let b of customer" [value]="b"> {{b}} </mat-option>
         </mat-select>
+        <mat-error *ngIf="!error.customer">
+          Este campo es requerido
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="legacy" class="mx-4">
@@ -29,6 +35,9 @@
         <mat-select  formControlName="typeOfService" placeholder="Tipo de servicio">
           <mat-option *ngFor="let b of typeOfService" [value]="b"> {{b}} </mat-option>
         </mat-select>
+        <mat-error *ngIf="!error.typeOfService">
+          Este campo es requerido
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="legacy" class="mx-4">
@@ -38,6 +47,9 @@
           <mat-option value="CONTADO">CONTADO</mat-option>
           <mat-option value="CREDITO">CREDITO</mat-option>
         </mat-select>
+        <mat-error *ngIf="!error.wayToPay">
+          Este campo es requerido
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="legacy" class="mx-4" style="margin-right: 60px;">
@@ -95,14 +107,25 @@
           </div>
         </mat-form-field>
 
-      <mat-form-field appearance="legacy" class="col-5">
+        <mat-form-field appearance="legacy" *ngIf="showCode" class="mx-4">
+          <mat-label>Fecha de creacion</mat-label>
+          <input formControlName="dateVersion" matInput 
+          [matDatepicker]="picker">
+          <mat-hint> MM/DD/YYYY</mat-hint>
+          <div class="date">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+        </mat-form-field>
+
+      <mat-form-field appearance="legacy" class="col-4">
           <mat-label>Concepto de Servicio</mat-label>
           <textarea formControlName="servicioConcept"
           matInput placeholder="Ex. It makes me feel...">
           </textarea>
         </mat-form-field>
 
-        <mat-form-field appearance="legacy" class="col-5">
+        <mat-form-field appearance="legacy" class="col-7">
           <mat-label>Comentarios</mat-label>
           <textarea formControlName="comments"
           matInput placeholder="Ex. It makes me feel...">
@@ -120,11 +143,17 @@
         <mat-form-field appearance="legacy" class="mx-4">
           <mat-label>Nombre Completo</mat-label>
           <input type="text" formControlName="fullName" matInput placeholder="Nombre Completo">
+          <mat-error *ngIf="!error.fullName">
+            Este campo es requerido
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="legacy" class="mx-4">
           <mat-label>Correo</mat-label>
           <input type="text" formControlName="email" matInput placeholder="Correo">
+          <mat-error *ngIf="!error.email">
+            Este campo es requerido
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="legacy" class="mx-4">
@@ -135,6 +164,7 @@
 
 <div class="d-flex justify-content-around flex-wrap">
   <div class="btn">
+    <span class="me-2">Sube archivos:</span>
     <input (change)="onFileSelect($event)" type="file" multiple
     class="file-upload" >
     <button mat-mini-fab color="primary" class="upload-icon">
@@ -145,7 +175,7 @@
  <div class="d-flex justify-content-end">
   <div class="btn">
     <button class="btn btn-outline-primary btn-sm action" color="primary"
-    (click)="addProposal()"> {{accionBtn}} </button>
+    (click)="addProposal()" type="submit"> {{accionBtn}} </button>
   </div>
   <div class="btn">
     <button class="btn btn-outline-danger btn-sm action"

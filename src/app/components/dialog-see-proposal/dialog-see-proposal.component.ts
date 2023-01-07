@@ -1,7 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { commercialProposal } from 'src/app/models/interfaces/commercialProposal.interfaces';
-import { DialogApproveProposalComponent } from '../dialog-approve-proposal/dialog-approve-proposal.component';
 import { DialogRejectProposalComponent } from '../dialog-reject-proposal/dialog-reject-proposal.component';
 import { DialogSeeVersionsComponent } from '../dialog-see-versions/dialog-see-versions.component';
 import { BusinessProposalService } from 'src/app/services/business-proposal.service';
@@ -12,6 +10,10 @@ import { BusinessProposalService } from 'src/app/services/business-proposal.serv
   styleUrls: ['./dialog-see-proposal.component.css']
 })
 export class DialogSeeProposalComponent implements OnInit {
+
+  dateVersion = new Date(this.proposalSee.dateVersion);
+  proposalSubmissionDeadline = new Date(this.proposalSee.proposalSubmissionDeadline);
+  rejectionDate = new Date(this.proposalSee.rejectionDate);
 
   proposal: any = {
     id: this.proposalSee.id,
@@ -26,7 +28,8 @@ export class DialogSeeProposalComponent implements OnInit {
     baseAmount: this.proposalSee.baseAmount,
     totalAmount: this.proposalSee.totalAmount,
     version: this.proposalSee.version,
-    dateVersion: this.proposalSee.dateVersion?.split('T')[0],
+    dateVersion: `${this.dateVersion.getMonth() + 1}
+    /${this.dateVersion.getDate()}/${this.dateVersion.getFullYear()}`,
     folder: this.proposalSee.folder,
     wayToPay: this.proposalSee.wayToPay,
     wayToPayDays: this.proposalSee.wayToPayDays,
@@ -34,10 +37,12 @@ export class DialogSeeProposalComponent implements OnInit {
     comments: this.proposalSee.comments,
     commercialManager: this.proposalSee.commercialManager,
     presaleManager: this.proposalSee.presaleManager,
-    proposalSubmissionDeadline: this.proposalSee.proposalSubmissionDeadline?.split('T')[0],
+    proposalSubmissionDeadline: `${this.proposalSubmissionDeadline.getMonth() + 1}
+    /${this.proposalSubmissionDeadline.getDate()}/${this.proposalSubmissionDeadline.getFullYear()}`,
     editorUser: this.proposalSee.editorUser,
     rejectionUser: this.proposalSee.rejectionUser,
-    rejectionDate: this.proposalSee.rejectionDate?.split('T')[0],
+    rejectionDate: `${this.rejectionDate.getMonth() + 1}
+    /${this.rejectionDate.getDate()}/${this.rejectionDate.getFullYear()}`,
     rejectionComments: this.proposalSee.rejectionComments
   }
   fileService: any;
@@ -50,25 +55,19 @@ export class DialogSeeProposalComponent implements OnInit {
   private businessProposalService: BusinessProposalService) { }
 
   ngOnInit(): void {
-    console.log('proposalSee', this.proposalSee);
-
     const f = '2022-12-22T05:00:00.000+00:00'
 
     const nu = f.split('T')
 
-    console.log('nu ', nu, '0 ', f.split('T')[0])
-
     if(this.proposal.version != 1){
       this.showEditorUser = true
     }
-    if(this.proposal.stateP === "rechazado"){
+    if(this.proposal.stateP === "RECHAZADO"){
       this.showRejected = true
     }
 
   }
   export(folder: any): void{
-
-    console.log('folder', folder)
     const c = folder.split('/')
     console.log('C', c)
 

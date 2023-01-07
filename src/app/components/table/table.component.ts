@@ -136,7 +136,7 @@ editProposal(row: commercialProposal){
     this.dates
   ]
   this.dialog.open(DialogAddProposalComponent, {
-    maxHeight: '70vh',
+    maxHeight: '100vh',
     data:array,
   });
 }
@@ -150,7 +150,7 @@ hostoricalProposal(row: commercialProposal){
 
 consultProposal(pro: any){
   this.dialog.open(DialogSeeProposalComponent, {
-    maxHeight: '70vh',
+    maxHeight: '100vh',
     data: pro
   });
 }
@@ -207,7 +207,6 @@ openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void 
   ]
   this.dialog.open(DialogAddProposalComponent, {
     maxHeight: '100vh',
-    autoFocus: false,
     enterAnimationDuration,
     exitAnimationDuration,
     data:array

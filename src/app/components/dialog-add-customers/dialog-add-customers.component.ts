@@ -36,14 +36,21 @@ export class DialogAddCustomersComponent implements OnInit {
   }
 
   addCustomers(){
-    /*const customer = {
-      name : this.newCustomer.value.name
-    }*/
+   
     this.dataFiltersService.addCustomer(this.newCustomer.value).subscribe((res) => {
       console.log('res', res)
     },
     (err) => console.log('ha ocurrido un error', err),
-    () => console.info('se ha completado la llamada')
+    () => {
+      console.info('se ha completado la llamada')
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Se ha creado el cliente',
+        showConfirmButton: false,
+        timer: 4000
+      })
+    } 
     )
 
     

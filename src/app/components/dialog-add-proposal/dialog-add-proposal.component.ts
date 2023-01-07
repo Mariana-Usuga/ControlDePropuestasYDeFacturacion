@@ -53,6 +53,15 @@ export class DialogAddProposalComponent implements OnInit {
     end: '',
   }
 
+  error: any = {
+    company: '',
+    customer: '',
+    typeOfService: '',
+    wayToPay: '',
+    fullName: '',
+    email: ''
+  }
+
   dataSource: any[] = [];
 
   filtrosObject: commercialProposal= {
@@ -164,6 +173,7 @@ export class DialogAddProposalComponent implements OnInit {
       this.newProposal.controls['presaleManager'].setValue(this.editData.presaleManager)
       this.newProposal.controls['proposalSubmissionDeadline'].setValue(this.editData.proposalSubmissionDeadline)
       this.newProposal.controls['comments'].setValue(this.editData.comments)
+      this.newProposal.controls['dateVersion'].setValue(this.editData.dateVersion)
       this.getContact()
       this.disabled = true
     }
@@ -215,82 +225,101 @@ getContact(){
 }
 
   addProposal(){
-    this.showCode = false
+    if(!this.editData){
+
+      this.showCode = false
     this.action = 'Crear';
     if(this.files.length > 5){
-      return alert('solo puedes subir maximo 5 archivos')
-      
-    }else if(this.newProposal.value.company === '' || this.newProposal.value.customer === '' ||
+      Swal.fire('Solo puedes subir maximo 5 archivos')
+    }
+    if(this.newProposal.value.company === '' || this.newProposal.value.customer === '' ||
     this.newProposal.value.typeOfService === '' || this.newProposal.value.wayToPay === '' ||
     this.newProposalContact.value.fullName === '' || this.newProposalContact.value.email === ''){
-      alert('Todos los campos con asterisco son obligatorios')
-    }else if(this.files === ""){
-      alert('Debes subir archivos')
-    } else{
-      if(!this.editData){
-        if (this.files) {
+      console.log('primero!!!')
+      if(this.newProposal.value.company === ''){
+        this.error.company = false
+      }
+      if(this.newProposal.value.customer === ''){
+        this.error.customer = false
+      }
+      if(this.newProposal.value.typeOfService === ''){
+        this.error.typeOfService = false
+      }
+      if(this.newProposal.value.wayToPay === ''){
+        this.error.wayToPay= false
+      }
+      if(this.newProposal.value.fullName === ''){
+        this.error.fullName = false
+      }
+      if(this.newProposal.value.email === ''){
+        this.error.email = false
+      }
+      Swal.fire('Todos los campos con asterisco son obligatorios')
+    }
+    if(this.files === ""){
+      Swal.fire('Debes subir archivos')
+    } 
 
-          const data = {
-            code: this.newProposal.value.code,
-            company: this.newProposal.value.company,
-            customer: this.newProposal.value.customer,
-            customerReference: this.newProposal.value.customerReference,
-            servicioConcept: this.newProposal.value.servicioConcept,
-            typeOfService: this.newProposal.value.typeOfService,
-            currency: this.newProposal.value.currency,
-            stateP: this.newProposal.value.stateP,
-            baseAmount: this.newProposal.value.baseAmount,
-            totalAmount: this.newProposal.value.totalAmount,
-            wayToPay: this.newProposal.value.wayToPay,
-            wayToPayDays: this.newProposal.value.wayToPayDays,
-            creatorUser: this.newProposal.value.creatorUser,
-            version: 1,
-            dateVersion: this.newProposal.value.dateVersion,
-            folder: this.newProposal.value.folder,
-            editorUser: this.newProposal.value.editorUser,
-            removerUser: this.newProposal.value.removerUser,
-            proposalSubmissionDeadline: this.newProposal.value.proposalSubmissionDeadline
-          }
+      if (this.files) {
+        const data = {
+          code: this.newProposal.value.code,
+          company: this.newProposal.value.company,
+          customer: this.newProposal.value.customer,
+          customerReference: this.newProposal.value.customerReference,
+          servicioConcept: this.newProposal.value.servicioConcept,
+          typeOfService: this.newProposal.value.typeOfService,
+          currency: this.newProposal.value.currency,
+          stateP: this.newProposal.value.stateP,
+          baseAmount: this.newProposal.value.baseAmount,
+          totalAmount: this.newProposal.value.totalAmount,
+          wayToPay: this.newProposal.value.wayToPay,
+          wayToPayDays: this.newProposal.value.wayToPayDays,
+          creatorUser: this.newProposal.value.creatorUser,
+          version: 1,
+          dateVersion: this.newProposal.value.dateVersion,
+          folder: this.newProposal.value.folder,
+          editorUser: this.newProposal.value.editorUser,
+          removerUser: this.newProposal.value.removerUser,
+          proposalSubmissionDeadline: this.newProposal.value.proposalSubmissionDeadline
+        }
 
-          this.businessProposalService.addNewProposal(data).subscribe(
-            (res) => {
-              console.log('res', res)
-              this.idProposalCreated = res.data.id;
-              this.newProposalContact.controls['idProposal'].setValue(res.data.id)
-              console.log('this.file', this.files)
-                for (let f of this.files) {
+        this.businessProposalService.addNewProposal(data).subscribe(
+          (res) => {
+            console.log('res', res)
+            this.idProposalCreated = res.data.id;
+            this.newProposalContact.controls['idProposal'].setValue(res.data.id)
+            console.log('this.file', this.files)
+              for (let f of this.files) {
 
-                  const file = new FormData();
-                file.append("file", f);
+                const file = new FormData();
+              file.append("file", f);
 
-                this.http.post<any>(
-                  `http://119.8.153.220:8080/proposalControlBackend-0.0.1/proposal/${res.data.id}/upload`, file)
-                  .subscribe(
-                  (res) => {
-                    console.log('res', res)
-                    this.newProposal.controls['folder'].setValue(res.message)
-                  }
-                )
+              this.http.post<any>(
+                `http://119.8.153.220:8080/proposalControlBackend-0.0.1/proposal/${res.data.id}/upload`, file)
+                .subscribe(
+                (res) => {
+                  console.log('res', res)
+                  this.newProposal.controls['folder'].setValue(res.message)
                 }
-
-              if(res.success){
-                this.newContact();
-                this.getListProposals()
+              )
               }
-            },
-            (err) => console.log('ha ocurrido un error', err),
-            () => console.info('se ha completado la llamada')
-          )
 
-                this.newProposal.reset()
-                this.dialogRef.close('save')
-              }
-  }else{
-    console.log('entra en update')
-    this.updateProposal();
-  }
+            if(res.success){
+              this.newContact();
+              this.getListProposals()
+            }
+          },
+          (err) => console.log('ha ocurrido un error', err),
+          () => console.info('se ha completado la llamada')
+        )
 
-   }
+              this.newProposal.reset()
+              this.dialogRef.close('save')
+            }
+}else{
+  console.log('entra en update')
+  this.updateProposal();
+}
 }
 
 newContact(){
@@ -313,9 +342,9 @@ newContact(){
 }
 
   updateProposal(){
-    //console.log('new', this.newProposal.value, 'update', this.editData)
+    console.log('update')
     if(this.files === ""){
-      alert('Debes subir archivos')
+      Swal.fire('Debes subir archivos')
     }else{
       const contact = {
         id: this.idProposalContact,
@@ -417,7 +446,7 @@ newContact(){
           console.log('res despues de editar', resProposals)
   
           if(resProposals.length === 0){
-            alert('No hay datos que coincidan con la búsqueda')
+            Swal.fire('No hay datos que coincidan con la búsqueda')
           }else{
             this.dataSource = resProposals
             this.businessProposalService.addProposals(this.dataSource)
