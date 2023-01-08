@@ -184,7 +184,9 @@ deleteProposal(proposal: commercialProposal, id: number){
         this.subcription = this.businessProposalService.deleteProposal(id).subscribe(
           (v: boolean) => {
             this.businessProposalService.deleteProposalVersion(id).subscribe(
-
+              (v:boolean) => {
+                
+              }
             )
           if(v){
             swalWithBootstrapButtons.fire(
