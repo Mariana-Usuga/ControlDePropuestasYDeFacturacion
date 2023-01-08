@@ -135,6 +135,10 @@ export class BusinessProposalService {
     return this.http.delete(`${URL}/proposal/`+ id)
   }
 
+  deleteProposalVersion(id: number): Observable<any>{
+    return this.http.delete(`${URL}/proposalVersion/`+ id)
+  }
+
   addHito(id: number, data: any){
     return this.http.post(`${URL}/hito/`+ id, data)
   }

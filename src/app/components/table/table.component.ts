@@ -157,7 +157,8 @@ consultProposal(pro: any){
 
 deleteProposal(proposal: commercialProposal, id: number){
   console.log('entra en delete')
-  if(proposal.stateP != "pendiente"){
+  const code = proposal.code
+  if(proposal.stateP != "PENDIENTE"){
     alert('no puedes eliminar esta propuesta')
     return
   }else{
@@ -182,6 +183,9 @@ deleteProposal(proposal: commercialProposal, id: number){
         this.dataSource = this.dataSource.filter(x => x != proposal)
         this.subcription = this.businessProposalService.deleteProposal(id).subscribe(
           (v: boolean) => {
+            this.businessProposalService.deleteProposalVersion(id).subscribe(
+
+            )
           if(v){
             swalWithBootstrapButtons.fire(
               'Eliminada!',
