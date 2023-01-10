@@ -133,7 +133,7 @@ export class DialogAddProposalComponent implements OnInit {
       version: [v, Validators.required],
       dateVersion: [new Date(), Validators.required],
       folder: [''],
-      wayToPay: ['', Validators.required],
+      wayToPay: [''],
       wayToPayDays: [''],
       creatorUser: [''],
       editorUser: [''],
@@ -146,7 +146,7 @@ export class DialogAddProposalComponent implements OnInit {
 
     this.newProposalContact = this.formBuilder.group({
       fullName: ['', Validators.required],
-      email: ['', Validators.required],
+      email: [''],
       phoneNumber: [''],
       idProposal: ['']
     })
@@ -231,8 +231,7 @@ getContact(){
       Swal.fire('Solo puedes subir maximo 5 archivos')
     }
     if(this.newProposal.value.company === '' || this.newProposal.value.customer === '' ||
-    this.newProposal.value.typeOfService === '' || this.newProposal.value.wayToPay === '' ||
-    this.newProposalContact.value.fullName === '' || this.newProposalContact.value.email === ''){
+    this.newProposal.value.typeOfService === '' || this.newProposalContact.value.fullName === '' ){
       console.log('primero!!!')
       Swal.fire('Todos los campos con asterisco son obligatorios')
       
@@ -246,20 +245,14 @@ getContact(){
       if(this.newProposal.value.typeOfService === ''){
         this.error.typeOfService = false
       }
-      if(this.newProposal.value.wayToPay === ''){
-        this.error.wayToPay= false
-      }
       if(this.newProposal.value.fullName === ''){
         this.error.fullName = false
       }
-      if(this.newProposal.value.email === ''){
-        this.error.email = false
-      }
-      if(this.files === ""){
+      /*if(this.files === ""){
         Swal.fire('Debes subir archivos')
-      }
+      }*/
       
-      if (this.files) {
+      //if (this.files) {
         const data = {
           code: this.newProposal.value.code,
           company: this.newProposal.value.company,
@@ -314,7 +307,7 @@ getContact(){
 
               this.newProposal.reset()
               this.dialogRef.close('save')
-            }
+            //}
           }
         }else{
           console.log('entra en update')

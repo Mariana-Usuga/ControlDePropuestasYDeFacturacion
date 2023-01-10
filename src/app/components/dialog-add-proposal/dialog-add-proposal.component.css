@@ -11,9 +11,9 @@
   scroll-behavior: auto;
 }
 
-.upload-icon{
-  right: 25%;
-}
+/*.upload-icon{
+  right: 20%;
+}*/
 
 .mat-grid-list{
   position:inherit;

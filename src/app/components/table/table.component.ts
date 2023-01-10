@@ -106,25 +106,30 @@ export class TableComponent implements OnInit {
 buscar(){
   const inputDate = document.getElementById('#inputDate')
     inputDate?.click()
-  if(this.filtrosObject.customer != ""){
-    this.businessProposalService.getBusinessProposal(this.filtrosObject, this.dates).subscribe(
-      (res) => {
-        if(res.length === 0){
-          alert('No hay datos que coincidan con la búsqueda')
-        }else{
+    if(this.filtrosObject.customer === ""){
+      this.businessProposalService.getAllProposal().subscribe(
+        (res: any) => {
           console.log('res', res)
-          //this.businessProposalService.addProposals(res)
           this.dataSource = res
         }
-      },
-      (err) => console.log('ha ocurrido un error', err),
-      () =>  {
-        console.info('se ha completado la llamada')
-      }
-    )
-  }else{
-    alert('El campo cliente es obligatorio')
-  }
+      )
+    }else{
+        this.businessProposalService.getBusinessProposal(this.filtrosObject, this.dates).subscribe(
+          (res) => {
+            if(res.length === 0){
+              alert('No hay propuestas')
+            }else{
+              console.log('res', res)
+              //this.businessProposalService.addProposals(res)
+              this.dataSource = res
+            }
+          },
+          (err) => console.log('ha ocurrido un error', err),
+          () =>  {
+            console.info('se ha completado la llamada')
+          }
+        )
+    }
 }
 
 editProposal(row: commercialProposal){
@@ -155,9 +160,9 @@ consultProposal(pro: any){
   });
 }
 
-deleteProposal(proposal: commercialProposal, id: number){
+deleteProposal(proposal: any, id: number){
   console.log('entra en delete')
-  const code = proposal.code
+  
   if(proposal.stateP != "PENDIENTE"){
     alert('no puedes eliminar esta propuesta')
     return
@@ -182,19 +187,21 @@ deleteProposal(proposal: commercialProposal, id: number){
       if (result.isConfirmed) {
         this.dataSource = this.dataSource.filter(x => x != proposal)
         this.subcription = this.businessProposalService.deleteProposal(id).subscribe(
-          (v: boolean) => {
-            this.businessProposalService.deleteProposalVersion(id).subscribe(
-              (v:boolean) => {
-                
-              }
-            )
-          if(v){
-            swalWithBootstrapButtons.fire(
-              'Eliminada!',
-              'La propuesta ha sido eliminada.',
-              'success'
-            )
-          }
+          (v: any) => {
+            console.log('v ', v)
+            if(v.success){
+              this.businessProposalService.deleteProposalVersion(proposal.code).subscribe(
+                (res: any) => {
+                  if(res.success){
+                    swalWithBootstrapButtons.fire(
+                      'Eliminada!',
+                      'La propuesta ha sido eliminada.',
+                      'success'
+                    )
+                  }
+                }
+              )
+            }
         })
       } else if (
         result.dismiss === Swal.DismissReason.cancel

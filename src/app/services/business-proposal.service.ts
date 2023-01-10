@@ -9,8 +9,8 @@ const EXCEL_TYPE =
 'application/vnd.openxmlformats-officedocument.spredsheetml-sheet; charset=UTF-8';
 const EXCEL_EXT = '.xlsx';
 
-//const URL = 'http://119.8.153.220:8080/proposalControlBackend-0.0.1'
-const URL = 'http://localhost:8080'
+const URL = 'http://119.8.153.220:8080/proposalControlBackend-0.0.1'
+//const URL = 'http://localhost:8080'
 @Injectable({
   providedIn: 'root'
 })
@@ -78,6 +78,10 @@ export class BusinessProposalService {
     return this.http.put(`${URL}/proposal`, proposal)
   }
 
+  getAllProposal(){
+    return this.http.get(`${URL}/proposal`)
+  }
+
 
   addNewProposal(proposal: any): Observable<any>{
     //console.log('proposal', proposal);
@@ -135,8 +139,8 @@ export class BusinessProposalService {
     return this.http.delete(`${URL}/proposal/`+ id)
   }
 
-  deleteProposalVersion(id: number): Observable<any>{
-    return this.http.delete(`${URL}/proposalVersion/`+ id)
+  deleteProposalVersion(code: string): Observable<any>{
+    return this.http.delete(`${URL}/proposalVersion?code=${code}`)
   }
 
   addHito(id: number, data: any){

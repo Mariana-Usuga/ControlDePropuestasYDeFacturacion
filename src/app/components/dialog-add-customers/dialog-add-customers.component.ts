@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DataFiltersService } from 'src/app/services/dataFilters/dataFilters.service';
 import Swal from 'sweetalert2';
@@ -12,6 +13,10 @@ import Swal from 'sweetalert2';
 export class DialogAddCustomersComponent implements OnInit {
 
   newCustomer!: FormGroup
+
+  error: any = {
+    name: '',
+  }
 
   constructor(private formBuilder: FormBuilder,
     private dataFiltersService: DataFiltersService,
@@ -36,25 +41,30 @@ export class DialogAddCustomersComponent implements OnInit {
   }
 
   addCustomers(){
-   
-    this.dataFiltersService.addCustomer(this.newCustomer.value).subscribe((res) => {
-      console.log('res', res)
-    },
-    (err) => console.log('ha ocurrido un error', err),
-    () => {
-      console.info('se ha completado la llamada')
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Se ha creado el cliente',
-        showConfirmButton: false,
-        timer: 4000
-      })
-    } 
-    )
 
-    
-    this.newCustomer.reset()
-    this.dialogRef.close()
+    if(this.newCustomer.value.name === ""){
+      Swal.fire('El campo nombre es obligatorio')
+      this.error.name = false
+    }else{
+      this.dataFiltersService.addCustomer(this.newCustomer.value).subscribe((res) => {
+        console.log('res', res)
+      },
+      (err) => console.log('ha ocurrido un error', err),
+      () => {
+        console.info('se ha completado la llamada')
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Se ha creado el cliente',
+          showConfirmButton: false,
+          timer: 4000
+        })
+      } 
+      )
+  
+      
+      this.newCustomer.reset()
+      this.dialogRef.close()
+    }
   }
 }
