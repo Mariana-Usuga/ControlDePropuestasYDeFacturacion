@@ -11,6 +11,7 @@ import { DialogSeeProposalComponent } from '../dialog-see-proposal/dialog-see-pr
 export class DialogSeeVersionsComponent implements OnInit {
 
   dataSource: any[] = [];
+  data: any[] = []
   noMoreVersions: boolean = false;
 
   constructor(public dialog: MatDialog,  @Inject(MAT_DIALOG_DATA) public proposalSee: any,
@@ -25,7 +26,7 @@ export class DialogSeeVersionsComponent implements OnInit {
     }else{
       this.businessProposalService.getByVersionProposal(this.proposalSee.id).subscribe(
         (res)=>{
-          console.log('res', res)
+          console.log('res in see', res)
           if(res.length === 0){
             this.noMoreVersions = true
             return
@@ -33,9 +34,13 @@ export class DialogSeeVersionsComponent implements OnInit {
             for(let le of res){
               const date = le.dateVersion.split('T')
           
-              this.dataSource.push({
-                dateVersion: date[0].replaceAll('-', '/'),
-                version: le.version
+              this.dataSource = this.data = res.map((item: any) => {
+                if(item.dateVersion){
+                  return { ...item, 
+                    dateVersion: item.dateVersion.replaceAll('-', '/').split('T')[0] 
+                  }
+                }
+                return item
               })
           }
           }
@@ -46,11 +51,16 @@ export class DialogSeeVersionsComponent implements OnInit {
     }
   }
 
-  seeProposal(){
-    console.log('seee proposal', this.proposalSee)
+  seeProposal(proposal: any){
+    console.log('datasour ', this.dataSource)
+    console.log('seee proposal ', proposal)
+    const data = [
+      proposal,
+      { versions: true }
+    ]
     this.dialog.open(DialogSeeProposalComponent, {
-      width: '70%',
-      data: this.proposalSee
+      maxHeight: '100vh',
+      data: data
     });
   }
 

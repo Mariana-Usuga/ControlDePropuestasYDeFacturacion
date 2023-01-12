@@ -8,6 +8,9 @@
         <mat-label>Empresa</mat-label>
         <mat-select  [(ngModel)]="fieldsSelected.company" class="select">
           <mat-option *ngFor="let b of company" (click)="search()" [value]="b"> {{b}} </mat-option>
+          <mat-option>
+          
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
@@ -18,6 +21,7 @@
         <mat-select [(ngModel)]="fieldsSelected.customer "
         placeholder="Cliente" class="select">
           <mat-option *ngFor="let b of customer"  (click)="search()" [value]="b"> {{b}} </mat-option>
+          <mat-option></mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
@@ -27,6 +31,7 @@
         <mat-label>Cliente Referencia</mat-label>
         <mat-select [(ngModel)]="fieldsSelected.customerReference" class="select">
           <mat-option *ngFor="let b of customer" (click)="search()" [value]="b"> {{b}} </mat-option>
+          <mat-option></mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
@@ -36,7 +41,8 @@
         <mat-label>Tipo De Servicio</mat-label>
         <mat-select [(ngModel)]="fieldsSelected.typeOfService" class="select">
           <mat-option *ngFor="let b of typeOfService" (click)="search()" [value]="b"> {{b}} </mat-option>
-        </mat-select>
+          <mat-option></mat-option>
+            </mat-select>
       </mat-form-field>
     </mat-grid-tile>
 
@@ -45,6 +51,7 @@
         <mat-label>Moneda</mat-label>
         <mat-select [(ngModel)]="fieldsSelected.currency" class="select">
           <mat-option *ngFor="let b of currency" (click)="search()" [value]="b"> {{b}} </mat-option>
+          <mat-option></mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
@@ -54,6 +61,7 @@
         <mat-label>Estado</mat-label>
         <mat-select [(ngModel)]="fieldsSelected.stateP" class="select">
           <mat-option *ngFor="let b of stateP" (click)="search()" [value]="b"> {{b}} </mat-option>
+          <mat-option></mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>

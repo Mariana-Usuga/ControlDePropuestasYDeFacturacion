@@ -10,12 +10,15 @@
     <td class="td"> {{b.version}} </td>
     <td class="td"> {{b.dateVersion}} </td>
     <td >
-      <button type="button"  class="see btn btn-outline-primary btn-sm action" (click)="seeProposal()">
+      <button type="button"  class="see btn btn-outline-primary btn-sm action" (click)="seeProposal(b)">
         Ver
       </button>
     </td>
   </tr>
 </table>
+<div class="text-end">
+  <button type="button" class="btn btn-outline-danger btn-sm action" mat-dialog-close>Cerrar</button>
+</div>
   <ng-template #elseBlock>No hay mas versiones</ng-template>
 
 

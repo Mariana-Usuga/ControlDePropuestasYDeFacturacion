@@ -29,7 +29,7 @@ export class TableComponent implements OnInit {
   filtrosObject: commercialProposal= {
     code: null,
     company: null,
-    customer: "",
+    customer: null,
     customerReference: null,
     servicioConcept: null,
     typeOfService: null,
@@ -47,8 +47,8 @@ export class TableComponent implements OnInit {
   }
 
   dates: any = {
-    start: '',
-    end: '',
+    start: '2000-01-01', 
+    end: '2050-12-30'
   }
 
   mayor: commercialProposal = {
@@ -70,8 +70,11 @@ export class TableComponent implements OnInit {
     wayToPayDays: null,
     creatorUser: null,
   };
+    //Monto_Base: item.baseAmount;
 
   dataSource: any[] = [];
+
+  data: any[] = []
 
   ngOnInit(): void {
     console.log('en table')
@@ -99,21 +102,49 @@ export class TableComponent implements OnInit {
   }
 
   export(): void{
-    console.log('this', this.dataSource)
-    this.businessProposalService.exportToExcel(this.dataSource, 'my_export')
+    this.dataSource.map((item: any) => {
+        this.data.push({id: item.id,
+        MontoBase:item.baseAmount,
+        Codigo: item.code,
+        Comentarios: item.comment,
+        Responsable_Comercial: item.commercialManager,
+        Empresa: item.company,
+        Usuario_Creador: item.creatorUser,
+        Moneda: item.currency,
+        Cliente: item.customer,
+        Cliente_Referencia: item.customerReference,
+        Fecha_Creacion: item.dateVersion,
+        Usuario_Editor: item.editorUser,
+        Carpeta: item.folder,
+        Rsponsable_preventa: item.presaleManager,
+        Fecha_limite_envio_propuesta: item.proposalSubmissionDeadline,
+        Comentarios_rechazo: item.rejectionComments,
+        Fecha_de_rechazo: item.rejectionDate,
+        Quien_rechazo: item.rejectionUser,
+        Concepto_del_servicio: item.servicioConcept,
+        Estado: item.stateP,
+        Base_Total: item.totalAmount,
+        Tipo_de_servicio: item.typeOfService,
+        Version: item.version,
+        Forma_de_pago: item.wayToPay,
+        Dias_de_pago: item.wayToPayDays })
+    })
+    console.log('this', this.data)
+    this.businessProposalService.exportToExcel(this.data, 'propuestas')
   }
 
 buscar(){
   const inputDate = document.getElementById('#inputDate')
     inputDate?.click()
-    if(this.filtrosObject.customer === ""){
+    /*if(this.filtrosObject.customer === ""){
       this.businessProposalService.getAllProposal().subscribe(
         (res: any) => {
           console.log('res', res)
           this.dataSource = res
         }
       )
-    }else{
+    }else{*/
+    console.log('this', this.dates)
         this.businessProposalService.getBusinessProposal(this.filtrosObject, this.dates).subscribe(
           (res) => {
             if(res.length === 0){
@@ -129,7 +160,7 @@ buscar(){
             console.info('se ha completado la llamada')
           }
         )
-    }
+    //}
 }
 
 editProposal(row: commercialProposal){
@@ -154,9 +185,13 @@ hostoricalProposal(row: commercialProposal){
 }
 
 consultProposal(pro: any){
+  const data = [
+    pro,
+    { versions: false }
+  ]
   this.dialog.open(DialogSeeProposalComponent, {
     maxHeight: '100vh',
-    data: pro
+    data: data
   });
 }
 

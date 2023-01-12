@@ -5,8 +5,8 @@ import { Observable, Subject } from 'rxjs';
 export interface data {
   name: string
 }
-const URL = 'http://119.8.153.220:8080/proposalControlBackend-0.0.1'
-//const URL = 'http://localhost:8080'
+//const URL = 'http://119.8.153.220:8080/proposalControlBackend-0.0.1'
+const URL = 'http://localhost:8080'
 @Injectable({
   providedIn: 'root'
 })
@@ -23,9 +23,14 @@ export class DataFiltersService {
 
   company$: Subject<data[]>
 
+  customers: any[] = []; 
+
+  customer$: Subject<any>
+
   constructor(private http: HttpClient) {
     this.company = []
     this.company$ = new Subject()
+    this.customer$ = new Subject()
   }
 
   getAllCompany(): Observable<any>{
@@ -36,6 +41,15 @@ export class DataFiltersService {
   getAllCustomer(): Observable<any>{
     //console.log('proposal', idProposal);
     return this.http.get(`${URL}/data/getAllCustomer`)
+  }
+
+  getCutomers():Observable<any>{
+    return this.customer$.asObservable()
+  }
+
+  addCustomers(proposals: any[]){
+    this.customers = proposals
+    this.customer$.next(this.customers)
   }
 
   getAllCustomerReference(): Observable<any>{

@@ -5,9 +5,12 @@
   flex-wrap: wrap;
   justify-content:center
 }
-.item{
+.item, .itemComments{
   width: 30%;
   margin: 12px;
+}
+.itemComments{
+  width: 70%;
 }
 .subtitle{
   font-weight: bolder;

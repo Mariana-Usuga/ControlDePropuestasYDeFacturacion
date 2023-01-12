@@ -9,8 +9,8 @@ const EXCEL_TYPE =
 'application/vnd.openxmlformats-officedocument.spredsheetml-sheet; charset=UTF-8';
 const EXCEL_EXT = '.xlsx';
 
-const URL = 'http://119.8.153.220:8080/proposalControlBackend-0.0.1'
-//const URL = 'http://localhost:8080'
+//const URL = 'http://119.8.153.220:8080/proposalControlBackend-0.0.1'
+const URL = 'http://localhost:8080'
 @Injectable({
   providedIn: 'root'
 })
@@ -59,6 +59,7 @@ export class BusinessProposalService {
   }
 
   exportToExcel(json:any[], excelFileName: string): void{
+    console.log('JSON ', json)
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = {
       Sheets: { 'data': worksheet },
@@ -70,7 +71,7 @@ export class BusinessProposalService {
 
   private saveAsExcel(buffer:any, fileName:string): void{
     const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
-    FileSaver.saveAs(data, fileName + '_export_'+ 'proposal' + EXCEL_EXT);
+    FileSaver.saveAs(data, fileName + '_' + EXCEL_EXT);
   }
 
   putStateOfProposal(proposal: any): Observable<any>{
@@ -178,11 +179,7 @@ export class BusinessProposalService {
 
 
   getBusinessProposal(filter: commercialProposal, dates: any): Observable<any> {
-    console.log('filter ', filter)
-    //console.log('dates in service', dates)
-    console.log('start ', dates.start, 'end ', dates.end)
     const u = `${URL}/proposal/filter?startDate=${dates.start}&endDate=${dates.end}`
-    //console.log('u', u)
     return this.http.post(u, filter);
   }
 
@@ -191,7 +188,6 @@ export class BusinessProposalService {
   }
 
   addProposals(proposals: any[]){
-    console.log('campos', proposals)
     this.proposals = proposals
     this.proposals$.next(this.proposals)
   }

@@ -68,12 +68,16 @@ export class FormComponent implements OnInit {
       this.stateP = res.data.map((r: any) => r.name)
     })
     this.dataSource = []
+
+    this.dataFiltersService.getCutomers().subscribe((res) => {
+      this.customer = res
+    })
   }
 
   fieldsSelected: any = {
     code: null,
     company: null,
-    customer: "",
+    customer: null,
     customerReference: null,
     typeOfService: null,
     currency: null,
@@ -89,7 +93,7 @@ export class FormComponent implements OnInit {
     creatorUser:  null,
     //removerUser: null,
   }
-
+  
   search(){
     if(this.rangeDate.value.start === '' || this.rangeDate.value.end === ''){
         this.businessProposalService.addFiltrosDate({

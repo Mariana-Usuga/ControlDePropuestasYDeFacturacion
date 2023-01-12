@@ -2,7 +2,7 @@
 export interface commercialProposal  {
   code: string | null,
   company: string | null,
-  customer: string,
+  customer: string | null,
   customerReference: string | null,
   servicioConcept: string | null,
   typeOfService: string | null,

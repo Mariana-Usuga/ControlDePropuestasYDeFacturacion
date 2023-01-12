@@ -45,6 +45,7 @@ export class DialogAddProposalComponent implements OnInit {
   files = ""; // Variable to store file
   disabled: boolean = false;
   idProposalCreated: string = ""
+  showSlope: any = false;
 
   dates: any = {
     start: '',
@@ -172,8 +173,13 @@ export class DialogAddProposalComponent implements OnInit {
       this.newProposal.controls['proposalSubmissionDeadline'].setValue(this.editData.proposalSubmissionDeadline)
       this.newProposal.controls['comments'].setValue(this.editData.comments)
       this.newProposal.controls['dateVersion'].setValue(this.editData.dateVersion)
+      this.newProposal.controls['stateP'].setValue(this.editData.stateP)
       this.getContact()
       this.disabled = true
+    }
+
+    if(this.editData.stateP === 'PENDIENTE'){
+      this.showSlope = true
     }
   }
 
@@ -272,7 +278,10 @@ getContact(){
           folder: this.newProposal.value.folder,
           editorUser: this.newProposal.value.editorUser,
           removerUser: this.newProposal.value.removerUser,
-          proposalSubmissionDeadline: this.newProposal.value.proposalSubmissionDeadline
+          proposalSubmissionDeadline: this.newProposal.value.proposalSubmissionDeadline,
+          presaleManager: this.newProposal.value.presaleManager,
+          commercialManager: this.newProposal.value.commercialManager,
+          comments: this.newProposal.value.comments
         }
 
         this.businessProposalService.addNewProposal(data).subscribe(
@@ -336,9 +345,10 @@ getContact(){
     
       updateProposal(){
         console.log('update')
-        if(this.files === ""){
-          Swal.fire('Debes subir archivos')
-        }else{
+        
+        //if(this.files === ""){
+          //Swal.fire('Debes subir archivos')
+        //}else{
           const contact = {
             id: this.idProposalContact,
             fullName: this.newProposalContact.value.fullName,
@@ -429,7 +439,7 @@ getContact(){
           )
           this.newProposal.reset()
           this.dialogRef.close('Editar')
-        }
+        //}
         }
     
         getListProposals(){
@@ -439,7 +449,7 @@ getContact(){
               console.log('res despues de editar', resProposals)
       
               if(resProposals.length === 0){
-                Swal.fire('No hay datos que coincidan con la búsqueda')
+                //Swal.fire('No hay datos que coincidan con la búsqueda')
               }else{
                 this.dataSource = resProposals
                 this.businessProposalService.addProposals(this.dataSource)

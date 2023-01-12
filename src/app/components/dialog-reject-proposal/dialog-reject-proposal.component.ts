@@ -35,7 +35,8 @@ export class DialogRejectProposalComponent implements OnInit {
 
     rejectProposal(){
     if(this.verify.value.rejectionDate === '' || this.verify.value.rejectionUser === ''){
-      alert('los campos Quien rechaza y Fecha de rechazo son obligatorios')
+      //alert('los campos Quien rechaza y Fecha de rechazo son obligatorios')
+      Swal.fire('los campos Quien rechaza y Fecha de rechazo son obligatorios')
     }else{
       const d =  this.verify.value.rejectionDate.toISOString();
     console.log('nameprop',)
@@ -92,7 +93,7 @@ export class DialogRejectProposalComponent implements OnInit {
           console.log('res despues de editar', resProposals)
   
           if(resProposals.length === 0){
-            alert('No hay datos que coincidan con la búsqueda')
+            //alert('No hay datos que coincidan con la búsqueda')
           }else{
             this.dataSource = resProposals
             this.businessProposalService.addProposals(this.dataSource)

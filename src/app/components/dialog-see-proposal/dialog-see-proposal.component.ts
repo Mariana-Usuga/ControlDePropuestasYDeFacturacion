@@ -11,60 +11,48 @@ import { BusinessProposalService } from 'src/app/services/business-proposal.serv
 })
 export class DialogSeeProposalComponent implements OnInit {
 
-  dateVersion = new Date(this.proposalSee.dateVersion);
-  proposalSubmissionDeadline = new Date(this.proposalSee.proposalSubmissionDeadline);
-  rejectionDate = new Date(this.proposalSee.rejectionDate);
-
-  proposal: any = {
-    id: this.proposalSee.id,
-    code: this.proposalSee.code,
-    customer: this.proposalSee.customer,
-    company: this.proposalSee.company,
-    customerReference: this.proposalSee.customerReference,
-    servicioConcept: this.proposalSee.servicioConcept,
-    typeOfService: this.proposalSee.typeOfService,
-    stateP: this.proposalSee.stateP,
-    currency: this.proposalSee.currency,
-    baseAmount: this.proposalSee.baseAmount,
-    totalAmount: this.proposalSee.totalAmount,
-    version: this.proposalSee.version,
-    dateVersion: `${this.dateVersion.getMonth() + 1}
-    /${this.dateVersion.getDate()}/${this.dateVersion.getFullYear()}`,
-    folder: this.proposalSee.folder,
-    wayToPay: this.proposalSee.wayToPay,
-    wayToPayDays: this.proposalSee.wayToPayDays,
-    creatorUser: this.proposalSee.creatorUser,
-    comments: this.proposalSee.comments,
-    commercialManager: this.proposalSee.commercialManager,
-    presaleManager: this.proposalSee.presaleManager,
-    proposalSubmissionDeadline: `${this.proposalSubmissionDeadline.getMonth() + 1}
-    /${this.proposalSubmissionDeadline.getDate()}/${this.proposalSubmissionDeadline.getFullYear()}`,
-    editorUser: this.proposalSee.editorUser,
-    rejectionUser: this.proposalSee.rejectionUser,
-    rejectionDate: `${this.rejectionDate.getMonth() + 1}
-    /${this.rejectionDate.getDate()}/${this.rejectionDate.getFullYear()}`,
-    rejectionComments: this.proposalSee.rejectionComments
-  }
+  getProposal: any = this.proposalSee[0]
+  dateVersion: any = "";
+  proposalSubmissionDeadline: any = "";
+  rejectionDate: any = "";
+  proposal: any ={}
   fileService: any;
   toastr: any;
   arrayFiles: Array<string> = ['j', 'o']
   showEditorUser: boolean = false
   showRejected: boolean = false
+  showVersions: boolean = false;
+
 
   constructor(public dialog: MatDialog,  @Inject(MAT_DIALOG_DATA) public proposalSee: any,
-  private businessProposalService: BusinessProposalService) { }
+  private businessProposalService: BusinessProposalService) {
+    //console.log('pro', this.proposal)
+   }
 
   ngOnInit(): void {
-    const f = '2022-12-22T05:00:00.000+00:00'
 
-    const nu = f.split('T')
+     this.dateVersion = new Date(this.getProposal.dateVersion);
+     this.proposalSubmissionDeadline = new Date(this.getProposal.proposalSubmissionDeadline);
+     this.rejectionDate = new Date(this.getProposal.rejectionDate);
 
-    if(this.proposal.version != 1){
+  this.proposal = { ... this.getProposal, 
+    dateVersion: `${this.dateVersion.getMonth() + 1}
+    /${this.dateVersion.getDate()}/${this.dateVersion.getFullYear()}`,
+    proposalSubmissionDeadline: `${this.proposalSubmissionDeadline.getMonth() + 1}
+    /${this.proposalSubmissionDeadline.getDate()}/${this.proposalSubmissionDeadline.getFullYear()}`,
+    rejectionDate: `${this.rejectionDate.getMonth() + 1}
+    /${this.rejectionDate.getDate()}/${this.rejectionDate.getFullYear()}`,
+  }
+
+  if(this.proposalSee[1].versions){
+    this.showVersions = true
+  }
+    if(this.getProposal.version != 1){
       this.showEditorUser = true
     }
-    if(this.proposal.stateP === "RECHAZADO"){
+    if(this.getProposal.stateP === "RECHAZADO"){
       this.showRejected = true
-    }
+  }
 
   }
   export(folder: any): void{
@@ -88,19 +76,47 @@ export class DialogSeeProposalComponent implements OnInit {
     })
   }
 
-  openRecha(){
-    this.dialog.open(DialogRejectProposalComponent, {
-      width: '70%',
-      data:this.proposalSee
-    });
-  }
-
-  seeVersions(row: any){
-    console.log('row', row)
+ seeVersions(row: any){
+    //console.log('propos ', this.proposal)
+    console.log('row ', this.proposalSee)
+    //if(this.proposalSee[1] === true){
+      //this.showVersions = true
+    //}
     this.dialog.open(DialogSeeVersionsComponent, {
-      maxHeight: '70vh',
+      maxHeight: '100vh',
       //width: '50%',
       data:row
     });
   }
 }
+
+/*proposal: any = {
+  id: this.proposalSee.id,
+  code: this.proposalSee.code,
+  customer: this.proposalSee.customer,
+  company: this.proposalSee.company,
+  customerReference: this.proposalSee.customerReference,
+  servicioConcept: this.proposalSee.servicioConcept,
+  typeOfService: this.proposalSee.typeOfService,
+  stateP: this.proposalSee.stateP,
+  currency: this.proposalSee.currency,
+  baseAmount: this.proposalSee.baseAmount,
+  totalAmount: this.proposalSee.totalAmount,
+  version: this.proposalSee.version,
+  dateVersion: `${this.dateVersion.getMonth() + 1}
+  /${this.dateVersion.getDate()}/${this.dateVersion.getFullYear()}`,
+  folder: this.proposalSee.folder,
+  wayToPay: this.proposalSee.wayToPay,
+  wayToPayDays: this.proposalSee.wayToPayDays,
+  creatorUser: this.proposalSee.creatorUser,
+  comments: this.proposalSee.comments,
+  commercialManager: this.proposalSee.commercialManager,
+  presaleManager: this.proposalSee.presaleManager,
+  proposalSubmissionDeadline: `${this.proposalSubmissionDeadline.getMonth() + 1}
+  /${this.proposalSubmissionDeadline.getDate()}/${this.proposalSubmissionDeadline.getFullYear()}`,
+  editorUser: this.proposalSee.editorUser,
+  rejectionUser: this.proposalSee.rejectionUser,
+  rejectionDate: `${this.rejectionDate.getMonth() + 1}
+  /${this.rejectionDate.getDate()}/${this.rejectionDate.getFullYear()}`,
+  rejectionComments: this.proposalSee.rejectionComments
+}*/

@@ -163,7 +163,7 @@ export class DialogApproveProposalComponent implements OnInit {
           console.log('res despues de editar', resProposals)
   
           if(resProposals.length === 0){
-            alert('No hay datos que coincidan con la búsqueda')
+            ///alert('No hay datos que coincidan con la búsqueda')
           }else{
             this.dataSource = resProposals
             this.businessProposalService.addProposals(this.dataSource)
