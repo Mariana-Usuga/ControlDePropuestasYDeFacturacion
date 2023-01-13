@@ -2,7 +2,6 @@
   "name": "control-de-propuestas-yde-facturacion",
   "version": "0.0.0",
   "proxy": "http://localhost:8080",
-
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.config.json",
@@ -28,6 +27,7 @@
     "@angular/core": "^14.1.0",
     "@angular/forms": "^14.1.0",
     "@angular/material": "^14.2.5",
+    "@angular/material-moment-adapter": "^15.1.0",
     "@angular/platform-browser": "^14.1.0",
     "@angular/platform-browser-dynamic": "^14.1.0",
     "@angular/router": "^14.1.0",

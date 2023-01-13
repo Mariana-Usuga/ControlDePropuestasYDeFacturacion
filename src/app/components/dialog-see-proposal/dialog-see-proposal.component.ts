@@ -16,6 +16,8 @@ export class DialogSeeProposalComponent implements OnInit {
   proposalSubmissionDeadline: any = "";
   rejectionDate: any = "";
   proposal: any ={}
+  contact: any = {}
+  files: Array<string>[] = []
   fileService: any;
   toastr: any;
   arrayFiles: Array<string> = ['j', 'o']
@@ -54,26 +56,42 @@ export class DialogSeeProposalComponent implements OnInit {
       this.showRejected = true
   }
 
+  console.log('this.proposal.id ', this.proposal.id)
+    this.businessProposalService.getContact(this.proposal.id).subscribe(
+      (res) => {
+        this.contact = res
+      },
+      (err) => console.log('ha ocurrido un error', err),
+      () => console.info('se ha completado la llamada')
+    )
+
+    const c = this.proposal.folder.split('/')
+    this.businessProposalService.getFilesProposal(c[5]).subscribe((res: any) => {
+      for (var i = 0; i < res.data.length ; i++) {    
+          const u = `/home/wilmar/projectsMariana/archivosPropuestas/${c[5]}/${res.data[i]}`
+          this.files.push(res.data[i])
+        }      
+    })
   }
+
+
   export(folder: any): void{
     const c = folder.split('/')
     console.log('C', c)
 
-    this.businessProposalService.getFilesProposal(c[5]).subscribe((res: any) => {
-      for (var i = 0; i < res.data.length ; i++) {
-        console.log('arrayfile', res.data[i])
-      const part = res.data[i].split(".").pop();
-      console.log('part ', part)
-
-          const u = `/opt/tomcat/webapps/archivospropuesta/${c[5]}/${res.data[i]}`
+    //this.businessProposalService.getFilesProposal(c[5]).subscribe((res: any) => {
+      for (var i = 0; i < this.files.length ; i++) {
+        console.log('arrayfile', this.files[i])
+          //const u = `/opt/tomcat/webapps/archivospropuesta/${c[5]}/${res.data[i]}`
+          const u = `/home/wilmar/projectsMariana/archivosPropuestas/${c[5]}/${this.files[i]}`
           console.log('u ', u)
         const downloadInstance = document.createElement('a');
       downloadInstance.href = u
       downloadInstance.target = '_blank'
-      downloadInstance.download = `${res.data[i]}`
+      downloadInstance.download = `${this.files[i]}`
       downloadInstance.click()
       }
-    })
+    //})
   }
 
  seeVersions(row: any){
@@ -89,34 +107,3 @@ export class DialogSeeProposalComponent implements OnInit {
     });
   }
 }
-
-/*proposal: any = {
-  id: this.proposalSee.id,
-  code: this.proposalSee.code,
-  customer: this.proposalSee.customer,
-  company: this.proposalSee.company,
-  customerReference: this.proposalSee.customerReference,
-  servicioConcept: this.proposalSee.servicioConcept,
-  typeOfService: this.proposalSee.typeOfService,
-  stateP: this.proposalSee.stateP,
-  currency: this.proposalSee.currency,
-  baseAmount: this.proposalSee.baseAmount,
-  totalAmount: this.proposalSee.totalAmount,
-  version: this.proposalSee.version,
-  dateVersion: `${this.dateVersion.getMonth() + 1}
-  /${this.dateVersion.getDate()}/${this.dateVersion.getFullYear()}`,
-  folder: this.proposalSee.folder,
-  wayToPay: this.proposalSee.wayToPay,
-  wayToPayDays: this.proposalSee.wayToPayDays,
-  creatorUser: this.proposalSee.creatorUser,
-  comments: this.proposalSee.comments,
-  commercialManager: this.proposalSee.commercialManager,
-  presaleManager: this.proposalSee.presaleManager,
-  proposalSubmissionDeadline: `${this.proposalSubmissionDeadline.getMonth() + 1}
-  /${this.proposalSubmissionDeadline.getDate()}/${this.proposalSubmissionDeadline.getFullYear()}`,
-  editorUser: this.proposalSee.editorUser,
-  rejectionUser: this.proposalSee.rejectionUser,
-  rejectionDate: `${this.rejectionDate.getMonth() + 1}
-  /${this.rejectionDate.getDate()}/${this.rejectionDate.getFullYear()}`,
-  rejectionComments: this.proposalSee.rejectionComments
-}*/

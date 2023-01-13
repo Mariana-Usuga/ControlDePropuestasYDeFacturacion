@@ -73,9 +73,31 @@
     <div class="subtitle ">Comentarios</div>
     <div>{{proposal.comments}}</div>
   </div>
-
+  <div class="itemComments" >
+    <div class="subtitle " >Archivos de la propuesta</div>
+    <table *ngFor="let f of files">
+      <tr><td> {{f}} </td></tr>
+    </table>
+  </div>
 </div>
 
+<h5 class="mt-5">Contacto de la propuesta</h5>
+<div class="d-flex justify-content-start">
+  <div class="itemReject" >
+    <div class="subtitle">Nombre completo</div>
+    <div> {{contact.fullName}}</div>
+  </div>
+  <div class="itemReject">
+    <div class="subtitle">Email</div>
+    <div> {{contact.email}}</div>
+  </div>
+  <div class="itemReject">
+    <div class="subtitle">Telefono</div>
+    <div> {{contact.phoneNumber}}</div>
+  </div>
+</div>
+
+<h4 *ngIf="showRejected" class="mt-4">Propuesta rechazada</h4>
 <div class="d-flex justify-content-start" *ngIf="showRejected">
   <div class="itemReject" >
     <div class="subtitle">Quien la rechazo?</div>

@@ -1,12 +1,12 @@
 import { outputAst } from '@angular/compiler';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { commercialProposal } from 'src/app/models/interfaces/commercialProposal.interfaces';
 import { BusinessProposalService } from 'src/app/services/business-proposal.service';
 import { DataFiltersService } from 'src/app/services/dataFilters/dataFilters.service';
-import {FormGroup, Validators, FormBuilder} from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {FormGroup,  FormBuilder} from '@angular/forms';
+import {  Subject } from 'rxjs';
+import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 
 export interface data {
   name: string
@@ -15,7 +15,10 @@ export interface data {
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css']
+  styleUrls: ['./form.component.css'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+  ]
 })
 export class FormComponent implements OnInit {
 
@@ -38,14 +41,17 @@ export class FormComponent implements OnInit {
   }
 
   dates$: Subject<any>
-  //picke: MatDatepickerPanel<any>;
 
   constructor(private businessProposalService: BusinessProposalService,
-    private dataFiltersService: DataFiltersService, private formBuilder: FormBuilder) {
+    private dataFiltersService: DataFiltersService, private formBuilder: FormBuilder,
+    private _adapter: DateAdapter<any>, @Inject(MAT_DATE_LOCALE) private _locale: string,
+    ) {
+
       this.dates$ = new Subject()
     }
 
   ngOnInit(): void {
+    this._adapter.setLocale('en-GB');
 
     this.rangeDate = this.formBuilder.group({
       start: [''],
@@ -118,4 +124,18 @@ export class FormComponent implements OnInit {
       start: `${yyyy}-${mm}-${dd}`, end: `${yyyyEnd}-${mmEnd}-${ddEnd}`
     })
     }
+
+    /*french() {
+      this._locale = 'fr';
+      this._adapter.setLocale(this._locale);
+    }
+
+    getDateFormatString(): string {
+      if (this._locale === 'ja-JP') {
+        return 'YYYY/MM/DD';
+      } else if (this._locale === 'fr') {
+        return 'DD/MM/YYYY';
+      }
+      return '';
+    }*/
 }

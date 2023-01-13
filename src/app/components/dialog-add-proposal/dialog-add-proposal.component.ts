@@ -214,7 +214,7 @@ export class DialogAddProposalComponent implements OnInit {
 }
 
 getContact(){
-  //console.log('this.editData.id', this.editData.id)
+  console.log('this.editData.id', this.editData.id)
   this.businessProposalService.getContact(this.editData.id).subscribe(
     (res) => {
       //console.log('res', res)
@@ -260,7 +260,7 @@ getContact(){
       
       //if (this.files) {
         const data = {
-          code: this.newProposal.value.code,
+          code: "",
           company: this.newProposal.value.company,
           customer: this.newProposal.value.customer,
           customerReference: this.newProposal.value.customerReference,
@@ -296,7 +296,8 @@ getContact(){
               file.append("file", f);
 
               this.http.post<any>(
-                `http://119.8.153.220:8080/proposalControlBackend-0.0.1/proposal/${res.data.id}/upload`, file)
+               //`http://119.8.153.220:8080/proposalControlBackend-0.0.1/proposal/${res.data.id}/upload`, file)
+                `http://localhost:8080/proposal/${res.data.id}/upload`, file)
                 .subscribe(
                 (res) => {
                   console.log('res', res)
@@ -393,7 +394,7 @@ getContact(){
           }
           this.businessProposalService.putProposal(data1).subscribe(
             (res) => {
-              //console.log('res put', res, 'version in add', this.editData.version)
+              console.log('res INPUT version', res)
               const data = {
                 company: this.editData.company,
                 customer: this.editData.customer,
@@ -420,22 +421,24 @@ getContact(){
                 proposalSubmissionDeadline: this.editData.proposalSubmissionDeadline,
                 comments: this.editData.comments
               }
-              this.businessProposalService.addNewVersion(data).subscribe(
-                (res) => {
-                  this.getListProposals()
-      
-                  Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'La propuesta se ha editado',
-                    showConfirmButton: false,
-                    timer: 4000
-                  })
-                }
-              )
+              if(res.success){
+                this.businessProposalService.addNewVersion(data).subscribe(
+                  (res) => {
+                    this.getListProposals()
+        
+                    Swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      title: 'La propuesta se ha editado',
+                      showConfirmButton: false,
+                      timer: 4000
+                    })
+                  }
+                )
+              }
             },
             (err) => console.log('ha ocurrido un error', err),
-            () => console.info('se ha completado la llamada')
+            //() => console.info('se ha completado la llamada')
           )
           this.newProposal.reset()
           this.dialogRef.close('Editar')
@@ -446,7 +449,8 @@ getContact(){
           this.businessProposalService.getBusinessProposal(this.getDataArray[1], 
             this.getDataArray[2]).subscribe(
             (resProposals) => {
-              console.log('res despues de editar', resProposals)
+              console.log('res despues de editar', this.getDataArray[1])
+              console.log('res despues de editar', this.getDataArray[2])
       
               if(resProposals.length === 0){
                 //Swal.fire('No hay datos que coincidan con la búsqueda')

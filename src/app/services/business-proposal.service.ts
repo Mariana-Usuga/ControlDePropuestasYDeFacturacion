@@ -144,6 +144,10 @@ export class BusinessProposalService {
     return this.http.delete(`${URL}/proposalVersion?code=${code}`)
   }
 
+  deleteContact(idProposal: any){
+    return this.http.delete(`${URL}/contact/${idProposal}`)
+  }
+
   addHito(id: number, data: any){
     return this.http.post(`${URL}/hito/`+ id, data)
   }

@@ -67,11 +67,21 @@
     </mat-grid-tile>
 
     <mat-grid-tile class="mat-grid-tile">
+    <mat-form-field appearance="legacy" class="mx-4">
+      <mat-label>Codigo</mat-label>
+      <input matInput (click)="search()"
+      [(ngModel)]="fieldsSelected.code"
+       type="text" matInput placeholder="Codigo"
+       class="mt-2">
+    </mat-form-field>
+  </mat-grid-tile>
+
+    <mat-grid-tile class="mat-grid-tile">
     <mat-form-field appearance="legacy">
       <mat-label>Fecha inicial</mat-label>
       <input [(ngModel)]="this.rangeDate.value.start" (ngModelChange)="search()" matInput 
-      [matDatepicker]="start">
-      <mat-hint> MM/DD/YYYY</mat-hint>
+      [matDatepicker]="start" placeholder="DOB(DD/MM/YYYY)">
+      <mat-hint>DD/MM/YYYY</mat-hint>
       <div class="date">
         <mat-datepicker-toggle matIconSuffix [for]="start"></mat-datepicker-toggle>
         <mat-datepicker #start></mat-datepicker>
@@ -86,7 +96,7 @@
       </mat-label>
       <input [(ngModel)]="this.rangeDate.value.end" (ngModelChange)="search()" matInput 
       [matDatepicker]="end">
-      <mat-hint> MM/DD/YYYY</mat-hint>
+      <mat-hint> DD/MM/YYYY</mat-hint>
       <div class="date">
         <mat-datepicker-toggle  matIconSuffix [for]="end"></mat-datepicker-toggle>
         <mat-datepicker #end></mat-datepicker>

@@ -223,15 +223,20 @@ deleteProposal(proposal: any, id: number){
         this.dataSource = this.dataSource.filter(x => x != proposal)
         this.subcription = this.businessProposalService.deleteProposal(id).subscribe(
           (v: any) => {
-            console.log('v ', v)
             if(v.success){
               this.businessProposalService.deleteProposalVersion(proposal.code).subscribe(
                 (res: any) => {
                   if(res.success){
-                    swalWithBootstrapButtons.fire(
-                      'Eliminada!',
-                      'La propuesta ha sido eliminada.',
-                      'success'
+                    this.businessProposalService.deleteContact(proposal.id).subscribe(
+                      (res: any) => {
+                        if(res.success){
+                          swalWithBootstrapButtons.fire(
+                            'Eliminada!',
+                            'La propuesta ha sido eliminada.',
+                            'success'
+                          )
+                        }
+                      }
                     )
                   }
                 }
