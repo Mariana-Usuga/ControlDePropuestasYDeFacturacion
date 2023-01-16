@@ -46,6 +46,7 @@ export class DialogAddProposalComponent implements OnInit {
   disabled: boolean = false;
   idProposalCreated: string = ""
   showSlope: any = false;
+  followingCode: string = ""
 
   dates: any = {
     start: '',
@@ -62,6 +63,7 @@ export class DialogAddProposalComponent implements OnInit {
   }
 
   dataSource: any[] = [];
+  getCode: any[] = []
 
   filtrosObject: commercialProposal= {
     code: null,
@@ -92,13 +94,12 @@ export class DialogAddProposalComponent implements OnInit {
 
     editData: any
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     if(this.getDataArray[0].company){
       this.editData = this.getDataArray[0]
     }
 
     this.filters = this.incomingFilters
-    console.log('entra de ngOnInit, data entrante ', this.incomingFilters)
     this.dataFiltersService.getAllCompany().subscribe((res) => {
       this.company = res.data.map((r: any) => r.name)
     })
@@ -154,7 +155,7 @@ export class DialogAddProposalComponent implements OnInit {
 
     if(this.editData){
       this.showCode = true
-      this.accionBtn = "Editar"
+      this.accionBtn = "Guardar"
       this.action = "Editar"
       this.newProposal.controls['company'].setValue(this.editData.company)
       this.newProposal.controls['customer'].setValue(this.editData.customer)
@@ -176,6 +177,14 @@ export class DialogAddProposalComponent implements OnInit {
       this.newProposal.controls['stateP'].setValue(this.editData.stateP)
       this.getContact()
       this.disabled = true
+    }else{
+      this.businessProposalService.getFollowingCode().subscribe(
+        (res: any) => {
+          this.followingCode = res.data
+          this.newProposal.controls['code'].setValue(res.data)
+              }
+      )
+      
     }
 
     if(this.editData.stateP === 'PENDIENTE'){
@@ -184,7 +193,6 @@ export class DialogAddProposalComponent implements OnInit {
   }
 
   method_page(value: string){
-    console.log('entra method')
     if(value === "contado"){
       this.newProposal.controls['wayToPayDays'].setValue(this.wayToPayDaysNumber)
     }else{
@@ -193,8 +201,6 @@ export class DialogAddProposalComponent implements OnInit {
   }
 
   calcuteTotalAmount(){
-    console.log('entra en calcute', this.newProposal.value.baseAmount)
-    console.log('this.newProposal.value.moneda', this.newProposal.value.currency)
     let tax;
     if(this.newProposal.value.currency === "COP"){
       tax = 0.19
@@ -203,21 +209,17 @@ export class DialogAddProposalComponent implements OnInit {
     }else{
       tax = 0.12
     }
-    console.log('tax', tax)
     this.totalAmount = (this.newProposal.value.baseAmount * tax) + this.newProposal.value.baseAmount
     this.newProposal.controls['totalAmount'].setValue(this.totalAmount)
   }
 
   onFileSelect(event: any) {
     this.files = event.target.files;
-    console.log('fle!!!!!', event.target.files)
 }
 
 getContact(){
-  console.log('this.editData.id', this.editData.id)
   this.businessProposalService.getContact(this.editData.id).subscribe(
     (res) => {
-      //console.log('res', res)
       this.idProposalContact = res.id
       this.newProposalContact.controls['fullName'].setValue(res.fullName)
       this.newProposalContact.controls['email'].setValue(res.email)
@@ -234,12 +236,20 @@ getContact(){
       this.showCode = false
     this.action = 'Crear';
     if(this.files.length > 5){
-      Swal.fire('Solo puedes subir maximo 5 archivos')
+      Swal.fire(
+        '',
+        'Solo puedes subir maximo 5 archivos!',
+        'warning'
+      )
     }
     if(this.newProposal.value.company === '' || this.newProposal.value.customer === '' ||
     this.newProposal.value.typeOfService === '' || this.newProposalContact.value.fullName === '' ){
       console.log('primero!!!')
-      Swal.fire('Todos los campos con asterisco son obligatorios')
+      Swal.fire(
+        '',
+        'Todos los campos con asterisco son obligatorios!',
+        'warning'
+      )
       
     }else{
       if(this.newProposal.value.company === ''){
@@ -254,11 +264,7 @@ getContact(){
       if(this.newProposal.value.fullName === ''){
         this.error.fullName = false
       }
-      /*if(this.files === ""){
-        Swal.fire('Debes subir archivos')
-      }*/
-      
-      //if (this.files) {
+  
         const data = {
           code: "",
           company: this.newProposal.value.company,
@@ -286,29 +292,26 @@ getContact(){
 
         this.businessProposalService.addNewProposal(data).subscribe(
           (res) => {
-            console.log('res', res)
             this.idProposalCreated = res.data.id;
             this.newProposalContact.controls['idProposal'].setValue(res.data.id)
-            console.log('this.file', this.files)
               for (let f of this.files) {
 
                 const file = new FormData();
               file.append("file", f);
 
-              this.http.post<any>(
-               //`http://119.8.153.220:8080/proposalControlBackend-0.0.1/proposal/${res.data.id}/upload`, file)
-                `http://localhost:8080/proposal/${res.data.id}/upload`, file)
-                .subscribe(
-                (res) => {
-                  console.log('res', res)
+              this.businessProposalService.uploadFiles(res.data.id, file).subscribe(
+                (res: any) => {
                   this.newProposal.controls['folder'].setValue(res.message)
+
                 }
               )
               }
 
             if(res.success){
               this.newContact();
-              this.getListProposals()
+              if(this.getDataArray[3]){
+                      this.getListProposals() 
+                    }
             }
           },
           (err) => console.log('ha ocurrido un error', err),
@@ -346,10 +349,7 @@ getContact(){
     
       updateProposal(){
         console.log('update')
-        
-        //if(this.files === ""){
-          //Swal.fire('Debes subir archivos')
-        //}else{
+       
           const contact = {
             id: this.idProposalContact,
             fullName: this.newProposalContact.value.fullName,
@@ -359,7 +359,6 @@ getContact(){
           }
           this.businessProposalService.putContact(contact).subscribe(
             (res) => {
-              //console.log('res', res)
               if(res === null){
                 console.log('no tiene contacto')
               }
@@ -392,9 +391,17 @@ getContact(){
             comments: this.newProposal.value.comments
       
           }
+          const filter = this.getCode.filter(p => p.code == this.newProposal.value.code)
+          if(filter.length == 1){
+            Swal.fire(
+              '',
+              'El codigo ya existe!',
+              'warning'
+            )
+          }
           this.businessProposalService.putProposal(data1).subscribe(
             (res) => {
-              console.log('res INPUT version', res)
+             
               const data = {
                 company: this.editData.company,
                 customer: this.editData.customer,
@@ -421,10 +428,14 @@ getContact(){
                 proposalSubmissionDeadline: this.editData.proposalSubmissionDeadline,
                 comments: this.editData.comments
               }
-              if(res.success){
+              if(res){
                 this.businessProposalService.addNewVersion(data).subscribe(
                   (res) => {
-                    this.getListProposals()
+                    console.log('this.getDataArray[3] ', this.getDataArray[3])
+                    if(this.getDataArray[3] == true){
+                      console.log('ENTRA EN IFFF')
+                      this.getListProposals()
+                    }
         
                     Swal.fire({
                       position: 'top-end',
@@ -438,7 +449,7 @@ getContact(){
               }
             },
             (err) => console.log('ha ocurrido un error', err),
-            //() => console.info('se ha completado la llamada')
+            () => console.info('se ha completado la llamada')
           )
           this.newProposal.reset()
           this.dialogRef.close('Editar')
@@ -448,13 +459,12 @@ getContact(){
         getListProposals(){
           this.businessProposalService.getBusinessProposal(this.getDataArray[1], 
             this.getDataArray[2]).subscribe(
-            (resProposals) => {
-              console.log('res despues de editar', this.getDataArray[1])
-              console.log('res despues de editar', this.getDataArray[2])
+            (resProposals: any) => {
       
               if(resProposals.length === 0){
                 //Swal.fire('No hay datos que coincidan con la búsqueda')
               }else{
+                console.log('resProposals ',resProposals)
                 this.dataSource = resProposals
                 this.businessProposalService.addProposals(this.dataSource)
               }
@@ -471,28 +481,3 @@ getContact(){
 
 }
 
-
-
-
-
-/*if(this.newProposal.value.company === ''){
-  this.error.company = false
-}
-if(this.newProposal.value.customer === ''){
-  this.error.customer = false
-}
-if(this.newProposal.value.typeOfService === ''){
-  this.error.typeOfService = false
-}
-if(this.newProposal.value.wayToPay === ''){
-  this.error.wayToPay= false
-}
-if(this.newProposal.value.fullName === ''){
-  this.error.fullName = false
-}
-if(this.newProposal.value.email === ''){
-  this.error.email = false
-}
-if(this.files === ""){
-  Swal.fire('Debes subir archivos')
-} */

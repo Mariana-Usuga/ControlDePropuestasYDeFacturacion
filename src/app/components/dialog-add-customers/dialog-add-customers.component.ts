@@ -43,7 +43,11 @@ export class DialogAddCustomersComponent implements OnInit {
   addCustomers(){
 //this.newCustomer.reset()
     if(this.newCustomer.value.name === ""){
-      Swal.fire('El campo nombre es obligatorio')
+      Swal.fire(
+        '',
+        'El campo nombre es obligatorio!',
+        'warning'
+      )
       this.error.name = false
     }else{
       this.dataFiltersService.addCustomer(this.newCustomer.value).subscribe((res) => {

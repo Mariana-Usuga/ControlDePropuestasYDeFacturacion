@@ -9,8 +9,8 @@ const EXCEL_TYPE =
 'application/vnd.openxmlformats-officedocument.spredsheetml-sheet; charset=UTF-8';
 const EXCEL_EXT = '.xlsx';
 
-//const URL = 'http://119.8.153.220:8080/proposalControlBackend-0.0.1'
-const URL = 'http://localhost:8080'
+const URL = 'http://119.8.153.220:8080/proposalControlBackend-0.0.1'
+//const URL = 'http://localhost:8080'
 @Injectable({
   providedIn: 'root'
 })
@@ -108,7 +108,7 @@ export class BusinessProposalService {
     return this.http.post(`${URL}/approvedProposal`, proposal)
   }
 
-  uploadFile(id: number, file: any): Observable<HttpEvent<any>> {
+  /*uploadFile(id: number, file: any): Observable<HttpEvent<any>> {
     let formData = new FormData();
     formData.append('upload', file);
     let params = new HttpParams();
@@ -122,7 +122,7 @@ export class BusinessProposalService {
     const req = new HttpRequest('POST', `${URL}/proposal/${id}/upload`,
     formData, options);
     return this.http.request(req);
-  }
+  }*/
 
   addNewProposalContact(contact: any) {
     return this.http.post(`${URL}/contact`, contact)
@@ -196,4 +196,15 @@ export class BusinessProposalService {
     this.proposals$.next(this.proposals)
   }
 
+  getFollowingCode(){
+    return this.http.get(`${URL}/proposal/getFollowingCode`)
+  }
+
+  uploadFiles(id: any, file:any){
+    return this.http.post(`${URL}/proposal/${id}/upload`, file);
+  }
+
+  deleteHitos(id: any){
+    return this.http.delete(`${URL}/proposal/${id}`)
+  }
 }

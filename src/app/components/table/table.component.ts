@@ -21,6 +21,7 @@ export class TableComponent implements OnInit {
 
   dis: boolean = true;
   subcription: Subscription | undefined;
+  showSearch: any = false;
 
 
   constructor(private businessProposalService: BusinessProposalService,
@@ -134,6 +135,7 @@ export class TableComponent implements OnInit {
   }
 
 buscar(){
+  this.showSearch = true
   const inputDate = document.getElementById('#inputDate')
     inputDate?.click()
     /*if(this.filtrosObject.customer === ""){
@@ -169,7 +171,8 @@ editProposal(row: commercialProposal){
   const array = [
     row,
     this.filtrosObject,
-    this.dates
+    this.dates,
+    this.showSearch
   ]
   this.dialog.open(DialogAddProposalComponent, {
     maxHeight: '100vh',
@@ -230,10 +233,16 @@ deleteProposal(proposal: any, id: number){
                     this.businessProposalService.deleteContact(proposal.id).subscribe(
                       (res: any) => {
                         if(res.success){
-                          swalWithBootstrapButtons.fire(
-                            'Eliminada!',
-                            'La propuesta ha sido eliminada.',
-                            'success'
+                          this.businessProposalService.deleteHitos(proposal.id).subscribe(
+                            (res: any) => {
+                              if(res.success){
+                                swalWithBootstrapButtons.fire(
+                                  'Eliminada!',
+                                  'La propuesta ha sido eliminada.',
+                                  'success'
+                                )
+                              }
+                            }
                           )
                         }
                       }
@@ -256,7 +265,8 @@ openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void 
   const array = [
     {},
     this.filtrosObject,
-    this.dates
+    this.dates,
+    this.showSearch
   ]
   this.dialog.open(DialogAddProposalComponent, {
     maxHeight: '100vh',

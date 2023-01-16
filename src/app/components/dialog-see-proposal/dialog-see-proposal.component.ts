@@ -3,6 +3,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogRejectProposalComponent } from '../dialog-reject-proposal/dialog-reject-proposal.component';
 import { DialogSeeVersionsComponent } from '../dialog-see-versions/dialog-see-versions.component';
 import { BusinessProposalService } from 'src/app/services/business-proposal.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dialog-see-proposal',
@@ -68,7 +69,8 @@ export class DialogSeeProposalComponent implements OnInit {
     const c = this.proposal.folder.split('/')
     this.businessProposalService.getFilesProposal(c[5]).subscribe((res: any) => {
       for (var i = 0; i < res.data.length ; i++) {    
-          const u = `/home/wilmar/projectsMariana/archivosPropuestas/${c[5]}/${res.data[i]}`
+          //const u = `/home/wilmar/projectsMariana/archivosPropuestas/${c[5]}/${res.data[i]}`
+          const u = `/opt/tomcat/webapps/archivospropuesta/${c[5]}/${res.data[i]}`
           this.files.push(res.data[i])
         }      
     })
@@ -78,20 +80,27 @@ export class DialogSeeProposalComponent implements OnInit {
   export(folder: any): void{
     const c = folder.split('/')
     console.log('C', c)
+    //if(c[5] === ''){
+        for (var i = 0; i < this.files.length ; i++) {
+          console.log('arrayfile', this.files[i])
+            const u = `/opt/tomcat/webapps/archivospropuesta/${c[5]}/${this.files[i]}`
+            //const u = `/home/wilmar/projectsMariana/archivosPropuestas/${c[5]}/${this.files[i]}`
+            console.log('u ', u)
+          const downloadInstance = document.createElement('a');
+        downloadInstance.href = u
+        downloadInstance.target = '_blank'
+        downloadInstance.download = `${this.files[i]}`
+        downloadInstance.click()
+        }
+      //})
+    //}else{
+      /*Swal.fire(
+        '',
+        'Esta propuesta no tiene archivos!',
+        'warning'
+      )
+    }*/
 
-    //this.businessProposalService.getFilesProposal(c[5]).subscribe((res: any) => {
-      for (var i = 0; i < this.files.length ; i++) {
-        console.log('arrayfile', this.files[i])
-          //const u = `/opt/tomcat/webapps/archivospropuesta/${c[5]}/${res.data[i]}`
-          const u = `/home/wilmar/projectsMariana/archivosPropuestas/${c[5]}/${this.files[i]}`
-          console.log('u ', u)
-        const downloadInstance = document.createElement('a');
-      downloadInstance.href = u
-      downloadInstance.target = '_blank'
-      downloadInstance.download = `${this.files[i]}`
-      downloadInstance.click()
-      }
-    //})
   }
 
  seeVersions(row: any){
